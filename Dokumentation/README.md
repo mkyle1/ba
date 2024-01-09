@@ -1,1 +1,0 @@
-# Praxisbericht IT Designers Gruppe
