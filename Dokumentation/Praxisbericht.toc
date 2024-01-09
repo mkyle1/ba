@@ -1,0 +1,11 @@
+\babel@toc {ngerman}{}\relax 
+\contentsline {chapter}{\numberline {1}Kurzfassung}{5}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Einleitung}{6}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Grund für die Suche eines neuen Groupwaresystems}{6}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Kriterien für das Groupwaresystem}{6}{section.2.2}%
+\contentsline {chapter}{\numberline {3}Grundlagen}{7}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Playwright}{7}{section.3.1}%
+\contentsline {chapter}{\numberline {4}Zusammenfassung}{9}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Fazit}{9}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Ausblick}{9}{section.4.2}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
