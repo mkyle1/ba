@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.12) (preloaded format=pdflatex 2024.1.9)  10 JAN 2024 00:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.12) (preloaded format=pdflatex 2024.1.9)  24 JAN 2024 00:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -673,7 +673,7 @@ Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'ngerman'.
- (Praxisbericht.aux (chapters/titlepage.aux) (chapters/erklarung.aux) (chapters/kurzfassung.aux) (chapters/einleitung.aux) (chapters/grundlagen.aux) (chapters/recherche_installation.aux) (chapters/zusammenfassung.aux))
+ (Praxisbericht.aux (chapters/titlepage.aux) (chapters/erklarung.aux) (chapters/kurzfassung.aux) (chapters/einleitung.aux) (chapters/grundlagen.aux) (chapters/recherche_installation.aux) (chapters/testing.aux) (chapters/zusammenfassung.aux))
 \openout1 = `Praxisbericht.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
@@ -857,7 +857,20 @@ chapter 3.
 ]
 \openout2 = `./chapters/recherche_installation.aux'.
 
- (chapters/recherche_installation.tex) [8
+ (chapters/recherche_installation.tex
+chapter 4.
+) [8
+
+
+
+
+
+]
+\openout2 = `./chapters/testing.aux'.
+
+ (chapters/testing.tex
+chapter 5.
+) [9
 
 
 
@@ -867,14 +880,14 @@ chapter 3.
 \openout2 = `./chapters/zusammenfassung.aux'.
 
  (chapters/zusammenfassung.tex
-chapter 4.
-) [9
+chapter 6.
+) [10
 
 
 
 
 
-] (Praxisbericht.aux (chapters/titlepage.aux) (chapters/erklarung.aux) (chapters/kurzfassung.aux) (chapters/einleitung.aux) (chapters/grundlagen.aux) (chapters/recherche_installation.aux) (chapters/zusammenfassung.aux))
+] (Praxisbericht.aux (chapters/titlepage.aux) (chapters/erklarung.aux) (chapters/kurzfassung.aux) (chapters/einleitung.aux) (chapters/grundlagen.aux) (chapters/recherche_installation.aux) (chapters/testing.aux) (chapters/zusammenfassung.aux))
  ***********
 LaTeX2e <2023-11-01>
 L3 programming layer <2024-01-04>
@@ -886,10 +899,10 @@ Package logreq Info: Writing requests to 'Praxisbericht.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 23528 strings out of 474485
- 450339 string characters out of 5740867
- 1931528 words of memory out of 5000000
- 45468 multiletter control sequences out of 15000+600000
+ 23590 strings out of 474485
+ 452003 string characters out of 5740867
+ 1934528 words of memory out of 5000000
+ 45511 multiletter control sequences out of 15000+600000
  564149 words of font info for 56 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  108i,7n,107p,10971b,2463s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -897,9 +910,9 @@ Here is how much of TeX's memory you used:
 pdfTeX warning (dest): name{cite.0@angular} has been referenced but does not exist, replaced by a fixed one
 
  <C:\Users\Kyle Mezger\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/Kyle Mezger/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Kyle Mezger/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Kyle Mezger/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Users/Kyle Mezger/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss17.pfb><C:/Users/Kyle Mezger/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb>
-Output written on Praxisbericht.pdf (9 pages, 113611 bytes).
+Output written on Praxisbericht.pdf (10 pages, 123618 bytes).
 PDF statistics:
- 134 PDF objects out of 1000 (max. 8388607)
- 24 named destinations out of 1000 (max. 500000)
- 78 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 199 PDF objects out of 1000 (max. 8388607)
+ 36 named destinations out of 1000 (max. 500000)
+ 174 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -2,10 +2,22 @@
 \contentsline {chapter}{\numberline {1}Kurzfassung}{5}{chapter.1}%
 \contentsline {chapter}{\numberline {2}Einleitung}{6}{chapter.2}%
 \contentsline {section}{\numberline {2.1}Grund für die Suche eines neuen Groupwaresystems}{6}{section.2.1}%
-\contentsline {section}{\numberline {2.2}Kriterien für das Groupwaresystem}{6}{section.2.2}%
+\contentsline {section}{\numberline {2.2}Ziele der Studienarbeit}{6}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Kriterien für das Groupwaresystem}{6}{section.2.3}%
 \contentsline {chapter}{\numberline {3}Grundlagen}{7}{chapter.3}%
-\contentsline {section}{\numberline {3.1}Playwright}{7}{section.3.1}%
-\contentsline {chapter}{\numberline {4}Zusammenfassung}{9}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Fazit}{9}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Ausblick}{9}{section.4.2}%
+\contentsline {section}{\numberline {3.1}Groupwaresysteme}{7}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Playwright}{7}{section.3.2}%
+\contentsline {chapter}{\numberline {4}Installation des Groupwaresystems}{8}{chapter.4}%
+\contentsline {section}{\numberline {4.1}EGroupware}{8}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Installation auf BWCloud}{8}{section.4.2}%
+\contentsline {chapter}{\numberline {5}Testing von EGroupware mit Playwright}{9}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Aufsetzen der Testumgebung}{9}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Implementierung der Tests}{9}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Login}{9}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Erstellen eines Termins}{9}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Erstellen und Löschen eines neuen Nutzers}{9}{subsection.5.2.3}%
+\contentsline {section}{\numberline {5.3}Ausführen der Tests}{9}{section.5.3}%
+\contentsline {chapter}{\numberline {6}Zusammenfassung}{10}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Fazit}{10}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Ausblick}{10}{section.6.2}%
 \providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 
