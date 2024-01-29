@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.12) (preloaded format=pdflatex 2024.1.9)  29 JAN 2024 16:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.12) (preloaded format=pdflatex 2024.1.9)  29 JAN 2024 16:20
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -881,12 +881,12 @@ chapter 4.
 
 
 
-]) [11]
+] [11]) [12]
 \openout2 = `./chapters/testing.aux'.
 
  (chapters/testing.tex
 chapter 5.
-) [12
+) [13
 
 
 
@@ -897,7 +897,7 @@ chapter 5.
 
  (chapters/zusammenfassung.tex
 chapter 6.
-) [13
+) [14
 
 
 
@@ -915,8 +915,8 @@ Package logreq Info: Writing requests to 'Praxisbericht.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 23654 strings out of 474485
- 453519 string characters out of 5740867
+ 23655 strings out of 474485
+ 453526 string characters out of 5740867
  1936528 words of memory out of 5000000
  45560 multiletter control sequences out of 15000+600000
  564501 words of font info for 57 fonts, out of 8000000 for 9000
@@ -935,9 +935,9 @@ pdfTeX warning (dest): name{cite.0@kolab} has been referenced but does not exist
 pdfTeX warning (dest): name{cite.0@playwright} has been referenced but does not exist, replaced by a fixed one
 
  <C:\Users\Kyle Mezger\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm1200.pk><C:/Users/Kyle Mezger/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/Kyle Mezger/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/Kyle Mezger/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsl12.pfb><C:/Users/Kyle Mezger/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Users/Kyle Mezger/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmss17.pfb><C:/Users/Kyle Mezger/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmssbx10.pfb>
-Output written on Praxisbericht.pdf (13 pages, 338098 bytes).
+Output written on Praxisbericht.pdf (14 pages, 340460 bytes).
 PDF statistics:
- 266 PDF objects out of 1000 (max. 8388607)
- 50 named destinations out of 1000 (max. 500000)
+ 270 PDF objects out of 1000 (max. 8388607)
+ 51 named destinations out of 1000 (max. 500000)
  229 words of extra memory for PDF output out of 10000 (max. 10000000)
 
