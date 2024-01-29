@@ -19,38 +19,128 @@
 
 \refsection{0}
   \datalist[entry]{nyt/global//global/global}
-    \entry{angular}{misc}{}
+    \entry{horde}{misc}{}
       \name{author}{1}{}{%
-        {{un=0,uniquepart=base,hash=8b36e9207c24c76e6719268e49201d94}{%
-           family={Google},
-           familyi={G\bibinitperiod}}}%
+        {{un=0,uniquepart=base,hash=05d822a409e1a677e40ee5ac1db7a796}{%
+           family={Horde},
+           familyi={H\bibinitperiod}}}%
       }
-      \list{publisher}{1}{%
-        {Google}%
-      }
-      \strng{namehash}{8b36e9207c24c76e6719268e49201d94}
-      \strng{fullhash}{8b36e9207c24c76e6719268e49201d94}
-      \strng{bibnamehash}{8b36e9207c24c76e6719268e49201d94}
-      \strng{authorbibnamehash}{8b36e9207c24c76e6719268e49201d94}
-      \strng{authornamehash}{8b36e9207c24c76e6719268e49201d94}
-      \strng{authorfullhash}{8b36e9207c24c76e6719268e49201d94}
-      \field{sortinit}{G}
-      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \strng{namehash}{05d822a409e1a677e40ee5ac1db7a796}
+      \strng{fullhash}{05d822a409e1a677e40ee5ac1db7a796}
+      \strng{bibnamehash}{05d822a409e1a677e40ee5ac1db7a796}
+      \strng{authorbibnamehash}{05d822a409e1a677e40ee5ac1db7a796}
+      \strng{authornamehash}{05d822a409e1a677e40ee5ac1db7a796}
+      \strng{authorfullhash}{05d822a409e1a677e40ee5ac1db7a796}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
       \field{extradatescope}{labelyear}
       \field{labeldatesource}{url}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Angular Material}
-      \field{title}{Angular Material}
-      \field{urlday}{28}
-      \field{urlmonth}{2}
-      \field{urlyear}{2023}
+      \field{title}{Horde Homepage}
+      \field{urlday}{29}
+      \field{urlmonth}{1}
+      \field{urlyear}{2024}
       \field{urldateera}{ce}
       \verb{urlraw}
-      \verb https://v10.material.angular.io/
+      \verb https://www.horde.org/apps/groupware
       \endverb
       \verb{url}
-      \verb https://v10.material.angular.io/
+      \verb https://www.horde.org/apps/groupware
+      \endverb
+    \endentry
+    \entry{kolab}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=30f2e7dcdd76509c73462d66ca7bd3d8}{%
+           family={Kolab},
+           familyi={K\bibinitperiod}}}%
+      }
+      \strng{namehash}{30f2e7dcdd76509c73462d66ca7bd3d8}
+      \strng{fullhash}{30f2e7dcdd76509c73462d66ca7bd3d8}
+      \strng{bibnamehash}{30f2e7dcdd76509c73462d66ca7bd3d8}
+      \strng{authorbibnamehash}{30f2e7dcdd76509c73462d66ca7bd3d8}
+      \strng{authornamehash}{30f2e7dcdd76509c73462d66ca7bd3d8}
+      \strng{authorfullhash}{30f2e7dcdd76509c73462d66ca7bd3d8}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{url}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Kolab Homepage}
+      \field{urlday}{29}
+      \field{urlmonth}{1}
+      \field{urlyear}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://kolab.org/
+      \endverb
+      \verb{url}
+      \verb https://kolab.org/
+      \endverb
+    \endentry
+    \entry{playwright}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=140864078aeca1c7c35b4beb33c53c34}{%
+           family={Microsoft},
+           familyi={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Microsoft}%
+      }
+      \strng{namehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{fullhash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{bibnamehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authorbibnamehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authornamehash}{140864078aeca1c7c35b4beb33c53c34}
+      \strng{authorfullhash}{140864078aeca1c7c35b4beb33c53c34}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{url}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Playwright Homepage}
+      \field{title}{Playwright}
+      \field{urlday}{29}
+      \field{urlmonth}{1}
+      \field{urlyear}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://playwright.dev/
+      \endverb
+      \verb{url}
+      \verb https://playwright.dev/
+      \endverb
+    \endentry
+    \entry{sogo}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=176a15e4193b8fd95ccecd10c9568313}{%
+           family={Sogo},
+           familyi={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{176a15e4193b8fd95ccecd10c9568313}
+      \strng{fullhash}{176a15e4193b8fd95ccecd10c9568313}
+      \strng{bibnamehash}{176a15e4193b8fd95ccecd10c9568313}
+      \strng{authorbibnamehash}{176a15e4193b8fd95ccecd10c9568313}
+      \strng{authornamehash}{176a15e4193b8fd95ccecd10c9568313}
+      \strng{authorfullhash}{176a15e4193b8fd95ccecd10c9568313}
+      \field{sortinit}{S}
+      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{url}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Sogo Homepage}
+      \field{urlday}{29}
+      \field{urlmonth}{1}
+      \field{urlyear}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://www.sogo.nu/
+      \endverb
+      \verb{url}
+      \verb https://www.sogo.nu/
       \endverb
     \endentry
   \enddatalist
