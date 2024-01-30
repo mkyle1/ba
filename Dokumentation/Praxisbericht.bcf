@@ -2366,6 +2366,7 @@
     <bcf:citekey order="2" intorder="1">kolab</bcf:citekey>
     <bcf:citekey order="3" intorder="1">horde</bcf:citekey>
     <bcf:citekey order="4" intorder="1">sogo</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">egroupware-installation</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nyt">

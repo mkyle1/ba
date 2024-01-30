@@ -11,7 +11,6 @@ Da die Wahl schlussendlich auf EGroupware fiel, wird im Anschluss genauer auf di
 \subsection{Kolab}
 
 Das Groupwaresystem Kolab wird von der schweizerischen Firma Aphelia IT AG entwickelt und ist als Open-Source Produkt gratis verfügbar und bietet die folgenden Features:
-
 \begin{itemize}
     \item E-Mail
     \item Kalender
@@ -21,19 +20,28 @@ Das Groupwaresystem Kolab wird von der schweizerischen Firma Aphelia IT AG entwi
     \item Notizen
     \item Sprach- und Videoanrufe
 \end{itemize}
-
 \autocite{kolab}
 
 \subsection{Horde}
 
-Horde wird von einem gleichnamigen amerikanischen Unternehmen entwickelt und ist wie die anderen Systeme Open-Source und gratis verfügbar.
-
+Horde wird von einem gleichnamigen amerikanischen Unternehmen entwickelt und ist wie die anderen Systeme Open-Source und gratis verfügbar. Es bietet dabei die folgenden Funktionalitäten:
+\begin{itemize}
+    \item Kalender
+    \item Kontakte
+    \item E-Mail
+    \item Terminmanagement
+    \item Projektmanagement
+    \item Dokumentenmanagement
+    \item Online-File-Server
+\end{itemize}
 \autocite{horde}
+\\
+Relevant für die Hochschule Esslingen könnte noch sein, dass Horde schon von einigen anderen Unis und Hochschulen, wie beispielsweise der Universität Tübingen und Universität Paderborn, verwendet wird.
 
 \subsection{Sogo}
 
 Sogo ist ein Open-Source Groupwaresystem welches von der französischen Firma Alinto entwickelt wird.
-Das System ist frei verfügbar und bietet die folgenden Features:
+Das Systemist frei verfügbar und bietet die folgenden Features:
 
 \begin{itemize}
     \item E-Mail
@@ -43,8 +51,9 @@ Das System ist frei verfügbar und bietet die folgenden Features:
     \item 2-Faktor-Authentifizierung
     \item Raum Reservationen
 \end{itemize}
-
 \autocite{sogo}
+\\
+Ähnlich wie Horde wird auch Sogo von einigen Universitäten und Hochschulen verwendet, wie beispielsweise der Universität Koblenz und der Universität Ulm.
 
 \subsection{EGroupware}
 
@@ -79,3 +88,19 @@ Somit fiel die Entscheidung auf EGroupware, da es das einzige System der Auswahl
 
 \section{Installation auf BWCloud}
 
+Für die Installation der EGroupware Software stellt die EGroupware GmbH eine Installationsanleitung zu Verfügung.
+Darin wird auf einer Linux Instanz ein Docker Repository hinzugefügt und anschließend die EGroupware Software installiert.
+Alle dafür benötigten Konsolenbefehle waren in der Installationsanleitung angegeben. \autocite{egroupware-installation}
+
+Für das Hosting der EGroupware Software wurde sowohl WSL2 als auch eine BWCloud Instanz getestet.
+Im Laufe der Installtion wurde jedoch klar, dass die Netzwerkkonfiguration bei BWCloud einfacher zu handhaben ist.
+Daher wurde die Installation final auf einer BWCloud Instanz durchgeführt.
+Dafür mussten jedoch einige Ports freigegeben werden, damit die EGroupware Software von außerhalb der BWCloud Instanz erreichbar ist.
+Dabei wurden die folgenden Ports freigegeben:
+\begin{itemize}
+    \item Port 80 für HTTP
+    \item Port 443 für HTTPS
+    \item Port 8080 für HTML
+\end{itemize}
+
+Für den ersten Zugriff auf die Software für beispielsweise das Erstellen von Nutzer Accounts wird bei der Installation automatisch ein Administrator Account angelegt, dessen Zugangsdaten im Log der Installation zu finden sind.

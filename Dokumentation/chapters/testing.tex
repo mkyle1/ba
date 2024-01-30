@@ -1,14 +1,47 @@
 \chapter{Testing von EGroupware mit Playwright}
 
+Nach erfolgreicher Installation von EGroupware kann das System nun über jeden Browser aufgerufen werden und kann daher getestet werden.
+Dabei wird das System mit Hilfe von Playwright getestet.
+
 \section{Aufsetzen der Testumgebung}
+
+Für das entwickeln der Tests wird die Entwicklungsumgebung Visual Studio Code verwendet da es durch  Erweiterung "Playwright Test for VSCode" von Microsoft eine sehr gute Integration der Playwright API bietet.
+Mit dieser Erweiterung kann auch die vollständige Installation von Playwright in dem aktuellen Projektordner direkt in der Entwicklungsumgebung durchgeführt werden.
+Durch diese Installation wird ein Beispieltest erstellt welcher als Vorlage für weitere Tests genutzt werden kann.
+Für das Testen der meisten Funktionen der EGroupware Anwendung wird der Administrator Account genutzt, der automatisch bei der Installation erstellt wird.
+Dafür wird der Nutzername und das Passwort des Administrators in der Test Datei als Objekt gespeichert und kann dann in den Tests genutzt werden.
+Außerdem wurde diesem Account eine E-Mail Adresse über IMAP hinzugefügt, damit auch die E-Mail Funktion getestet werden kann.
 
 \section{Implementierung der Tests}
 
+Alle Tests werden in TypeScript geschrieben und können daher direkt in der Entwicklungsumgebung ausgeführt werden.
+Dabei werden alle Tests in dieser Studienarbeit in einem Chromium Browser ausgeführt.
+
+
 \subsection{Login}
+
+Da alle Tests der Anwendung einen eingelogten Nutzer benötigen wird zuerst ein Login Test implementiert, der ein Nutzerobjekt mit Nutzernamen und Passwort erhält und sich dann versucht in der Anwendung einzuloggen.
+Dieser Test wird zu Beginn jedes anderen Tests ausgeführt um den Nutzer einzuloggen.
+
+\subsection{Aufrufen einer Email}
+
+Dieser Test ist sehr selbsterklärend.
+Er versucht sich als der Administrator einzuloggen und ruft dann die erste E-Mail in der E-Mail Liste auf.
+Dabei wird die Verbindung der Groupware zum IMAP Server getestet.
 
 \subsection{Erstellen eines Termins}
 
+Beim Test zum Erstellen eines Termins wird sich als Administrator eingeloggt und dann ein Termin erstellt.
+Die Daten für diesen Termin sind ähnlich wie die Daten für den Login mit dem Administrator Account in einem Objekt gespeichert und können so einfach in den Test eingefügt werden.
+Jedoch wird dieses Objekt erst beim ausführen des Tests erstellt, da das Datum für den Termin immer das aktuelle Datum sein soll und daher nicht statisch in einem globalen Objekt gespeichert werden kann.
+Dafür wird mit  Hilfe des Timestamp der Funktion Date.now() ein Datum erstellt, welches dann in einen String umgewandelt wird und in das Objekt gespeichert wird.
+So kann jederzeit ein Termin erstellt werden, welcher 30 Minuten nach der Ausführung des Tests stattfindet.
+
 \subsection{Erstellen und Löschen eines neuen Nutzers}
+
+Der letzte Test der in dieser Studienarbeit implementiert wurde ist ein Test zum Erstellen eines Nutzers, der sich anschließend mit dem neuen Nutzer einloggt und ihn daraufhin wieder löscht.
+Auch hier werden die Daten für den neuen Nutzer in einem Objekt gespeichert, welches dann in den Test eingefügt wird und später fürs einloggen mit dem Nutzer genutzt wird.
+Mit diesem Test soll die Backend-Funktionalität des Nutzermanagements getestet werden.
 
 \section{Ausführen der Tests}
 

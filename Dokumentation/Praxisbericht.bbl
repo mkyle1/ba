@@ -19,6 +19,40 @@
 
 \refsection{0}
   \datalist[entry]{nyt/global//global/global}
+    \entry{egroupware-installation}{misc}{}
+      \name{author}{1}{}{%
+        {{un=0,uniquepart=base,hash=60427df492fbd07195a2d0cf216d3fef}{%
+           family={EGroupware},
+           familyi={E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {EGroupware}%
+      }
+      \strng{namehash}{60427df492fbd07195a2d0cf216d3fef}
+      \strng{fullhash}{60427df492fbd07195a2d0cf216d3fef}
+      \strng{bibnamehash}{60427df492fbd07195a2d0cf216d3fef}
+      \strng{authorbibnamehash}{60427df492fbd07195a2d0cf216d3fef}
+      \strng{authornamehash}{60427df492fbd07195a2d0cf216d3fef}
+      \strng{authorfullhash}{60427df492fbd07195a2d0cf216d3fef}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{extradatescope}{labelyear}
+      \field{labeldatesource}{url}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{EGroupware Installation Instructions}
+      \field{title}{EGroupware Installation}
+      \field{urlday}{29}
+      \field{urlmonth}{1}
+      \field{urlyear}{2024}
+      \field{urldateera}{ce}
+      \verb{urlraw}
+      \verb https://github.com/EGroupware/egroupware/wiki/Installation-using-egroupware-docker-RPM-DEB-package
+      \endverb
+      \verb{url}
+      \verb https://github.com/EGroupware/egroupware/wiki/Installation-using-egroupware-docker-RPM-DEB-package
+      \endverb
+    \endentry
     \entry{horde}{misc}{}
       \name{author}{1}{}{%
         {{un=0,uniquepart=base,hash=05d822a409e1a677e40ee5ac1db7a796}{%
