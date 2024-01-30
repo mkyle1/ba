@@ -1,7 +1,7 @@
 import { test, expect, Page } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('http://193.197.230.125/egroupware/login.php?cd=10&phpgw_forward=%252Findex.php');
+  await page.goto('http://193.197.230.125/egroupware/login.php');
   /* await page.getByPlaceholder('Username').click();
   await page.getByPlaceholder('Username').fill(SYSOP_USER.name);
   await page.getByPlaceholder('Password').click();
@@ -17,6 +17,11 @@ async function login(page: Page, user) {
   await page.getByRole('button', { name: 'Login' }).click();
 }
 
+async function logout(page: Page, user) {
+  await page.getByTitle('User, Test').locator('img').click();
+  await page.getByRole('link', { name: 'Logout' }).click();
+}
+
 const TEST_USERS = [
   'TestUser1',
   'TestUser2',
@@ -25,6 +30,8 @@ const TEST_USERS = [
 
 const SYSOP_USER = {
   login: 'sysop',
+  firstname: 'Admin',
+  lastname: 'User',
   password: 'K8!Dv>p[2TEXGuXg',
 }
 
@@ -63,58 +70,68 @@ test.describe('User', () => {
     await page1.locator('input[name="account_passwd_2"]').click();
     await page1.locator('input[name="account_passwd_2"]').fill(TEST_CREATE_USER.password);
     await page1.getByRole('button', { name: 'save' }).click();
+    await page.waitForTimeout(1000);
+    logout(page, SYSOP_USER);
   });
 
   test('should login with the testuser', async ({ page }) => {
     login(page, TEST_CREATE_USER);
+    logout(page, TEST_CREATE_USER);
   });
 
   test('should delete the testuser', async ({ page }) => {
     login(page, SYSOP_USER);
     await page.locator('#admin_sidebox_header').getByRole('heading', { name: 'Admin' }).click();
     await page.getByText('User accounts').click();
-    /*  */
-    await page.locator(`tr:has(td.gridCont_7_td_col_0:has-text("${TEST_CREATE_USER.login}"))`).click({
-      button: 'right'
-    });
-    await page.click('.sub_item_text:text("Delete")');
     const page1Promise = page.waitForEvent('popup');
     await page.getByRole('cell', { name: 'testuser', exact: true }).click();
+    await page.press('body', 'Delete');
     const page1 = await page1Promise;
     await page1.getByRole('button', { name: 'Delete' }).click();
+    logout(page, SYSOP_USER);
   });
 });
 
-const TEST_APPOINTMENT = {
-  title: 'Test Appointment',
-  description: 'Test Appointment Description',
-  location: 'Test Appointment Location',
-  start: '2024-01-15 12:00',
-  duration: '1:00',
-  repeat_type: 'weekly',
-  end_date: '2024-02-15',
+function formatDateTime(date) {
+  let d = new Date(date),
+      month = '' + (d.getMonth() + 1), // Months are zero-based
+      day = '' + d.getDate(),
+      year = d.getFullYear(),
+      hours = '' + d.getHours(),
+      minutes = '' + d.getMinutes();
+
+  if (month.length < 2) 
+      month = '0' + month;
+  if (day.length < 2) 
+      day = '0' + day;
+  if (hours.length < 2)
+      hours = '0' + hours;
+  if (minutes.length < 2)
+      minutes = '0' + minutes;
+
+  return [year, month, day].join('/') + ' ' + [hours, minutes].join(':');
 }
 
 test.describe('Calendar', () => {
   test('should create a simple appointment', async ({ page }) => {
+    const TEST_APPOINTMENT = {
+      title: 'Test Appointment',
+      description: 'Test Appointment Description',
+      location: 'Test Appointment Location',
+      start: formatDateTime(Date.now() + 1800000), // 30 minutes from now
+      duration: '1:00',
+      repeat_type: 'weekly',
+    }
+    login(page, SYSOP_USER);
     await page.locator('#calendar_sidebox_header').getByRole('heading', { name: 'Calendar' }).click();
     await page.locator('#calendar-toolbar_add').getByRole('button').click();
     await page.locator('.dialogHeader > td:nth-child(2)').click();
     await page.getByPlaceholder('Title').fill(TEST_APPOINTMENT.title);
-    await page.waitForTimeout(1000);
-    await page.locator('input[type="text"].input__control').last().focus();
-    await page.locator('input[type="text"].input__control').last().click();
-    await page.locator('input[type="text"].input__control').last().fill(TEST_APPOINTMENT.start);
-    
-    /* await page.getByRole('cell', { name: '↑ ↓' }).getByRole('textbox').click();
-    await page.locator('div:nth-child(12) > .flatpickr-months > .flatpickr-month').click(); */
-    /* await page.getByRole('cell', { name: '↑ ↓' }).getByRole('textbox').click();
-    await page.getByRole('cell', { name: '↑ ↓' }).getByRole('textbox').fill(TEST_APPOINTMENT.start); */
-    /* await page.locator('.input__control:not(.flatpickr-input)').first();
-    await page.locator('.input__control').last().fill(TEST_APPOINTMENT.start); */
-    // await page.type('.input__control:not(.flatpickr-input)', TEST_APPOINTMENT.start);
-    await page.getByRole('row', { name: 'Start Duration' }).getByRole('combobox').click();
-    await page.getByRole('option', { name: TEST_APPOINTMENT.duration }).locator('slot').nth(1).click();
+    await page.click('.form-control.hasValue'); // Focus on the element
+    await page.keyboard.press('Control+A');
+    await page.keyboard.press('Delete');
+    await page.keyboard.type(TEST_APPOINTMENT.start); // Type the date
+    await page.getByRole('row', { name: 'Start Duration' }).getByRole('cell').nth(4).click();
     await page.getByRole('button', { name: 'Save' }).click();
   });
 });
