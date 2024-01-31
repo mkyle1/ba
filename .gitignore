@@ -8,4 +8,5 @@
 *.synctex.gz
 *.run.xml
 *.bbl
+*.blg
 *.fdb_latexmk
