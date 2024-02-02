@@ -5,18 +5,50 @@ Dabei wird das System mit Hilfe von Playwright getestet.
 
 \section{Aufsetzen der Testumgebung}
 
-Für das entwickeln der Tests wird die Entwicklungsumgebung Visual Studio Code verwendet da es durch  Erweiterung "Playwright Test for VSCode" von Microsoft eine sehr gute Integration der Playwright API bietet.
+Für das entwickeln der Tests wird die Entwicklungsumgebung Visual Studio Code verwendet da es durch die Erweiterung "Playwright Test for VSCode" von Microsoft eine sehr gute Integration der Playwright API bietet.
 Mit dieser Erweiterung kann auch die vollständige Installation von Playwright in dem aktuellen Projektordner direkt in der Entwicklungsumgebung durchgeführt werden.
-Durch diese Installation wird ein Beispieltest erstellt welcher als Vorlage für weitere Tests genutzt werden kann.
+Dabei können die gewünschten Browser Chromium, Firefox und WebKit ausgewählt und zum Testen installiert werden.
+Für diese Studienarbeit werden alle Tests in einem Chromium Browser ausgeführt.
+Bei der Installation wird ein Beispieltest erstellt welcher als Vorlage für weitere Tests genutzt werden kann.
+\\
+\\
 Für das Testen der meisten Funktionen der EGroupware Anwendung wird der Administrator Account genutzt, der automatisch bei der Installation erstellt wird.
-Dafür wird der Nutzername und das Passwort des Administrators in der Test Datei als Objekt gespeichert und kann dann in den Tests genutzt werden.
-Außerdem wurde diesem Account eine E-Mail Adresse über IMAP hinzugefügt, damit auch die E-Mail Funktion getestet werden kann.
+Diesem Administrator Account wird eine E-Mail Adresse über IMAP hinzugefügt, damit über ihn auch die E-Mail Funktion getestet werden kann.
+Um diesen Account in den Tests zu nutzen wird der Nutzername und das Passwort des Administrators in der Test Datei als statisches Objekt gespeichert und kann dann in den Tests genutzt werden.
+
+\subsection{Playwright Codegen}
+
+Die Basis für fast alle Tests in dieser Studienarbeit wurde mit Hilfe von Playwright Codegen erstellt.
+Dabei wird über einen Konsolenbefehl ein neuer Browser geöffnet, in dem die Interaktionen des Nutzers als Playwright Code aufgezeichnet werden.
+So können große Teile des Codes für die Tests automatisch generiert werden und müssen nur noch an spezifische Anforderungen angepasst werden.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/Playwright_Codegen.png}
+    \caption{Playwright Codegen generierter Code für das Ausfüllen eines Login Formulars}
+    \label{fig:playwright-codegen}
+\end{figure}
+Das Tool funktioniert besonders gut für einfache Interaktionen, wie beispielsweise das ausfüllen einfacher Formulare wie in Abbildung \ref{fig:playwright-codegen} mit einfachen User-Interface-Elementen (UI-Elementen) wie Buttons, Textfeldern und Links geeignet.
+Für komplexere Interaktionen mit UI-Elementen wie beispielsweise Datepicker, welche das Auswählen eines Datums über mehrere verschachtelte Interaktionen erfordern, ist die Aufnahme-Funktion des Tools weniger geeignet.
+Daher mussten Teile der Tests für das Erstellen eines Termins und das Löschen eines Nutzers manuell geschrieben werden.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/Playwright_PickLocator.png}
+    \caption{Playwright Pick Locator Funktion zum generieren von Selektoren für UI-Elemente}
+    \label{fig:playwright-pick-locator}
+\end{figure}
+
+Zu der Aufnahme-Funktion des Tools gibt es noch eine weitere Funktion, die ähnlich wie Inspect Element in Browsern funktioniert und wie in Abbildung \ref{fig:playwright-pick-locator} den Selektor für ein UI-Element generiert.
+Diese Funktion kann dann für das Erstellen der manuellen Teile der Tests genutzt werden, um schnell Selektoren für UI-Elemente zu generieren.
+
+
 
 \section{Implementierung der Tests}
 
 Alle Tests werden in TypeScript geschrieben und können daher direkt in der Entwicklungsumgebung ausgeführt werden.
 Dabei werden alle Tests in dieser Studienarbeit in einem Chromium Browser ausgeführt.
-
+\\
+Im Folgenden werden die einzelnen Tests, deren Implementierung und Abdeckungsbereiche näher erläutert.
 
 \subsection{Login}
 
@@ -25,8 +57,8 @@ Dieser Test wird zu Beginn jedes anderen Tests ausgeführt um den Nutzer einzulo
 
 \subsection{Aufrufen einer Email}
 
-Dieser Test ist sehr selbsterklärend.
-Er versucht sich als der Administrator einzuloggen und ruft dann die erste E-Mail in der E-Mail Liste auf.
+Bei diesem Test wird die E-Mail Funktion der Anwendung getestet.
+Der Test versucht sich als der Administrator, dessen Account einen E-Mail Account über IMAP bekommen hat, einzuloggen und ruft dann die erste E-Mail in der E-Mail Liste auf.
 Dabei wird die Verbindung der Groupware zum IMAP Server getestet.
 
 \subsection{Erstellen eines Termins}
@@ -39,9 +71,12 @@ So kann jederzeit ein Termin erstellt werden, welcher 30 Minuten nach der Ausfü
 
 \subsection{Erstellen und Löschen eines neuen Nutzers}
 
-Der letzte Test der in dieser Studienarbeit implementiert wurde ist ein Test zum Erstellen eines Nutzers, der sich anschließend mit dem neuen Nutzer einloggt und ihn daraufhin wieder löscht.
-Auch hier werden die Daten für den neuen Nutzer in einem Objekt gespeichert, welches dann in den Test eingefügt wird und später fürs einloggen mit dem Nutzer genutzt wird.
-Mit diesem Test soll die Backend-Funktionalität des Nutzermanagements getestet werden.
+Der letzte Test der in dieser Studienarbeit implementiert wurde ist ein Serie aus Tests die die Funktionalität des Nutzermanagements abdecken sollen.
+Zunächst wird mit dem Administrator Account ein neuer Nutzer erstellt, dessen Nutzerdaten in einem statischen Objekt gespeichert sind.
+Ist das Erstellen des Nutzers erfolgreich, startet ein weiterer Test, der sich mit den Zugansdaten des neuen Nutzers versucht einzuloggen.
+So wird sichergestellt, dass der Nutzer erfolgreich erstellt wurde und nicht nur in der lokalen Instanz des Administrators existiert.
+Ist das Einloggen mit dem Testnutzer erfolgreich, wird ein weiterer Test gestartet, der den Nutzer mit dem Administrator Account wieder löscht.
+So kann der Test mit dem selben Testnutzer beliebig oft ausgeführt werden, ohne dass es zu Problemen mit bereits existierenden Nutzern kommt.
 
 \section{Ausführen der Tests}
 
