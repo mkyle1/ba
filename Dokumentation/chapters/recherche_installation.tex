@@ -36,7 +36,7 @@ Horde wird von einem gleichnamigen amerikanischen Unternehmen entwickelt und ist
 \end{itemize}
 \autocite{horde}
 \\
-Relevant für die Hochschule Esslingen könnte noch sein, dass Horde schon von einigen anderen Unis und Hochschulen, wie beispielsweise der Universität Tübingen und Universität Paderborn, verwendet wird.
+Relevant für die Auswahl könnte auch sein, dass Horde schon von einigen anderen Universitäten und Hochschulen, wie beispielsweise der Universität Tübingen und Universität Paderborn, verwendet wird.
 
 \subsection{Sogo}
 
@@ -74,16 +74,14 @@ Als Funktionalitäten bietet EGroupware:
     \item Online-File-Server
 \end{itemize}
 
-Damit bietet das System mehr als alle gewünschten Funktionalitäten und ist daher für die Hochschule Esslingen geeignet.
-
 
 \section{Entscheidung für EGroupware}
 
 Bei der Recherche der verschiedenen Groupwaresysteme wurde klar, dass alle der untersuchten Systeme die grundlegenden gewünschten Funktionalitäten bieten und daher grundsätzlich alle für die Hochschule Esslingen geeignet sind.
-Durch diesen Umstand kann die Entscheidung nicht rein aufgrund der Funktionalitäten der Systeme getroffen werden, da sich keines der Systeme in diesem Punkt stark von den anderen abhebt.
-Daher wurde die Entscheidung basierend auf dem Land der Entwicklungsfirma getroffen, da dies auch ein Kriterium, wenn auch kein striktes Ausschlusskriterium, bei der Suche nach den Groupwaresystemen war.
+Durch diesen Umstand konnte die Entscheidung nicht rein aufgrund der Funktionalitäten der Systeme getroffen werden, da sich keines der Systeme in diesem Punkt stark von den anderen abhebt.
+Somit fiel final die Entscheidung auf EGroupware, da es von einer deutschen Firma entwickelt wird und umfangreiche Funktionen bietet, die für die Hochschule Esslingen relevant sein könnten.
 
-Somit fiel die Entscheidung auf EGroupware, da es das einzige System der Auswahl ist, dessen Entwicklungsfirma in Deutschland sitzt.
+
 
 
 \section{Installation auf BWCloud}
@@ -92,11 +90,11 @@ Für die Installation der EGroupware Software stellt die EGroupware GmbH eine In
 Darin wird auf einer Linux Instanz ein Docker Repository hinzugefügt und anschließend die EGroupware Software installiert.
 Alle dafür benötigten Konsolenbefehle waren in der Installationsanleitung angegeben. \autocite{egroupware-installation}
 
-Für das Hosting der EGroupware Software wurde sowohl WSL2 als auch eine BWCloud Instanz getestet.
-Im Laufe der Installtion wurde jedoch klar, dass die Netzwerkkonfiguration bei BWCloud einfacher zu handhaben ist.
-Daher wurde die Installation final auf einer BWCloud Instanz durchgeführt.
-Dafür mussten jedoch einige Ports freigegeben werden, damit die EGroupware Software von außerhalb der BWCloud Instanz erreichbar ist.
-Dabei wurden die folgenden Ports freigegeben:
+Für das Hosting der EGroupware Software wurde sowohl WSL2 (Windows-Subsystem für Linux) als auch eine BWCloud Instanz getestet.
+Die reine Installation der Software war auf beiden Systemen auf einer Ubuntu22.04 Instanz möglich.
+Im Laufe der Installation wurde jedoch klar, dass die Netzwerkkonfiguration bei BWCloud einfacher zu handhaben ist als bei WSL2.
+Daher wurde die finale Installation und Konfiguration auf einer BWCloud Instanz durchgeführt.
+Dafür mussten einige Ports freigegeben werden, damit die EGroupware Software von außerhalb der BWCloud Instanz erreichbar ist:
 \begin{itemize}
     \item Port 80 für HTTP
     \item Port 443 für HTTPS
