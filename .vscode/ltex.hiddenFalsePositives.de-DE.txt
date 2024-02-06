@@ -1,0 +1,4 @@
+{"rule":"EMPFOHLENE_ZUSAMMENSCHREIBUNG","sentence":"^\\QDas stellt in Frage, inwiefern EGroupware für das automatisierte Erstellen von Nutzern geeignet ist.\\E$"}
+{"rule":"DOPPELTE_SATZZEICHEN","sentence":"^\\QDabei bietet Playwright ein Application-Programming-Interface (API) für die Programmiersprachen JavaScript, TypeScript, Python, .NET und Java, sowie eine Vielzahl von Funktionen, die das Testen von Webanwendungen erleichtern.\\E$"}
+{"rule":"GERMAN_SPELLER_RULE","sentence":"^\\QDabei bietet Playwright ein Application-Programming-Interface (API) für die Programmiersprachen JavaScript, TypeScript, Python, .NET und Java, sowie eine Vielzahl von Funktionen, die das Testen von Webanwendungen erleichtern.\\E$"}
+{"rule":"DE_CASE","sentence":"^\\Q\\E(?:Dummy|Ina|Jimmy-)[0-9]+\\Q Im Fall der Studienarbeit wurde Playwright verwendet, um automatisierte End-to-End-Tests für das final ausgewählte Groupware-System durchzuführen.\\E$"}
