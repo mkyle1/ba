@@ -1,16 +1,16 @@
-\chapter{Installation des Groupwaresystems}
+\chapter{Recherche und Installation des Groupware-Systems}
 
 In diesem Kapitel wird genauer auf das final gewählte Groupware-System EGroupware sowie dessen Installation und Deployment eingegangen.
 
 \section{Alle Kandidaten}
 
 Zu Beginn der Studienarbeit wurden anhand der gegebenen Kriterien mehrere Kandidaten für das Groupware-System recherchiert, um einen Überblick über die verfügbaren Möglichkeiten zu erhalten.
-Dabei wurden 4 erfolgsversprechende Kandidaten gefunden, über die im Folgenden kurz berichtet wird.
+Dabei wurden 4 erfolgversprechende Kandidaten gefunden, über die im Folgenden kurz berichtet wird.
 Da die Wahl schlussendlich auf EGroupware fiel, wird im Anschluss genauer auf dieses System eingegangen.
 
 \subsection{Kolab}
 
-Das Groupwaresystem Kolab wird von der schweizerischen Firma Aphelia IT AG entwickelt und ist als Open-Source Produkt gratis verfügbar und bietet die folgenden Features:
+Das Groupware-System Kolab wird von der Schweizer Firma Aphelia IT AG entwickelt und ist als Open-Source Produkt gratis verfügbar und bietet die folgenden Features:
 \begin{itemize}
     \item E-Mail
     \item Kalender
@@ -21,6 +21,8 @@ Das Groupwaresystem Kolab wird von der schweizerischen Firma Aphelia IT AG entwi
     \item Sprach- und Videoanrufe
 \end{itemize}
 \autocite{kolab}
+
+Kolab wird von der Firma Nestlé und der Universität Tübingen verwendet und ist daher auch für größere Organisationen geeignet.
 
 \subsection{Horde}
 
@@ -36,12 +38,13 @@ Horde wird von einem gleichnamigen amerikanischen Unternehmen entwickelt und ist
 \end{itemize}
 \autocite{horde}
 \\
+\\
 Relevant für die Auswahl könnte auch sein, dass Horde schon von einigen anderen Universitäten und Hochschulen, wie beispielsweise der Universität Tübingen und Universität Paderborn, verwendet wird.
 
 \subsection{Sogo}
 
-Sogo ist ein Open-Source Groupwaresystem welches von der französischen Firma Alinto entwickelt wird.
-Das Systemist frei verfügbar und bietet die folgenden Features:
+Sogo ist ein Open-Source Groupware-System, welches von der französischen Firma Alinto entwickelt wird.
+Das System ist frei verfügbar und bietet die folgenden Features:
 
 \begin{itemize}
     \item E-Mail
@@ -53,14 +56,12 @@ Das Systemist frei verfügbar und bietet die folgenden Features:
 \end{itemize}
 \autocite{sogo}
 \\
+\\
 Ähnlich wie Horde wird auch Sogo von einigen Universitäten und Hochschulen verwendet, wie beispielsweise der Universität Koblenz und der Universität Ulm.
 
 \subsection{EGroupware}
 
-EGroupware ist ein Open-Source Groupwaresystem welches von einer deutschen Firma entwickelt wird.
-Das System läuft auf einem Host Server und kann dann über einen Webbrowser genutzt werden.
-Daher kann das System auch auf Smartphones und Tablets genutzt werden.
-Zudem bietet das System Integrationsmöglichkeiten für LDAP Usermanagement sowie eigene Mail Server.
+EGroupware ist ein Open-Source Groupware-System, welches von einer deutschen Firma entwickelt wird.
 
 Als Funktionalitäten bietet EGroupware:
 
@@ -77,7 +78,7 @@ Als Funktionalitäten bietet EGroupware:
 
 \section{Entscheidung für EGroupware}
 
-Bei der Recherche der verschiedenen Groupwaresysteme wurde klar, dass alle der untersuchten Systeme die grundlegenden gewünschten Funktionalitäten bieten und daher grundsätzlich alle für die Hochschule Esslingen geeignet sind.
+Bei der Recherche der verschiedenen Groupware-Systeme wurde klar, dass alle der untersuchten Systeme die grundlegenden gewünschten Funktionalitäten bieten und daher grundsätzlich alle für die Hochschule Esslingen geeignet sind.
 Durch diesen Umstand konnte die Entscheidung nicht rein aufgrund der Funktionalitäten der Systeme getroffen werden, da sich keines der Systeme in diesem Punkt stark von den anderen abhebt.
 Somit fiel final die Entscheidung auf EGroupware, da es von einer deutschen Firma entwickelt wird und umfangreiche Funktionen bietet, die für die Hochschule Esslingen relevant sein könnten.
 
@@ -87,7 +88,7 @@ Somit fiel final die Entscheidung auf EGroupware, da es von einer deutschen Firm
 \section{Installation auf BWCloud}
 
 Für die Installation der EGroupware Software stellt die EGroupware GmbH eine Installationsanleitung zu Verfügung.
-Darin wird auf einer Linux Instanz ein Docker Repository hinzugefügt und anschließend die EGroupware Software installiert.
+Darin wird auf einer Linux Instanz zunächst ein Docker Repository hinzugefügt und anschließend die EGroupware Software in Form von 5 Docker Containern installiert und gestartet.
 Alle dafür benötigten Konsolenbefehle waren in der Installationsanleitung angegeben. \autocite{egroupware-installation}
 
 Für das Hosting der EGroupware Software wurde sowohl WSL2 (Windows-Subsystem für Linux) als auch eine BWCloud Instanz getestet.
@@ -102,3 +103,4 @@ Dafür mussten einige Ports freigegeben werden, damit die EGroupware Software vo
 \end{itemize}
 
 Für den ersten Zugriff auf die Software für beispielsweise das Erstellen von Nutzer Accounts wird bei der Installation automatisch ein Administrator Account angelegt, dessen Zugangsdaten im Log der Installation zu finden sind.
+Das Frontend der Groupware ist dann über die IP-Adresse der BWCloud Instanz erreichbar.
