@@ -1,66 +1,66 @@
 \chapter{Grundlagen}
 
 Dieses Kapitel beinhaltet technologische sowie konzeptionelle Grundlagen für das \\
-Verständnis der untersuchten Softare Anwendungen sowie für die Testing Methode der final ausgewählten Anwendung.
+Verständnis der untersuchten Software Anwendungen sowie für die Testing Methode der final ausgewählten Anwendung.
 
-\section{Groupwaresysteme}
+\section{Groupware-Systeme}
 
-Groupwaresysteme sind Softwareandwendungen, die die Zusammenarbeit von Benutzern mit verschiedenen Tools zur gemeinsamen Kommunikation und Organisation unterstützen.
-Dabei werden gewöhnlich Funktionalitäten wie Kalender, Terminplanung, E-Mail und Kontaktmanagement geliefert.
+Groupware-Systeme sind Software-Systeme, welche die Zusammenarbeit von Benutzern mit verschiedenen Tools zur gemeinsamen Kommunikation und Organisation unterstützen.
+Dabei werden üblicherweise Funktionalitäten wie Kalender, Terminplanung, E-Mail und Kontaktmanagement bereitgestellt.
 \\
-Die grundsätzliche Funktionsweise einiger essenzieller Funktionen von Groupwar-Systemen wird im Folgenden anhand von Screenshots aus Microsoft Outlook Live beispielsweise dargestellt und erklärt:
+Im Folgenden werden anhand von Screenshots aus Microsoft Outlook-Live einige essenzielle Funktionen von Groupware-Systemen dargestellt und erklärt.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{images/OutlookLive_Mail1.png}
-    \caption{OutlookLive Mail}
+    \caption{Outlook-Live Mail}
     \label{fig:outlook-live-mail}
 \end{figure}
-Die erste Hauptfunktion die Groupwaresysteme erfüllen ist, wie in Abbildung \ref{fig:outlook-live-mail} beispielhaft anhand Outlook Live dargestellt, das anbieten eines E-Mail Clients über den E-Mails empfangen, versendet und verwaltet werden können.
-Dabei sollten sich auch mehrere E-Mail Postfächer gleichzeitig hinzugefügt werden können.
+Die erste Hauptfunktion von Groupware-Systemen besteht darin, einen E-Mail-Client bereitzustellen, über den E-Mails empfangen, versendet und verwaltet werden können. Dies wird beispielhaft anhand von Outlook-Live in Abbildung \ref{fig:outlook-live-mail} dargestellt.
+Es sollte möglich sein, mehrere E-Mail-Postfächer gleichzeitig hinzuzufügen.
 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{images/OutlookLive_Calender1.png}
-    \caption{OutlookLive Calender}
+    \caption{Outlook-Live Kalender}
     \label{fig:outlook-live-calender}
 \end{figure}
 
-Eine weitere Hauptfunktion von Groupwaresystemen ist ein Kalender, der Nutzern wie in Abbildung \ref{fig:outlook-live-calender} Terminplanung in Form eines Kalenders mit Ereignisplanung ermöglicht.
-Die Terminplanung sollte das Einladen von anderen Nutzern ermöglichen um die Zusammenarbeit und Organisation der Nutzer miteinander zu vereinfachen.
-Dabei sollten auch Regeltermine, also Termine die sich regelmäßig wiederholen erstellt werden können.
+Eine weitere Hauptfunktion von Groupware-Systemen ist ein Kalender, der es Nutzern ermöglicht, Termine zu planen und Ereignisse in Form eines Kalenders zu organisieren (siehe Abbildung \ref{fig:outlook-live-calender}).
+Die Terminplanung sollte es den Nutzern ermöglichen, andere Nutzer einzuladen, um die Zusammenarbeit und gemeinsame Organisation zu vereinfachen.
+Auch das Anlegen von Regelterminen, das heißt Terminen, die regelmäßig wiederkehrend sind, sollte möglich sein.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{images/OutlookLive_Contacts.png}
-    \caption{OutlookLive Contacts}
+    \caption{Outlook-Live Kontakte}
     \label{fig:outlook-live-contacts}
 \end{figure}
 
-Kontakte sind eine esentieller Bestandteil von Groupwaresystemen um die Vernetzung innerhalb von Arbeitsgruppen zu organisieren.
-Durch sie sollte die Kontaktaufnahme zu anderen Gruppenmitgliedern so einfach wie möglich gestaltet werden.
-Im Beispiel von OutlookLive kann man wie in Abbildung \ref{fig:outlook-live-contacts} gezeigt direkt vom Kontakt einer Person diese Person über Nachrichten, Anrufe oder E-Mail kontaktieren.
+Kontakte sind ein weiterer wichtiger Bestandteil von Groupware-Systemen, um die Vernetzung innerhalb von Arbeitsgruppen zu organisieren.
+Sie ermöglichen eine einfache Kontaktaufnahme zu anderen Gruppenmitgliedern.
+In Outlook-Live kann man, wie in Abbildung \ref{fig:outlook-live-contacts} gezeigt, direkt vom Kontakt einer Person aus diese Person per Nachricht, Anruf oder E-Mail kontaktieren.
 
 
 \section{Playwright}
 
-Die Open-Source-Bibliothek Playwright wurde Anfang 2020 von Microsoft veröffentlicht und ermöglicht es, Browser automatisiert zu steuern und dadurch automatisierte Tests für Webanwendungen durchzuführen oder Websites zu scrapen.
+Die Open-Source-Bibliothek Playwright, die Anfang 2020 von Microsoft veröffentlicht wurde, ermöglicht die gesteuerte Automatisierung von Browsern und Webinterfaces. Dadurch ist es möglich, Webanwendungen automatisiert zu testen oder Websites zu scannen.
 Dabei bietet Playwright ein Application-Programming-Interface (API) für die Programmiersprachen JavaScript, TypeScript, Python, .NET und Java, sowie eine Vielzahl von Funktionen, die das Testen von Webanwendungen erleichtern.
-Beispielsweise kann mit Playwright Codegen die eigene Interaktion mit einer Webanwendung augezeichnet und als Code exportiert werden, der dann als Test für die ausgeführte Interaktion verwendet werden kann.
+Beispielsweise kann mit Playwright-Codegen die eigene Interaktion mit einer Webanwendung ausgezeichnet und als Code exportiert werden, der dann als Test für die ausgeführte Interaktion verwendet werden kann.
 So können effizient Frontend-Tests für eine Vielzahl von Anwendungen implementiert werden.
 \autocite[Quelle:][]{playwright}
 \\
 \\
-Im Fall der Studienarbeit wurde Playwright verwendet, um automatisierte End-to-End Tests für das final ausgewählte Groupware-System durchzuführen.
+Im Fall der Studienarbeit wurde Playwright verwendet, um automatisierte End-to-End-Tests für das final ausgewählte Groupware-System durchzuführen.
 Dabei werden Frontend-Tests implementiert, die typische Interaktionen mit der Benutzeroberfläche simulieren.
 So können beispielsweise Formulare ausgefüllt oder Buttons angeklickt werden, womit ein Nutzer-Login und das anschließende Aufrufen der Mails des Nutzers simuliert werden kann.
 \\
-Deckt man mit diesen Tests alle Funktionsbereiche des Groupwaresystems ab, kann man durch das Ausführen der Tests sicherstellen, dass die Anwendung nach einer Änderung noch wie erwartet funktioniert.
-Auch falls die Anwendung in Zukunft unerwartete Ausfälle generiert, können diese durch flächendeckende Tests genauer erkannnt werden, da sofort ersichtlich ist, welche Bereiche des Systems noch funktionieren und welche nicht.
+Deckt man mit diesen Tests alle Funktionsbereiche des Groupware-Systems ab, kann man durch das Ausführen der Tests sicherstellen, dass die Anwendung nach einer Änderung noch wie erwartet funktioniert.
+Auch falls die Anwendung in Zukunft unerwartete Ausfälle generiert, können diese durch flächendeckende Tests genauer erkannt werden, da sofort ersichtlich ist, welche Bereiche des Systems noch funktionieren und welche nicht.
 Geht beispielsweise der zuvor erwähnte Test des aufrufen der Mails schief, gibt es mit hoher Wahrscheinlichkeit ein Problem mit der Verbindung zum Mail Server.
 \\
 Zudem können solche Tests in Playwright in verschiedenen Browsern (Chromium, Firefox, Safari) ausgeführt werden, wodurch die Funktionalität der Anwendung auch auf verschiedenen Browsern sichergestellt und kontinuierlich getestet werden kann.
-Da die Groupware von einer Vielzahl von Systemen zugänglich sein soll, ist diese Funktion ein essentieller Bestandteil der Testanforderungen.
+Da die Groupware von einer Vielzahl von Systemen zugänglich sein soll, ist diese Funktion ein essenzieller Bestandteil der Testanforderungen.
 
 
 
