@@ -10,12 +10,24 @@
    openright,         % Chapters start on right page
    titlepage,         % Use a separate title page
    headsepline,       % Line under header
-   % ... other options ...
+   final,             % Final document
+   pagesize,          % Writes the paper size to the file.
+   nochapterprefix,   % No output of 'Chapter:'
+   tocindent        % Indented table of contents
+   listsindent,      % Indented LOT, LOF
+   pointlessnumbers, % No point in heading numbering
+   halfparskip,      % Half line spacing
+   %bibtotoc,         % Bibliographie ins TOC
+	%bibtotocnumbered, % Bibliographie ins TOC mit Kapitelnummer
 ]{scrbook}
 
 
 % Additional packages
-\input{config/packages}
+\usepackage{ragged2e} % Besserer Flatternsatz (Linksbuendig, statt Blocksatz)
+\usepackage[]{graphicx} % Bilder
+\usepackage[ngerman]{babel} % Languagesetting
+\usepackage{setspace} % Zeilenabstand
+
 \usepackage[utf8]{inputenc}
 \usepackage{wrapfig}
 \usepackage{csquotes}
@@ -75,8 +87,7 @@
 
 \include{./chapters/zusammenfassung}
 
-% \bibliographystyle{plainnat}
-% \bibliography{sources}
-% \printbibliography
+\printbibliography
+
 
 \end{document}
