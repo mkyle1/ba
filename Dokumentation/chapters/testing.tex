@@ -52,8 +52,8 @@ Im Folgenden werden die einzelnen Tests, deren Implementierung und Deckungsberei
 
 \subsection{Login}
 
-Da alle Tests der Anwendung einen eingeloggten Nutzer benötigen wird zuerst ein Login Test implementiert, der ein Nutzerobjekt mit Nutzernamen und Passwort erhält und sich dann versucht in der Anwendung einzuloggen.
-Dieser Test wird zu Beginn jedes anderen Tests ausgeführt um den Nutzer einzuloggen.
+Da alle Tests der Anwendung einen eingeloggten Nutzer benötigen, wird zuerst ein Login-Test implementiert. Dieser erhält ein Nutzerobjekt mit Nutzernamen und Passwort und versucht sich dann in der Anwendung einzuloggen.
+Der Login-Test wird zu Beginn jedes anderen Tests ausgeführt, um den Nutzer anzumelden.
 
 \subsection{Aufrufen einer E-Mail}
 
@@ -77,6 +77,11 @@ Ist das Erstellen des Nutzers erfolgreich, startet ein weiterer Test, der sich m
 So wird sichergestellt, dass der Nutzer erfolgreich erstellt wurde und nicht nur in der lokalen Instanz des Administrators existiert.
 Ist das Einloggen mit dem Testnutzer erfolgreich, wird ein weiterer Test gestartet, der den Nutzer mit dem Administrator Account wieder löscht.
 So kann der Test mit demselben Testnutzer beliebig oft ausgeführt werden, ohne dass es zu Problemen mit bereits existierenden Nutzern kommt.
+\\
+Bei diesem Test kam es bei der Ausführung zu einem Problem, da der Nutzer nicht sofort nach dem Erstellen in der Nutzerliste für Administratoren auftaucht.
+Bis der Nutzer in der Liste auftaucht, kann er sich auch nicht einloggen.
+Die Zeit, die der Nutzer benötigt, um in der Nutzerliste aufzutauchen ist nicht konstant und kann daher nicht durch eine einfache Wartezeit gelöst werden.
+Das stellt in Frage, inwiefern EGroupware für das automatisierte Erstellen von Nutzern geeignet ist und ob eine ähnliche Asynchronität auch in anderen Teilen der Anwendung auftritt.
+
 
 \section{Ausführen der Tests}
-
