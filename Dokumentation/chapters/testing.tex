@@ -1,4 +1,4 @@
-\chapter{Testing von EGroupware mit Playwright}
+\chapter{Testing der Groupware}
 
 Nach erfolgreicher Installation von EGroupware kann das System nun über jeden Browser aufgerufen werden und kann daher getestet werden.
 Dabei wird das System mithilfe von Playwright getestet.
@@ -16,7 +16,7 @@ Für das Testen der meisten Funktionen der EGroupware Anwendung wird der Adminis
 Diesem Administrator Account wird eine E-Mail-Adresse über IMAP hinzugefügt, damit über ihn auch die E-Mail Funktion getestet werden kann.
 Um diesen Account in den Tests zu nutzen wird der Nutzername und das Passwort des Administrators in der Testdatei als statisches Objekt gespeichert und kann dann in den Tests genutzt werden.
 
-\subsection{Playwright Codegen}
+\subsection*{Playwright Codegen}
 
 Die Basis für fast alle Tests in dieser Studienarbeit wurde mithilfe von Playwright Codegen erstellt.
 Dabei wird über einen Konsolenbefehl ein neuer Browser geöffnet, in dem die Interaktionen des Nutzers als Playwright Code aufgezeichnet werden.
@@ -45,31 +45,53 @@ Diese Funktion kann dann für das Erstellen der manuellen Teile der Tests genutz
 
 \section{Implementierung der Tests}
 
+In diesem Abschnitt werden die einzelnen Tests, die in dieser Studienarbeit implementiert wurden, näher erläutert.
+Die Tests, die dabei implementiert worden sind:
+\begin{itemize}
+    \item Login
+    \item Aufrufen einer E-Mail
+    \item Erstellen eines Termins
+    \item Erstellen und Löschen eines neuen Nutzers
+\end{itemize}
 Alle Tests werden in TypeScript geschrieben und können daher direkt in der Entwicklungsumgebung ausgeführt werden.
-Dabei werden alle Tests in dieser Studienarbeit in einem Chromium Browser ausgeführt.
+Dabei werden alle Tests in dieser Studienarbeit in einem Chromium Browser ausgeführt, können jedoch mit einer kleinen Änderung der Konfiguration auch in Firefox und WebKit Browsern ausgeführt werden.
 \\
 Im Folgenden werden die einzelnen Tests, deren Implementierung und Deckungsbereiche näher erläutert.
 
-\subsection{Login}
+\subsection*{Login}
 
 Da alle Tests der Anwendung einen eingeloggten Nutzer benötigen, wird zuerst ein Login-Test implementiert. Dieser erhält ein Nutzerobjekt mit Nutzernamen und Passwort und versucht sich dann in der Anwendung einzuloggen.
 Der Login-Test wird zu Beginn jedes anderen Tests ausgeführt, um den Nutzer anzumelden.
+Dabei wird die Verfügbarkeit der Anmeldung, die Korrektheit der Login-Daten und die Existenz des Nutzers in der Anwendung getestet.
 
-\subsection{Aufrufen einer E-Mail}
+\subsection*{Aufrufen einer E-Mail}
 
 Bei diesem Test wird die E-Mail Funktion der Anwendung getestet.
 Der Test versucht sich als der Administrator, dessen Account einen E-Mail-Account über IMAP bekommen hat, einzuloggen und ruft dann die erste E-Mail in der E-Mail Liste auf.
 Dabei wird die Verbindung der Groupware zum IMAP Server getestet.
 
-\subsection{Erstellen eines Termins}
+\subsection*{Erstellen eines Termins}
 
 Beim Test zum Erstellen eines Termins wird sich als Administrator eingeloggt und dann ein Termin erstellt.
 Die Daten für diesen Termin sind ähnlich wie die Daten für den Login mit dem Administrator Account in einem Objekt gespeichert und können so einfach in den Test eingefügt werden.
 Jedoch wird dieses Objekt erst beim Ausführen des Tests erstellt, da das Datum für den Termin immer das aktuelle Datum sein soll und daher nicht statisch in einem globalen Objekt gespeichert werden kann.
 Dafür wird mithilfe des Timestamp der Funktion Date.now() ein Datum erstellt, welches dann in einen String umgewandelt wird und in das Objekt gespeichert wird.
 So kann jederzeit ein Termin erstellt werden, welcher 30 Minuten nach der Ausführung des Tests stattfindet.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/Datepicker.png}
+    \caption{Datepicker UI-Element in EGroupware}
+    \label{fig:datepicker}
+\end{figure}
+Eine Schwierigkeit bei diesem Test war das Auswählen des Datums für den Termin.
+Dafür musste ein Datepicker, welcher in Abbildung \ref{fig:datepicker} gezeigt ist, in der Anwendung geöffnet und das Datum ausgewählt werden.
+Das Datum kann zwar über einen String des Formats YYYY/MM/DD HH:MM in das Textfeld des Datepickers eingefügt werden, jedoch entstehen durch die Verschachtelung der UI-Elemente des Datepickers Probleme beim Auswählen des Textfelds und dem anschließenden Einfügen des Datum Strings.
+Spezifisch wird das Platzhalter-Datum nicht automatisch aus dem Textfeld gelöscht, wenn dieses angeklickt wird.
+Daher muss als Workaround das Textfeld über Tastenbefehle geleert und dann das Datum eingefügt werden.
+Dafür wird, nachdem das Textfeld angeklickt wurde, mit STRG+A der gesamte Text im Textfeld ausgewählt und dann mit der Entfernen-Taste gelöscht.
+Anschließend kann der generierte Datum-String eingefügt und der Termin erstellt werden.
 
-\subsection{Erstellen und Löschen eines neuen Nutzers}
+\subsection*{Erstellen und Löschen eines neuen Nutzers}
 
 Der letzte Test der in dieser Studienarbeit implementiert wurde, ist eine Serie aus Tests, die die Funktionalität des Nutzermanagements abdecken sollen.
 Zunächst wird mit dem Administrator Account ein neuer Nutzer erstellt, dessen Nutzerdaten in einem statischen Objekt gespeichert sind.

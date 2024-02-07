@@ -1,12 +1,35 @@
 \chapter{Recherche und Installation des Groupware-Systems}
 
-In diesem Kapitel wird genauer auf das final gewählte Groupware-System EGroupware sowie dessen Installation und Deployment eingegangen.
+In diesem Kapitel wird der Prozess der Recherche und Installation des Groupware-Systems beschrieben.
+Dabei wird zuerst auf die Kriterien für das Groupware-System eingegangen, die im Laufe der Recherche berücksichtigt wurden.
+Anschließend werden die betrachteten Groupware-Systeme vorgestellt und die Entscheidung für ein System begründet.
+Zuletzt wird die Installation des Groupware-Systems auf einer Cloud-Instanz beschrieben.
 
-\section{Alle Kandidaten}
+\section{Kriterien für das Groupware-System}
+\begin{itemize}
+    \item \textbf{Open Source:} 
+    Das erste und wichtigste Kriterium ist, dass das Groupware-System Open Source ist.
+    Daher werden im Laufe der Recherche nur Open Source Groupware-Systeme betrachtet.
+    \item \textbf{Eigenverwaltbarkeit:}
+    Die Hochschule Esslingen hat ein eigenes Rechenzentrum und eine IT-Fakultät.
+    Daher sollte die Software von der Hochschule Esslingen selbst installiert und administriert werden können.
+    \item \textbf{Deutsche Firma:}
+    Als deutsche Hochschule möchte die Hochschule Esslingen auch deutsche Firmen unterstützen.
+    Deshalb ist es eine Vorgabe, dass das Groupware-System von einer deutschen Firma entwickelt wird.
+    Dies ist zwar ein wichtiges Kriterium, muss aber nicht zwingend zum Ausschluss führen.
+    \item \textbf{Automatisierbarkeit:}
+    Teile der Konfiguration des Groupware-Systems, wie beispielsweise das Hinzufügen und die Konfiguration von Nutzern, sollen automatisierbar sein.
+    Das soll das Hinzufügen und Entfernen der vielen Nutzer, die an der Hochschule Esslingen beschäftigt sind, erleichtern.
+\end{itemize}
+
+\newpage
+
+\section{Betrachtete Groupware-Systeme}
 
 Zu Beginn der Studienarbeit wurden anhand der gegebenen Kriterien mehrere Kandidaten für das Groupware-System recherchiert, um einen Überblick über die verfügbaren Möglichkeiten zu erhalten.
 Dabei wurden 4 erfolgversprechende Kandidaten gefunden, über die im Folgenden kurz berichtet wird.
-Da die Wahl schlussendlich auf EGroupware fiel, wird im Anschluss genauer auf dieses System eingegangen.
+Im folgenden Abschnitt wird auf die Groupware-Systeme Kolab, Horde, Sogo und EGroupware eingegangen und die Funktionalitäten der Systeme sowie relevante Informationen zu den Systemen vorgestellt.
+
 
 \subsection{Kolab}
 
@@ -76,7 +99,7 @@ Als Funktionalitäten bietet EGroupware:
 \end{itemize}
 
 
-\section{Entscheidung für EGroupware}
+\section{Entscheidung für ein Groupware-System}
 
 Bei der Recherche der verschiedenen Groupware-Systeme wurde klar, dass alle der untersuchten Systeme die grundlegenden gewünschten Funktionalitäten bieten und daher grundsätzlich alle für die Hochschule Esslingen geeignet sind.
 Durch diesen Umstand konnte die Entscheidung nicht rein aufgrund der Funktionalitäten der Systeme getroffen werden, da sich keines der Systeme in diesem Punkt stark von den anderen abhebt.
@@ -85,22 +108,24 @@ Somit fiel final die Entscheidung auf EGroupware, da es von einer deutschen Firm
 
 
 
-\section{Installation auf BWCloud}
+\section{Installation auf der Cloud}
 
 Für die Installation der EGroupware Software stellt die EGroupware GmbH eine Installationsanleitung zu Verfügung.
 Darin wird auf einer Linux Instanz zunächst ein Docker Repository hinzugefügt und anschließend die EGroupware Software in Form von 5 Docker Containern installiert und gestartet.
 Alle dafür benötigten Konsolenbefehle waren in der Installationsanleitung angegeben. \autocite{egroupware-installation}
 
-Für das Hosting der EGroupware Software wurde sowohl WSL2 (Windows-Subsystem für Linux) als auch eine BWCloud Instanz getestet.
-Die reine Installation der Software war auf beiden Systemen auf einer Ubuntu22.04 Instanz möglich.
-Im Laufe der Installation wurde jedoch klar, dass die Netzwerkkonfiguration bei BWCloud einfacher zu handhaben ist als bei WSL2.
-Daher wurde die finale Installation und Konfiguration auf einer BWCloud Instanz durchgeführt.
-Dafür mussten einige Ports freigegeben werden, damit die EGroupware Software von außerhalb der BWCloud Instanz erreichbar ist:
-\begin{itemize}
-    \item Port 80 für HTTP
-    \item Port 443 für HTTPS
-    \item Port 8080 für HTML
-\end{itemize}
+Für das Hosting der EGroupware Software wurde sowohl WSL2 (Windows-Subsystem für Linux) als auch eine bwCloud Instanz getestet.
+Die reine Installation der Software verlief auf beiden Systemen auf einer Ubuntu22.04 Instanz ohne Probleme.
+Im Laufe der Konfiguration wurde jedoch klar, dass die Netzwerkkonfiguration bei bwCloud einfacher zu handhaben ist als bei WSL2.
+Daher wurde die finale Installation und Konfiguration auf einer bwCloud Instanz durchgeführt.
+Damit das Frontend der Software über das Internet erreichbar ist, muss Port 80 für HTTP Kommunikation freigegeben werden.
+Das wurde wie in Abbildung \ref{fig:bwcloud_security_group} gezeigt in einer benutzerdefinierten Sicherheitsgruppe der bwCloud Instanz realisiert.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{images/bwCloud_SecurityGroup.png}
+    \caption{Konfiguration der Sicherheitsgruppe für die bwCloud Instanz von EGroupware}
+    \label{fig:bwcloud_security_group}
+\end{figure}
 
 Für den ersten Zugriff auf die Software für beispielsweise das Erstellen von Nutzer Accounts wird bei der Installation automatisch ein Administrator Account angelegt, dessen Zugangsdaten im Log der Installation zu finden sind.
-Das Frontend der Groupware ist dann über die IP-Adresse der BWCloud Instanz erreichbar.
+Das Frontend der Groupware ist dann über die IP-Adresse der bwCloud Instanz erreichbar.
