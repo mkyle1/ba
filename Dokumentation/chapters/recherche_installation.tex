@@ -27,8 +27,7 @@ Zuletzt wird die Installation des Groupware-Systems auf einer Cloud-Instanz besc
 \section{Betrachtete Groupware-Systeme}
 
 Zu Beginn der Studienarbeit wurden anhand der gegebenen Kriterien mehrere Kandidaten für das Groupware-System recherchiert, um einen Überblick über die verfügbaren Möglichkeiten zu erhalten.
-Dabei wurden 4 erfolgversprechende Kandidaten gefunden, über die im Folgenden kurz berichtet wird.
-Im folgenden Abschnitt wird auf die Groupware-Systeme Kolab, Horde, Sogo und EGroupware eingegangen und die Funktionalitäten der Systeme sowie relevante Informationen zu den Systemen vorgestellt.
+Im folgenden Abschnitt werden die 4 vielversprechendsten Groupware-Systeme der ersten Recherche, Kolab, Horde, Sogo und EGroupware, mit ihren Funktionalitäten und relevanten Informationen vorgestellt.
 
 
 \subsection{Kolab}
@@ -43,7 +42,7 @@ Das Groupware-System Kolab wird von der Schweizer Firma Aphelia IT AG entwickelt
     \item Notizen
     \item Sprach- und Videoanrufe
 \end{itemize}
-\autocite{kolab}
+\autocite[Quelle:][]{kolab}
 
 Kolab wird von der Firma Nestlé und der Universität Tübingen verwendet und ist daher auch für größere Organisationen geeignet.
 
@@ -51,17 +50,17 @@ Kolab wird von der Firma Nestlé und der Universität Tübingen verwendet und is
 
 Horde wird von einem gleichnamigen amerikanischen Unternehmen entwickelt und ist wie die anderen Systeme Open-Source und gratis verfügbar. Es bietet dabei die folgenden Funktionalitäten:
 \begin{itemize}
+    \item E-Mail
     \item Kalender
     \item Kontakte
-    \item E-Mail
+    \item Online-File-Server
     \item Terminmanagement
     \item Projektmanagement
     \item Dokumentenmanagement
-    \item Online-File-Server
+    
 \end{itemize}
-\autocite{horde}
-\\
-\\
+\autocite[Quelle:][]{horde}
+
 Relevant für die Auswahl könnte auch sein, dass Horde schon von einigen anderen Universitäten und Hochschulen, wie beispielsweise der Universität Tübingen und Universität Paderborn, verwendet wird.
 
 \subsection{Sogo}
@@ -77,9 +76,8 @@ Das System ist frei verfügbar und bietet die folgenden Features:
     \item 2-Faktor-Authentifizierung
     \item Raum Reservationen
 \end{itemize}
-\autocite{sogo}
-\\
-\\
+\autocite[Quelle:][]{sogo}
+
 Ähnlich wie Horde wird auch Sogo von einigen Universitäten und Hochschulen verwendet, wie beispielsweise der Universität Koblenz und der Universität Ulm.
 
 \subsection{EGroupware}
@@ -89,14 +87,16 @@ EGroupware ist ein Open-Source Groupware-System, welches von einer deutschen Fir
 Als Funktionalitäten bietet EGroupware:
 
 \begin{itemize}
+    \item E-Mail
     \item Kalender
     \item Kontakte
-    \item E-Mail
+    \item Online-File-Server
     \item Terminmanagement
     \item Projektmanagement
     \item Dokumentenmanagement
-    \item Online-File-Server
 \end{itemize}
+
+Auch EGroupware wird von einigen Hochschulen genutzt, jedoch von deutlich weniger als die anderen Systeme.
 
 
 \section{Entscheidung für ein Groupware-System}
@@ -127,5 +127,11 @@ Das wurde wie in Abbildung \ref{fig:bwcloud_security_group} gezeigt in einer ben
     \label{fig:bwcloud_security_group}
 \end{figure}
 
-Für den ersten Zugriff auf die Software für beispielsweise das Erstellen von Nutzer Accounts wird bei der Installation automatisch ein Administrator Account angelegt, dessen Zugangsdaten im Log der Installation zu finden sind.
-Das Frontend der Groupware ist dann über die IP-Adresse der bwCloud Instanz erreichbar.
+Für die grundlegende Konfiguration der Software, wie beispielsweise das Konfigurieren von LDAP oder SAML 2.0, bietet die EGroupware Software ein Setup-Tool, welches über folgende URL erreichbar ist:
+
+\fbox{\texttt{http://host-or-ip/egroupware/setup/}}
+
+Für den ersten Zugriff auf die tatsächliche Software für beispielsweise das Erstellen von Nutzer Accounts wird bei der Installation automatisch ein Administrator Account angelegt, dessen Zugangsdaten im Log der Installation zu finden sind.
+Das Frontend der Groupware ist dann über die folgende URL erreichbar:
+
+\fbox{\texttt{http://host-or-ip/egroupware/login.php/}}

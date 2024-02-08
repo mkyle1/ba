@@ -55,7 +55,7 @@ Die Tests, die dabei implementiert worden sind:
 \end{itemize}
 Alle Tests werden in TypeScript geschrieben und können daher direkt in der Entwicklungsumgebung ausgeführt werden.
 Dabei werden alle Tests in dieser Studienarbeit in einem Chromium Browser ausgeführt, können jedoch mit einer kleinen Änderung der Konfiguration auch in Firefox und WebKit Browsern ausgeführt werden.
-\\
+
 Im Folgenden werden die einzelnen Tests, deren Implementierung und Deckungsbereiche näher erläutert.
 
 \subsection*{Login}
@@ -94,6 +94,12 @@ Anschließend kann der generierte Datum-String eingefügt und der Termin erstell
 \subsection*{Erstellen und Löschen eines neuen Nutzers}
 
 Der letzte Test der in dieser Studienarbeit implementiert wurde, ist eine Serie aus Tests, die die Funktionalität des Nutzermanagements abdecken sollen.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/Exampleuser.png}
+    \caption{Beispiel für das Objekt zum Erstellen eines Testnutzers}
+    \label{fig:example-user}
+\end{figure}
 Zunächst wird mit dem Administrator Account ein neuer Nutzer erstellt, dessen Nutzerdaten in einem statischen Objekt gespeichert sind.
 Ist das Erstellen des Nutzers erfolgreich, startet ein weiterer Test, der sich mit den Zugangsdaten des neuen Nutzers versucht einzuloggen.
 So wird sichergestellt, dass der Nutzer erfolgreich erstellt wurde und nicht nur in der lokalen Instanz des Administrators existiert.

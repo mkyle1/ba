@@ -1,7 +1,9 @@
 \chapter{Grundlagen}
 
-Dieses Kapitel beinhaltet technologische sowie konzeptionelle Grundlagen für das \\
-Verständnis der untersuchten Software Anwendungen sowie für die Testing Methode der final ausgewählten Anwendung.
+Dieses Kapitel soll technologische und konzeptionelle Grundlagen für die Studienarbeit liefern.
+Zuerst werden anhand eines Beispiels Groupware-Systeme und deren Funktionalitäten dargestellt um ein Verständnis für die funktionsweise von Groupware-Systemen zu schaffen.
+Daraufhin wird die Open-Source-Bibliothek Playwright vorgestellt, die in dieser Studienarbeit für die Implementierung von automatisierten End-to-End-Tests verwendet wurde.
+Dabei wird auf die Gründe und Vorteile von End-to-End-Tests sowie die Funktionsweise von Playwright eingegangen.
 
 \section{Groupware-Systeme}
 
@@ -52,9 +54,11 @@ So können effizient Frontend-Tests für eine Vielzahl von Anwendungen implement
 \\
 \\
 Im Fall der Studienarbeit wurde Playwright verwendet, um automatisierte End-to-End-Tests für das final ausgewählte Groupware-System durchzuführen.
+End-to-End-Tests können das korrekte Betriebsverhalten einer Anwendung sicherstellen, da sie Tests basierend auf dem Verhalten des Endnutzers sind.
+Sie sind vor allem bei Anwendungen die viele Nutzerinteraktionen erfordern sinnvoll, da sie die Anwendung in einer realen Umgebung simulieren \autocite[vgl.][]{e2e-blog}.
 Dabei werden Frontend-Tests implementiert, die typische Interaktionen mit der Benutzeroberfläche simulieren.
 So können beispielsweise Formulare ausgefüllt oder Buttons angeklickt werden, womit ein Nutzer-Login und das anschließende Aufrufen der Mails des Nutzers simuliert werden kann.
-\\
+
 Deckt man mit diesen Tests alle Funktionsbereiche des Groupware-Systems ab, kann man durch das Ausführen der Tests sicherstellen, dass die Anwendung nach einer Änderung noch wie erwartet funktioniert.
 Auch falls die Anwendung in Zukunft unerwartete Ausfälle generiert, können diese durch flächendeckende Tests genauer erkannt werden, da sofort ersichtlich ist, welche Bereiche des Systems noch funktionieren und welche nicht.
 Geht beispielsweise der zuvor erwähnte Test des aufrufen der Mails schief, gibt es mit hoher Wahrscheinlichkeit ein Problem mit der Verbindung zum Mail Server.
