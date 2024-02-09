@@ -10,11 +10,17 @@ Mit dieser Erweiterung kann auch die vollständige Installation von Playwright i
 Dabei können die gewünschten Browser Chromium, Firefox und WebKit ausgewählt und zum Testen installiert werden.
 Für diese Studienarbeit werden alle Tests in einem Chromium Browser ausgeführt.
 Bei der Installation wird ein Beispieltest erstellt welcher als Vorlage für weitere Tests genutzt werden kann.
-\\
-\\
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.4\textwidth]{images/ExampleAdmin.png}
+    \caption{Beispiel für das Objekt des Administrator-Accounts}
+    \label{fig:example-admin}
+\end{figure}
+
 Für das Testen der meisten Funktionen der EGroupware Anwendung wird der Administrator Account genutzt, der automatisch bei der Installation erstellt wird.
 Diesem Administrator Account wird eine E-Mail-Adresse über IMAP hinzugefügt, damit über ihn auch die E-Mail Funktion getestet werden kann.
-Um diesen Account in den Tests zu nutzen wird der Nutzername und das Passwort des Administrators in der Testdatei als statisches Objekt gespeichert und kann dann in den Tests genutzt werden.
+Um die Nutzerdaten des Accounts in den Tests zu nutzen wird der Nutzername und das Passwort des Administrators, wie in Abbildung \ref{fig:example-admin} beispielhaft dargestellt, in der Testdatei als statisches Objekt gespeichert und kann dann in den Tests genutzt werden.
 
 \subsection*{Playwright Codegen}
 
@@ -27,8 +33,11 @@ So können große Teile des Codes für die Tests automatisch generiert werden un
     \caption{Playwright Codegen generierter Code für das Ausfüllen eines Login Formulars}
     \label{fig:playwright-codegen}
 \end{figure}
-Das Tool funktioniert besonders gut für einfache Interaktionen, wie beispielsweise das Ausfüllen einfacher Formulare wie in Abbildung \ref{fig:playwright-codegen} mit einfachen User-Interface-Elementen (UI-Elementen) wie Buttons, Textfeldern und Links geeignet.
+
+Einerseits sind Playwright und ähnliche Tools zur automatischen Codegenerierung hilfreich um schnell ohne viel Vorwissen oder Planung Tests zu erstellen, jedoch ist die Langlebigkeit und Wartbarkeit des generierten Codes fraglich, da dieser nur eine \glqq einfache Sequenz von aufgenommenen Operationen \grqq \autocite[][294]{automating-e2e-manual} ist.
+Playwright funktioniert besonders gut für einfache Interaktionen, wie beispielsweise das Ausfüllen einfacher Formulare wie in Abbildung \ref{fig:playwright-codegen} mit einfachen User-Interface-Elementen (UI-Elementen) wie Buttons, Textfeldern und Links geeignet.
 Für komplexere Interaktionen mit UI-Elementen wie beispielsweise Datepicker, welche das Auswählen eines Datums über mehrere verschachtelte Interaktionen erfordern, ist die Aufnahme-Funktion des Tools weniger geeignet.
+In solchen Fällen müssen entweder alternative und einfachere Methoden zum Auswählen des Datums gefunden werden oder der Code muss manuell geschrieben werden.
 Daher mussten Teile der Tests für das Erstellen eines Termins und das Löschen eines Nutzers manuell geschrieben werden.
 
 \begin{figure}[H]
@@ -74,8 +83,14 @@ Dabei wird die Verbindung der Groupware zum IMAP Server getestet.
 
 Beim Test zum Erstellen eines Termins wird sich als Administrator eingeloggt und dann ein Termin erstellt.
 Die Daten für diesen Termin sind ähnlich wie die Daten für den Login mit dem Administrator Account in einem Objekt gespeichert und können so einfach in den Test eingefügt werden.
-Jedoch wird dieses Objekt erst beim Ausführen des Tests erstellt, da das Datum für den Termin immer das aktuelle Datum sein soll und daher nicht statisch in einem globalen Objekt gespeichert werden kann.
-Dafür wird mithilfe des Timestamp der Funktion Date.now() ein Datum erstellt, welches dann in einen String umgewandelt wird und in das Objekt gespeichert wird.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/AppointmentObject.png}
+    \caption{Objekt zum Erstellen eines Termins innerhalb eines Tests}
+    \label{fig:appointment-object}
+\end{figure}
+Jedoch wird dieses Objek, wie in Abbildung \ref{fig:appointment-object} gezeigt, erst beim Ausführen des Tests erstellt, da das Datum für den Termin immer das aktuelle Datum sein soll und daher nicht statisch in einem globalen Objekt gespeichert werden kann.
+Dafür wird mithilfe des Timestamp der Funktion Date.now() ein Datum erstellt, welches dann mit einer Hilfsfunktion in einen String umgewandelt wird und in das Objekt gespeichert wird.
 So kann jederzeit ein Termin erstellt werden, welcher 30 Minuten nach der Ausführung des Tests stattfindet.
 \begin{figure}[H]
     \centering
@@ -91,12 +106,13 @@ Daher muss als Workaround das Textfeld über Tastenbefehle geleert und dann das 
 Dafür wird, nachdem das Textfeld angeklickt wurde, mit STRG+A der gesamte Text im Textfeld ausgewählt und dann mit der Entfernen-Taste gelöscht.
 Anschließend kann der generierte Datum-String eingefügt und der Termin erstellt werden.
 
+\newpage
 \subsection*{Erstellen und Löschen eines neuen Nutzers}
 
-Der letzte Test der in dieser Studienarbeit implementiert wurde, ist eine Serie aus Tests, die die Funktionalität des Nutzermanagements abdecken sollen.
+Der letzte Test der in dieser Studienarbeit implementiert wurde, ist eine Serie aus Tests, die gemeinsam die Funktionalität des Nutzermanagements abdecken sollen.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/Exampleuser.png}
+    \includegraphics[width=0.4\textwidth]{images/Exampleuser.png}
     \caption{Beispiel für das Objekt zum Erstellen eines Testnutzers}
     \label{fig:example-user}
 \end{figure}
@@ -105,11 +121,8 @@ Ist das Erstellen des Nutzers erfolgreich, startet ein weiterer Test, der sich m
 So wird sichergestellt, dass der Nutzer erfolgreich erstellt wurde und nicht nur in der lokalen Instanz des Administrators existiert.
 Ist das Einloggen mit dem Testnutzer erfolgreich, wird ein weiterer Test gestartet, der den Nutzer mit dem Administrator Account wieder löscht.
 So kann der Test mit demselben Testnutzer beliebig oft ausgeführt werden, ohne dass es zu Problemen mit bereits existierenden Nutzern kommt.
-\\
-Bei diesem Test kam es bei der Ausführung zu einem Problem, da der Nutzer nicht sofort nach dem Erstellen in der Nutzerliste für Administratoren auftaucht.
+
+Bei diesem Test kam es bei der Ausführung zu einem Problem, da der Nutzer in einigen Fällen nicht sofort nach dem Erstellen in der Nutzerliste für Administratoren auftaucht.
 Bis der Nutzer in der Liste auftaucht, kann er sich auch nicht einloggen.
 Die Zeit, die der Nutzer benötigt, um in der Nutzerliste aufzutauchen ist nicht konstant und kann daher nicht durch eine einfache Wartezeit gelöst werden.
 Das stellt in Frage, inwiefern EGroupware für das automatisierte Erstellen von Nutzern geeignet ist und ob eine ähnliche Asynchronität auch in anderen Teilen der Anwendung auftritt.
-
-
-\section{Ausführen der Tests}
