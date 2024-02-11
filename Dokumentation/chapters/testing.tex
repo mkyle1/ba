@@ -1,14 +1,16 @@
+% Eigenkorrekturlesung 1 fertig
+
 \chapter{Testing der Groupware}
 
-Nach erfolgreicher Installation von EGroupware kann das System nun über jeden Browser aufgerufen werden und kann daher getestet werden.
+Nach erfolgreicher Installation von EGroupware kann das System über jeden Browser aufgerufen werden und kann daher getestet werden.
 Dabei wird das System mithilfe von Playwright getestet.
+In diesem Kapitel wird dabei das Aufsetzen der Playwright Testumgebung und die Implementierung der Tests näher erläutert.
 
 \section{Aufsetzen der Testumgebung}
 
-Für das entwickeln der Tests wird die Entwicklungsumgebung Visual Studio Code verwendet da es durch die Erweiterung "Playwright Test for VSCode" von Microsoft eine sehr gute Integration der Playwright API bietet.
+Für das Entwickeln der Tests wird die Entwicklungsumgebung Visual Studio Code verwendet da es durch die Erweiterung \glqq Playwright Test for VSCode \grqq von Microsoft eine sehr gute Integration der Playwright API bietet.
 Mit dieser Erweiterung kann auch die vollständige Installation von Playwright in dem aktuellen Projektordner direkt in der Entwicklungsumgebung durchgeführt werden.
 Dabei können die gewünschten Browser Chromium, Firefox und WebKit ausgewählt und zum Testen installiert werden.
-Für diese Studienarbeit werden alle Tests in einem Chromium Browser ausgeführt.
 Bei der Installation wird ein Beispieltest erstellt welcher als Vorlage für weitere Tests genutzt werden kann.
 
 \begin{figure}[H]
@@ -35,10 +37,10 @@ So können große Teile des Codes für die Tests automatisch generiert werden un
 \end{figure}
 
 Einerseits sind Playwright und ähnliche Tools zur automatischen Codegenerierung hilfreich um schnell ohne viel Vorwissen oder Planung Tests zu erstellen, jedoch ist die Langlebigkeit und Wartbarkeit des generierten Codes fraglich, da dieser nur eine \glqq einfache Sequenz von aufgenommenen Operationen \grqq \autocite[][294]{automating-e2e-manual} ist.
-Playwright funktioniert besonders gut für einfache Interaktionen, wie beispielsweise das Ausfüllen einfacher Formulare wie in Abbildung \ref{fig:playwright-codegen} mit einfachen User-Interface-Elementen (UI-Elementen) wie Buttons, Textfeldern und Links geeignet.
-Für komplexere Interaktionen mit UI-Elementen wie beispielsweise Datepicker, welche das Auswählen eines Datums über mehrere verschachtelte Interaktionen erfordern, ist die Aufnahme-Funktion des Tools weniger geeignet.
-In solchen Fällen müssen entweder alternative und einfachere Methoden zum Auswählen des Datums gefunden werden oder der Code muss manuell geschrieben werden.
-Daher mussten Teile der Tests für das Erstellen eines Termins und das Löschen eines Nutzers manuell geschrieben werden.
+Playwright funktioniert besonders gut für einfache Interaktionen, wie beispielsweise das Ausfüllen einfacher Formulare, wie beispielsweise in Abbildung \ref{fig:playwright-codegen}, mit einfachen User-Interface-Elementen (UI-Elementen) wie Buttons, Textfeldern und Links geeignet.
+Für komplexere Interaktionen mit UI-Elementen wie beispielsweise sogenannte Datepicker, dargestellt in Abbildung \ref{fig:datepicker}, welche das Auswählen eines Datums über mehrere verschachtelte Interaktionen erfordern, ist die Aufnahme-Funktion des Tools weniger geeignet.
+In solchen Fällen müssen entweder alternative weniger komplexe Methoden zum Auswählen des Datums gefunden werden oder der Code muss manuell geschrieben werden.
+Daher mussten Teile der Tests für das Erstellen eines Termins und das Löschen eines Nutzers manuell angepasst und teilweise komplett selbst geschrieben werden.
 
 \begin{figure}[H]
     \centering
@@ -55,21 +57,21 @@ Diese Funktion kann dann für das Erstellen der manuellen Teile der Tests genutz
 \section{Implementierung der Tests}
 
 In diesem Abschnitt werden die einzelnen Tests, die in dieser Studienarbeit implementiert wurden, näher erläutert.
-Die Tests, die dabei implementiert worden sind:
-\begin{itemize}
-    \item Login
-    \item Aufrufen einer E-Mail
-    \item Erstellen eines Termins
-    \item Erstellen und Löschen eines neuen Nutzers
-\end{itemize}
+Dabei wurden Tests zum Login, Aufrufen von E-Mails, Erstellen eines Termins und Erstellen und Löschen eines Nutzers implementiert.
 Alle Tests werden in TypeScript geschrieben und können daher direkt in der Entwicklungsumgebung ausgeführt werden.
-Dabei werden alle Tests in dieser Studienarbeit in einem Chromium Browser ausgeführt, können jedoch mit einer kleinen Änderung der Konfiguration auch in Firefox und WebKit Browsern ausgeführt werden.
 
 Im Folgenden werden die einzelnen Tests, deren Implementierung und Deckungsbereiche näher erläutert.
-
+\newpage
 \subsection*{Login}
 
-Da alle Tests der Anwendung einen eingeloggten Nutzer benötigen, wird zuerst ein Login-Test implementiert. Dieser erhält ein Nutzerobjekt mit Nutzernamen und Passwort und versucht sich dann in der Anwendung einzuloggen.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/LoginTest.png}
+    \caption{Login Test}
+    \label{fig:login-test}
+\end{figure}
+
+Da alle Tests der Anwendung einen eingeloggten Nutzer benötigen, wird zuerst ein Login-Test implementiert. Dieser erhält, wie in Abbildung \ref{fig:login-test} in der ersten Zeile zu sehen ist, ein Nutzerobjekt mit Nutzernamen und Passwort und versucht sich dann in der Anwendung einzuloggen.
 Der Login-Test wird zu Beginn jedes anderen Tests ausgeführt, um den Nutzer anzumelden.
 Dabei wird die Verfügbarkeit der Anmeldung, die Korrektheit der Login-Daten und die Existenz des Nutzers in der Anwendung getestet.
 
@@ -89,8 +91,8 @@ Die Daten für diesen Termin sind ähnlich wie die Daten für den Login mit dem 
     \caption{Objekt zum Erstellen eines Termins innerhalb eines Tests}
     \label{fig:appointment-object}
 \end{figure}
-Jedoch wird dieses Objek, wie in Abbildung \ref{fig:appointment-object} gezeigt, erst beim Ausführen des Tests erstellt, da das Datum für den Termin immer das aktuelle Datum sein soll und daher nicht statisch in einem globalen Objekt gespeichert werden kann.
-Dafür wird mithilfe des Timestamp der Funktion Date.now() ein Datum erstellt, welches dann mit einer Hilfsfunktion in einen String umgewandelt wird und in das Objekt gespeichert wird.
+Jedoch wird dieses Objekt, wie in Abbildung \ref{fig:appointment-object} gezeigt, erst beim Ausführen des Tests erstellt, da das Datum für den Termin immer das aktuelle Datum sein soll und daher nicht statisch in einem globalen Objekt gespeichert werden kann.
+Dafür wird mithilfe des Zeitstempels der Funktion Date.now() ein Datum erstellt, welches dann mit einer Hilfsfunktion in einen String umgewandelt wird und in das Objekt gespeichert wird.
 So kann jederzeit ein Termin erstellt werden, welcher 30 Minuten nach der Ausführung des Tests stattfindet.
 \begin{figure}[H]
     \centering
@@ -100,7 +102,7 @@ So kann jederzeit ein Termin erstellt werden, welcher 30 Minuten nach der Ausfü
 \end{figure}
 Eine Schwierigkeit bei diesem Test war das Auswählen des Datums für den Termin.
 Dafür musste ein Datepicker, welcher in Abbildung \ref{fig:datepicker} gezeigt ist, in der Anwendung geöffnet und das Datum ausgewählt werden.
-Das Datum kann zwar über einen String des Formats YYYY/MM/DD HH:MM in das Textfeld des Datepickers eingefügt werden, jedoch entstehen durch die Verschachtelung der UI-Elemente des Datepickers Probleme beim Auswählen des Textfelds und dem anschließenden Einfügen des Datum Strings.
+Das Datum kann zwar über einen String des Formats YYYY/MM/DD HH:MM in das Textfeld des Datepickers eingefügt werden, jedoch entstehen durch die Verschachtelung der UI-Elemente des Datepickers Probleme beim Auswählen des Textfelds und dem anschließenden Einfügen des Datum-Strings.
 Spezifisch wird das Platzhalter-Datum nicht automatisch aus dem Textfeld gelöscht, wenn dieses angeklickt wird.
 Daher muss als Workaround das Textfeld über Tastenbefehle geleert und dann das Datum eingefügt werden.
 Dafür wird, nachdem das Textfeld angeklickt wurde, mit STRG+A der gesamte Text im Textfeld ausgewählt und dann mit der Entfernen-Taste gelöscht.
@@ -120,7 +122,7 @@ Zunächst wird mit dem Administrator Account ein neuer Nutzer erstellt, dessen N
 Ist das Erstellen des Nutzers erfolgreich, startet ein weiterer Test, der sich mit den Zugangsdaten des neuen Nutzers versucht einzuloggen.
 So wird sichergestellt, dass der Nutzer erfolgreich erstellt wurde und nicht nur in der lokalen Instanz des Administrators existiert.
 Ist das Einloggen mit dem Testnutzer erfolgreich, wird ein weiterer Test gestartet, der den Nutzer mit dem Administrator Account wieder löscht.
-So kann der Test mit demselben Testnutzer beliebig oft ausgeführt werden, ohne dass es zu Problemen mit bereits existierenden Nutzern kommt.
+So kann der Test beliebig oft die gleichen Nutzerdaten zur Ausführung nutzen, ohne dass es zu Problemen mit bereits existierenden Nutzern kommt.
 
 Bei diesem Test kam es bei der Ausführung zu einem Problem, da der Nutzer in einigen Fällen nicht sofort nach dem Erstellen in der Nutzerliste für Administratoren auftaucht.
 Bis der Nutzer in der Liste auftaucht, kann er sich auch nicht einloggen.

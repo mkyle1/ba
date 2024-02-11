@@ -1,25 +1,29 @@
+% Eigenkorrekturlesung 1 fertig
+
 \chapter{Recherche und Installation des Groupware-Systems}
 
-In diesem Kapitel wird der Prozess der Recherche und Installation des Groupware-Systems beschrieben.
-Dabei wird zuerst auf die Kriterien für das Groupware-System eingegangen, die im Laufe der Recherche berücksichtigt wurden.
-Anschließend werden die betrachteten Groupware-Systeme vorgestellt und die Entscheidung für ein System begründet.
-Zuletzt wird die Installation des Groupware-Systems auf einer Cloud-Instanz beschrieben.
+In diesem Kapitel wird der Prozess und die Ergebnisse der Recherche mehrerer Groupware-Systeme und die anschließende Installation eines der Groupware-Systeme beschrieben.
+Dabei wird zunächst auf die Kriterien für das Groupware-System eingegangen, die im Laufe der Recherche berücksichtigt wurden.
+Anschließend werden die betrachteten Groupware-Systeme vorgestellt und die Entscheidung für eines der Systeme begründet.
+Zuletzt wird die Installation des ausgewählten Groupware-Systems auf einer Cloud-Instanz beschrieben.
 
 \section{Kriterien für das Groupware-System}
 \begin{itemize}
     \item \textbf{Open Source:} 
     Das erste und wichtigste Kriterium ist, dass das Groupware-System Open Source ist.
+    Open-Source Anwendungen sind frei verfügbar und können von der Hochschule Esslingen selbst installiert und administriert werden.
+    Zudem sind Open-Source Anwendungen bezüglich auf Datenschutz oft sicherer und transparenter, da der Quellcode von jedem eingesehen und geprüft werden kann.
     Daher werden im Laufe der Recherche nur Open Source Groupware-Systeme betrachtet.
-    \item \textbf{Eigenverwaltbarkeit:}
+    \item \textbf{Eigenadministration durch die Hochschule:}
     Die Hochschule Esslingen hat ein eigenes Rechenzentrum und eine IT-Fakultät.
     Daher sollte die Software von der Hochschule Esslingen selbst installiert und administriert werden können.
     \item \textbf{Deutsche Firma:}
     Als deutsche Hochschule möchte die Hochschule Esslingen auch deutsche Firmen unterstützen.
     Deshalb ist es eine Vorgabe, dass das Groupware-System von einer deutschen Firma entwickelt wird.
-    Dies ist zwar ein wichtiges Kriterium, muss aber nicht zwingend zum Ausschluss führen.
-    \item \textbf{Automatisierbarkeit:}
-    Teile der Konfiguration des Groupware-Systems, wie beispielsweise das Hinzufügen und die Konfiguration von Nutzern, sollen automatisierbar sein.
-    Das soll das Hinzufügen und Entfernen der vielen Nutzer, die an der Hochschule Esslingen beschäftigt sind, erleichtern.
+    Eine Nichterfüllung dieses Kriteriums muss aber nicht zwingend zum Ausschluss führen.
+    \item \textbf{Automatisierung:}
+    Teile der Konfiguration des Groupware-Systems, wie beispielsweise das Hinzufügen und die Konfiguration von Nutzern, sollen automatisierbar sein beziehungsweise über Skripte gelöst werden können.
+    Das soll zum Beispiel das Hinzufügen und Entfernen der vielen Nutzer, die an der Hochschule Esslingen beschäftigt sind, erleichtern.
 \end{itemize}
 
 \newpage
@@ -34,7 +38,7 @@ Das soll eine erste Einschätzung über die Eignung der Systeme zur eigenen Verw
 
 \subsection{Kolab}
 
-Das Groupware-System Kolab wird von der Schweizer Firma Aphelia IT AG entwickelt und ist als Open-Source Produkt gratis verfügbar und bietet die folgenden Features:
+Das Groupware-System Kolab wird von der Schweizer Firma Aphelia IT AG entwickelt und ist als Open-Source Produkt gratis verfügbar. Es bietet die folgenden Features:
 \begin{itemize}
     \item E-Mail
     \item Kalender
@@ -85,8 +89,7 @@ Das System ist frei verfügbar und bietet die folgenden Features:
 \subsection{EGroupware}
 
 EGroupware ist ein Open-Source Groupware-System, welches von einer deutschen Firma entwickelt wird.
-
-Als Funktionalitäten bietet EGroupware:
+Die Firma bietet eine gratis Community Edition an, welche folgende Funktionen bietet:
 
 \begin{itemize}
     \item E-Mail
@@ -120,8 +123,7 @@ Für das Hosting der EGroupware Software wurde sowohl WSL2 (Windows-Subsystem f�
 Die reine Installation der Software verlief auf beiden Systemen auf einer Ubuntu22.04 Instanz ohne Probleme.
 Im Laufe der Konfiguration wurde jedoch klar, dass die Netzwerkkonfiguration bei bwCloud einfacher zu handhaben ist als bei WSL2.
 Daher wurde die finale Installation und Konfiguration auf einer bwCloud Instanz durchgeführt.
-Damit das Frontend der Software über das Internet erreichbar ist, muss Port 80 für HTTP Kommunikation freigegeben werden.
-Das wurde wie in Abbildung \ref{fig:bwcloud_security_group} gezeigt in einer benutzerdefinierten Sicherheitsgruppe der bwCloud Instanz realisiert.
+Damit das Frontend der Software über das Internet erreichbar ist, muss Port 80 für HTTP Kommunikation freigegeben werden, was, wie in Abbildung \ref{fig:bwcloud_security_group} gezeigt, in einer benutzerdefinierten Sicherheitsgruppe der bwCloud Instanz realisiert wurde.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{images/bwCloud_SecurityGroup.png}
