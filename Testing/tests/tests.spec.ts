@@ -36,7 +36,7 @@ test.describe('Mail', () => {
   });
 });
 
-/* test.describe('User', () => {
+test.describe('User', () => {
   test('should create a testuser', async ({ page }) => {
     await login(page, SYSOP_USER);
     await page.locator('#admin_sidebox_header').getByRole('heading', { name: 'Admin' }).click();
@@ -78,8 +78,8 @@ test.describe('Mail', () => {
     //logout(page, SYSOP_USER);
     await page.context().close();
   });
-}); */
-/* 
+});
+
 function formatDateTime(date) {
   let d = new Date(date),
       month = '' + (d.getMonth() + 1), // Months are zero-based
@@ -119,11 +119,11 @@ test.describe('Calendar', () => {
     await page.keyboard.press('Control+A');
     await page.keyboard.press('Delete');
     await page.keyboard.type(TEST_APPOINTMENT.start); // Type the date
-    await page.getByRole('row', { name: 'Start Duration' }).getByRole('cell').nth(4).click();
+    /* await page.getByRole('row', { name: 'Start Duration' }).getByRole('cell').nth(4).click(); */
     await page.getByRole('button', { name: 'Save' }).click();
     await page.context().close();
   });
-}); */
+});
 
 
 export {login, SYSOP_USER, TEST_CREATE_USER}
