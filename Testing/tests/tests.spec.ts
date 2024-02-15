@@ -2,11 +2,6 @@ import { test, expect, Page } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
   await page.goto('http://193.197.230.125/egroupware/login.php');
-  /* await page.getByPlaceholder('Username').click();
-  await page.getByPlaceholder('Username').fill(SYSOP_USER.name);
-  await page.getByPlaceholder('Password').click();
-  await page.getByPlaceholder('Password').fill(SYSOP_USER.password);
-  await page.getByRole('button', { name: 'Login' }).click(); */
 });
 
 async function login(page: Page, user) {
@@ -16,17 +11,6 @@ async function login(page: Page, user) {
   await page.getByPlaceholder('Password').fill(user.password);
   await page.getByRole('button', { name: 'Login' }).click();
 }
-
-async function logout(page: Page, user) {
-  await page.getByTitle('User, Test').locator('img').click();
-  await page.getByRole('link', { name: 'Logout' }).click();
-}
-
-const TEST_USERS = [
-  'TestUser1',
-  'TestUser2',
-  'TestUser3',
-];
 
 const SYSOP_USER = {
   login: 'sysop',
@@ -42,16 +26,19 @@ const TEST_CREATE_USER = {
   password: 'password',
 }
 
+
 test.describe('Mail', () => {
   test('should login, open mail and open the latest mail', async ({ page }) => {
+    await login(page, SYSOP_USER);
     await page.locator('#mail_sidebox_header').getByRole('heading', { name: 'Mail' }).click();
     await page.locator('[id="mail-index_nm_0\\[bodypreview\\]"]').click();
+    await page.context().close();
   });
 });
 
-test.describe('User', () => {
+/* test.describe('User', () => {
   test('should create a testuser', async ({ page }) => {
-    login(page, SYSOP_USER);
+    await login(page, SYSOP_USER);
     await page.locator('#admin_sidebox_header').getByRole('heading', { name: 'Admin' }).click();
     await page.getByText('User accounts').click();
     const page1Promise = page.waitForEvent('popup');
@@ -70,17 +57,17 @@ test.describe('User', () => {
     await page1.locator('input[name="account_passwd_2"]').click();
     await page1.locator('input[name="account_passwd_2"]').fill(TEST_CREATE_USER.password);
     await page1.getByRole('button', { name: 'save' }).click();
-    await page.waitForTimeout(1000);
-    logout(page, SYSOP_USER);
+    await page.context().close();
   });
 
   test('should login with the testuser', async ({ page }) => {
-    login(page, TEST_CREATE_USER);
-    logout(page, TEST_CREATE_USER);
+    await login(page, TEST_CREATE_USER);
+    await page.locator('#calendar_sidebox_header').getByRole('heading', { name: 'Calendar' }).click();
+    await page.context().close();
   });
 
   test('should delete the testuser', async ({ page }) => {
-    login(page, SYSOP_USER);
+    await login(page, SYSOP_USER);
     await page.locator('#admin_sidebox_header').getByRole('heading', { name: 'Admin' }).click();
     await page.getByText('User accounts').click();
     const page1Promise = page.waitForEvent('popup');
@@ -88,10 +75,11 @@ test.describe('User', () => {
     await page.press('body', 'Delete');
     const page1 = await page1Promise;
     await page1.getByRole('button', { name: 'Delete' }).click();
-    logout(page, SYSOP_USER);
+    //logout(page, SYSOP_USER);
+    await page.context().close();
   });
-});
-
+}); */
+/* 
 function formatDateTime(date) {
   let d = new Date(date),
       month = '' + (d.getMonth() + 1), // Months are zero-based
@@ -122,7 +110,7 @@ test.describe('Calendar', () => {
       duration: '1:00',
       repeat_type: 'weekly',
     }
-    login(page, SYSOP_USER);
+    await login(page, SYSOP_USER);
     await page.locator('#calendar_sidebox_header').getByRole('heading', { name: 'Calendar' }).click();
     await page.locator('#calendar-toolbar_add').getByRole('button').click();
     await page.locator('.dialogHeader > td:nth-child(2)').click();
@@ -133,7 +121,9 @@ test.describe('Calendar', () => {
     await page.keyboard.type(TEST_APPOINTMENT.start); // Type the date
     await page.getByRole('row', { name: 'Start Duration' }).getByRole('cell').nth(4).click();
     await page.getByRole('button', { name: 'Save' }).click();
+    await page.context().close();
   });
-});
+}); */
 
 
+export {login, SYSOP_USER, TEST_CREATE_USER}

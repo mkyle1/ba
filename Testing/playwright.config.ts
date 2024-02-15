@@ -35,40 +35,30 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { 
+        browserName: 'chromium',
         ...devices['Desktop Chrome'],
         viewport: {width: 1920, height: 1080},
         headless: false,
       },
     },
-
     {
       name: 'firefox',
       use: {
+        browserName: 'firefox',
         ...devices['Desktop Firefox'],
         viewport: {width: 1920, height: 1080},
         headless: false,
       },
     },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+    {
+      name: 'webkit',
+      use: {
+        browserName: 'webkit',
+        ...devices['Desktop WebKit'],
+        viewport: {width: 1920, height: 1080},
+        headless: false,
+      },
+    },
   ],
 
   /* Run your local dev server before starting the tests */
