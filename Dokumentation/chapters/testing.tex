@@ -128,3 +128,24 @@ Bei diesem Test kam es bei der Ausführung zu einem Problem, da der Nutzer in ei
 Bis der Nutzer in der Liste auftaucht, kann er sich auch nicht einloggen.
 Die Zeit, die der Nutzer benötigt, um in der Nutzerliste aufzutauchen ist nicht konstant und kann daher nicht durch eine einfache Wartezeit gelöst werden.
 Das stellt in Frage, inwiefern EGroupware für das automatisierte Erstellen von Nutzern geeignet ist und ob eine ähnliche Asynchronität auch in anderen Teilen der Anwendung auftritt.
+
+\section{Ausführen der Tests}
+
+Um möglichst viele Nutzerszenarien abzudecken, sollen die Tests aus den vorherigen Abschnitten in verschiedenen Browsern ausgeführt werden.
+Spezifisch wird jeder Test in den Browsern Chromium, Firefox und WebKit ausgeführt.
+Die Ausführung der Tests erfolgt dabei sequentiell, da beispielsweise das Erstellen und anschließende Löschen eines Nutzers bei paralleler Ausführung zu Problemen führen kann.
+Da Playwright Tests standardmäßig parallel über mehrere Prozesse gleichzeitig ausgeführt werden, muss die maximale Anzahl der Prozesse beim Ausführen der Tests auf 1 gesetzt werden. Die Tests können dann mithilfe des folgenden Konsolenbefehls ausgeführt werden:
+
+\fbox{\texttt{npx playwright test --workers=1}}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{images/PlaywrightResults.png}
+    \caption{Testergebnisse der Playwright Tests}
+    \label{fig:playwright-results}
+\end{figure}
+
+Sind alle Tests einmal gelaufen, bietet Playwright eine im Browser abrufbare Übersicht über die Ergebnisse der Tests.
+Die Übersicht zeigt, wie in Abbildung \ref{fig:playwright-results} dargestellt, für jeden Test, ob dieser erfolgreich war, wie lange er gebraucht hat und in welchem Browser er ausgeführt wurde.
+
+Schlagen Tests fehl, wird in der Übersicht zu jedem fehlgeschlagenen Test eine Fehlermeldung angezeigt, die weitere Informationen bietet, wo genau im Test der Fehler aufgetreten ist.
