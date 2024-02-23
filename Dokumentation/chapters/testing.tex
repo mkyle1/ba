@@ -36,7 +36,7 @@ So können große Teile des Codes für die Tests automatisch generiert werden un
     \label{fig:playwright-codegen}
 \end{figure}
 
-Einerseits sind Playwright und ähnliche Tools zur automatischen Codegenerierung hilfreich um schnell ohne viel Vorwissen oder Planung Tests zu erstellen, jedoch ist die Langlebigkeit und Wartbarkeit des generierten Codes fraglich, da dieser nur eine \glqq einfache Sequenz von aufgenommenen Operationen \grqq \autocite[][294]{automating-e2e-manual} ist.
+Einerseits sind Playwright und ähnliche Tools zur automatischen Codegenerierung hilfreich um schnell ohne viel Vorwissen oder Planung Tests zu erstellen, jedoch ist die Langlebigkeit und Wartbarkeit des generierten Codes fraglich, da dieser nur eine \glqq einfache Sequenz von aufgenommenen Operationen\grqq \autocite[][294]{automating-e2e-manual} ist.
 Playwright Codegen ist besonders gut für einfache Interaktionen, wie beispielsweise das Ausfüllen einfacher Formulare, wie in Abbildung \ref{fig:playwright-codegen} gezeigt, mit einfachen User-Interface-Elementen (UI-Elementen) wie Buttons, Textfeldern und Links geeignet.
 Für komplexere Interaktionen mit UI-Elementen wie beispielsweise sogenannte Datepicker, dargestellt in Abbildung \ref{fig:datepicker}, welche das Auswählen eines Datums über mehrere verschachtelte Interaktionen erfordern, ist die Aufnahme-Funktion des Tools weniger geeignet.
 In solchen Fällen müssen entweder alternative und weniger komplexe Methoden zum Auswählen des Datums gefunden werden, oder der Code muss manuell geschrieben werden.
@@ -49,7 +49,7 @@ Daher mussten Teile der Tests für das Erstellen eines Termins und das Löschen 
     \label{fig:playwright-pick-locator}
 \end{figure}
 
-Zu der Aufnahme-Funktion des Tools gibt es noch eine weitere Funktion, die ähnlich wie Inspect-Element in Browsern funktioniert und wie in Abbildung \ref{fig:playwright-pick-locator} den Selektor für ein UI-Element generiert.
+Zu der Aufnahme-Funktion des Tools gibt es noch eine weitere Funktion, die ähnlich wie Inspect-Element in Browsern funktioniert und wie in Abbildung \ref{fig:playwright-pick-locator} gezeigt den Selektor für ein UI-Element generiert.
 Diese Funktion kann dann für das Erstellen der manuellen Teile der Tests genutzt werden, um schnell Selektoren für UI-Elemente zu generieren.
 
 
@@ -71,7 +71,7 @@ Im Folgenden werden die einzelnen Tests, deren Implementierung und Deckungsberei
     \label{fig:login-test}
 \end{figure}
 
-Da alle Tests der Anwendung einen eingeloggten Nutzer benötigen, wurde zuerst ein Login-Test implementiert. Dieser erhält, wie in Abbildung \ref{fig:login-test} in der ersten Zeile zu sehen ist, ein Nutzerobjekt mit Nutzernamen und Passwort und versucht sich dann in der Anwendung einzuloggen.
+Da alle Tests der Anwendung einen eingeloggten Nutzer benötigen, wurde zuerst ein Login-Test implementiert. Dieser erhält, wie in Abbildung \ref{fig:login-test} in der ersten Zeile zu sehen ist, ein Nutzerobjekt mit Nutzernamen und Passwort und versucht sich dann damit in der Anwendung einzuloggen.
 Der Login-Test wird zu Beginn jedes anderen Tests ausgeführt, um den Nutzer anzumelden.
 Dabei wird die Verfügbarkeit der Anmeldung, die Korrektheit der Login-Daten und die Existenz des Nutzers in der Anwendung getestet.
 
