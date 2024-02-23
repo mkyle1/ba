@@ -11,21 +11,24 @@ Dabei wird auf die Gründe und Vorteile von End-to-End-Tests, sowie die Funktion
 Groupware-Systeme sind Software-Systeme, welche die Zusammenarbeit von Benutzern mit verschiedenen Tools zur gemeinsamen Kommunikation und Organisation unterstützen.
 Dabei werden üblicherweise Funktionalitäten wie Kalender, Terminplanung, E-Mails und Kontaktmanagement bereitgestellt.
 
-Im Folgenden werden anhand von Screenshots aus Microsoft Outlook-Live einige essenzielle Funktionen von Groupware-Systemen dargestellt und erklärt.
+Im Folgenden werden anhand von Screenshots aus Microsoft Outlook Live einige essenzielle Funktionen von Groupware-Systemen dargestellt und erklärt.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{images/OutlookLive_Mail1.png}
-    \caption{Outlook-Live Mail}
+    \caption{Screenshot von Microsoft Outlook Live Mail}
+    \source{https://outlook.live.com/calendar/0/view/month, abgerufen am 29.01.2024}
     \label{fig:outlook-live-mail}
 \end{figure}
-Die erste Hauptfunktion von Groupware-Systemen besteht darin, einen E-Mail-Client bereitzustellen, über den E-Mails empfangen, versendet und verwaltet werden können. Dies wird beispielhaft anhand von Outlook-Live in Abbildung \ref{fig:outlook-live-mail} dargestellt.
+Die erste Hauptfunktion von Groupware-Systemen besteht darin, einen E-Mail-Client bereitzustellen, über den E-Mails empfangen, versendet und verwaltet werden können. Dies wird beispielhaft anhand von Outlook Live in Abbildung \ref{fig:outlook-live-mail} dargestellt.
 Zudem sollten alle Funktionen eines modernen E-Mail-Clients, wie beispielsweise das Sortieren von E-Mails in Ordnern oder das Hinzufügen mehrerer E-Mail-Postfächer gleichzeitig.
 
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{images/OutlookLive_Calender1.png}
-    \caption{Outlook-Live Kalender}
+    \caption{Screenshot von Microsoft Outlook Live Kalender}
+    \source{https://outlook.live.com/mail/0/, abgerufen am 29.01.2024}
+    \date{29.01.2024}
     \label{fig:outlook-live-calender}
 \end{figure}
 
@@ -36,7 +39,8 @@ Auch das Anlegen von Regelterminen, das heißt Terminen, die in regelmäßigen Z
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.75\textwidth]{images/OutlookLive_Contacts.png}
-    \caption{Outlook-Live Kontakte}
+    \caption{Screenshot von Microsoft Outlook Live Kontakte}
+    \source{https://outlook.live.com/people/0/, abgerufen am 29.01.2024}
     \label{fig:outlook-live-contacts}
 \end{figure}
 
@@ -50,13 +54,12 @@ In Outlook-Live kann man, wie in Abbildung \ref{fig:outlook-live-contacts} gezei
 Die Open-Source-Bibliothek Playwright, die Anfang 2020 von Microsoft veröffentlicht wurde, ermöglicht die gesteuerte Automatisierung von Browsern und Webinterfaces. Dadurch ist es möglich, Webanwendungen automatisiert zu testen oder Websites abzutasten.
 Dabei bietet Playwright ein Application-Programming-Interface (API) für die Programmiersprachen JavaScript, TypeScript, Python, .NET und Java, sowie eine Vielzahl von Funktionen, die das Testen von Webanwendungen erleichtern.
 Beispielsweise kann mit Playwright-Codegen die eigene Interaktion mit einer Webanwendung aufgezeichnet und als Code exportiert werden, der dann als Test für die ausgeführte Interaktion verwendet werden kann.
-So können effizient Frontend-Tests für eine Vielzahl von Anwendungen implementiert werden.
-\autocite[Quelle:][]{playwright}
+So können effizient Frontend-Tests für eine Vielzahl von Anwendungen implementiert werden \autocite[][]{playwright}.
 
 Im Fall der Studienarbeit wurde Playwright verwendet, um automatisierte End-to-End-Tests für das final ausgewählte Groupware-System durchzuführen.
 End-to-End-Tests sind Tests, die reale Nutzerszenarien simulieren, um sicherzustellen, dass die Anwendung wie gewünscht funktioniert.
 Die Tests sind dabei so konzipiert, dass sie die Anwendung aus Sicht eines Endnutzers testen und so das korrekte Betriebsverhalten aus einer realen Umgebung sicherstellen.
-So können sie, vor allem bei Anwendungen die viele Nutzerinteraktionen erfordern, die User-Experience verbessern \autocite[vgl.][]{e2e-blog}.
+So können sie, vor allem bei Anwendungen, die viele Nutzerinteraktionen erfordern, die User-Experience verbessern \autocite[vgl.][]{e2e-blog}.
 Dafür werden Frontend-Tests implementiert, die typische Interaktionen mit der Benutzeroberfläche simulieren.
 Beispielsweise können so Formulare ausgefüllt oder Buttons angeklickt werden, womit beispielsweise ein Nutzer-Login und das anschließende Aufrufen der Mails des Nutzers simuliert werden kann.
 
@@ -65,9 +68,9 @@ Auch falls die Anwendung in Zukunft unerwartete Ausfälle generiert, können die
 Geht beispielsweise der zuvor erwähnte Test des aufrufen der Mails schief, gibt es mit hoher Wahrscheinlichkeit ein Problem mit der Verbindung zum Mail Server.
 
 Zudem können solche Tests in Playwright in verschiedenen Browsern (Chromium, Firefox, WebKit) ausgeführt werden, wodurch die Funktionalität der Anwendung auch auf verschiedenen Browsern sichergestellt und kontinuierlich getestet werden kann.
-Da die Groupware von einer Vielzahl von Systemen zugänglich sein soll, ist diese Funktion ein essenzieller Bestandteil der Testanforderungen.
+Da die Groupware von einer Vielzahl an Systemen zugänglich sein soll, ist diese Funktion ein essenzieller Bestandteil der Testanforderungen.
 
-
+% Word korrigiert
 
 
 

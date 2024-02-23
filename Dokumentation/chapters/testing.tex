@@ -11,7 +11,7 @@ In diesem Kapitel wird dabei das Aufsetzen der Playwright Testumgebung und die I
 Für das Entwickeln der Tests wird die Entwicklungsumgebung Visual Studio Code verwendet da es durch die Erweiterung \glqq Playwright Test for VSCode \grqq von Microsoft eine sehr gute Integration der Playwright API bietet.
 Mit dieser Erweiterung kann auch die vollständige Installation von Playwright in dem aktuellen Projektordner direkt in der Entwicklungsumgebung durchgeführt werden.
 Dabei können die gewünschten Browser Chromium, Firefox und WebKit ausgewählt und zum Testen installiert werden.
-Bei der Installation wird ein Beispieltest erstellt welcher als Vorlage für weitere Tests genutzt werden kann.
+Bei der Installation wird ein Beispieltest erstellt, welcher als Vorlage für weitere Tests genutzt werden kann.
 
 \begin{figure}[H]
     \centering
@@ -79,12 +79,12 @@ Dabei wird die Verfügbarkeit der Anmeldung, die Korrektheit der Login-Daten und
 
 Bei diesem Test wird die E-Mail-Funktion der Anwendung getestet.
 Der Test versucht sich als der Administrator, dessen Account einen E-Mail-Account über IMAP bekommen hat, einzuloggen und ruft dann die erste E-Mail in der E-Mail-Liste auf.
-Dabei wird die Verbindung der Groupware zum IMAP Server getestet.
+Dabei wird die Verbindung der Groupware zum IMAP-Server getestet.
 
 \subsection*{Erstellen eines Termins}
 
 Beim Test zum Erstellen eines Termins wird sich als Administrator eingeloggt und dann ein Termin erstellt.
-Die Daten für diesen Termin sind ähnlich wie die Daten für den Login mit dem Administrator Account in einem Objekt gespeichert und können so einfach in den Test eingefügt werden.
+Die Daten für diesen Termin sind ähnlich wie die Daten für den Login mit dem Administrator-Account in einem Objekt gespeichert und können so einfach in den Test eingefügt werden.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{images/AppointmentObject.png}
@@ -96,7 +96,7 @@ Dafür wird mithilfe des Zeitstempels der Funktion Date.now() ein Datum erstellt
 So kann jederzeit ein Termin erstellt werden, welcher 30 Minuten nach der Ausführung des Tests stattfindet.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/Datepicker.png}
+    \includegraphics[width=0.55\textwidth]{images/Datepicker.png}
     \caption{Datepicker UI-Element in EGroupware}
     \label{fig:datepicker}
 \end{figure}
@@ -111,7 +111,7 @@ Anschließend kann der generierte Datum-String eingefügt und der Termin erstell
 \newpage
 \subsection*{Erstellen und Löschen eines neuen Nutzers}
 
-Der letzte Test der in dieser Studienarbeit implementiert wurde, ist eine Serie aus Tests, die gemeinsam die Funktionalität des Nutzermanagements abdecken sollen.
+Der letzte Test, der in dieser Studienarbeit implementiert wurde, ist eine Serie aus Tests, die gemeinsam die Funktionalität des Nutzermanagements abdecken sollen.
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{images/Exampleuser.png}
@@ -121,7 +121,7 @@ Der letzte Test der in dieser Studienarbeit implementiert wurde, ist eine Serie 
 Zunächst wird mit dem Administrator-Account ein neuer Nutzer erstellt, dessen Nutzerdaten in einem statischen Objekt gespeichert sind.
 Ist das Erstellen des Nutzers erfolgreich, startet ein weiterer Test, der sich mit den Zugangsdaten des neuen Nutzers versucht einzuloggen.
 So wird sichergestellt, dass der Nutzer erfolgreich erstellt wurde und nicht nur in der lokalen Instanz des Administrators existiert.
-Ist das Einloggen mit dem Testnutzer erfolgreich, wird ein weiterer Test gestartet, der den Nutzer mit dem Administrator Account wieder löscht.
+Ist das Einloggen mit dem Testnutzer erfolgreich, wird ein weiterer Test gestartet, der den Nutzer mit dem Administrator-Account wieder löscht.
 So kann der Test beliebig oft die gleichen Nutzerdaten zur Ausführung nutzen, ohne dass es zu Problemen mit bereits existierenden Nutzern kommt.
 
 Bei diesem Test kam es bei der Ausführung zu einem Problem, da der Nutzer in einigen Fällen nicht sofort nach dem Erstellen in der Nutzerliste für Administratoren auftaucht.
@@ -134,13 +134,13 @@ Das stellt in Frage, inwiefern EGroupware für das automatisierte Erstellen von 
 Um möglichst viele Nutzerszenarien abzudecken, sollen die Tests aus den vorherigen Abschnitten in verschiedenen Browsern ausgeführt werden.
 Spezifisch wird jeder Test in den Browsern Chromium, Firefox und WebKit ausgeführt.
 Die Ausführung der Tests erfolgt dabei sequentiell, da beispielsweise das Erstellen und anschließende Löschen eines Nutzers bei paralleler Ausführung zu Problemen führen kann.
-Da Playwright Tests standardmäßig parallel über mehrere Prozesse gleichzeitig ausgeführt werden, muss die maximale Anzahl der Prozesse beim Ausführen der Tests auf 1 gesetzt werden. Die Tests können dann mithilfe des folgenden Konsolenbefehls ausgeführt werden:
+Da Playwright-Tests standardmäßig parallel über mehrere Prozesse gleichzeitig ausgeführt werden, muss die maximale Anzahl der Prozesse beim Ausführen der Tests auf 1 gesetzt werden. Die Tests können dann mithilfe des folgenden Konsolenbefehls ausgeführt werden:
 
 \fbox{\texttt{npx playwright test --workers=1}}
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{images/PlaywrightResults.png}
+    \includegraphics[width=0.7\textwidth]{images/PlaywrightResults.png}
     \caption{Testergebnisse der Playwright-Tests}
     \label{fig:playwright-results}
 \end{figure}
@@ -151,3 +151,5 @@ Schlagen Tests fehl, wird in der Übersicht zu jedem fehlgeschlagenen Test eine 
 
 Bei der Ausführung der Tests auf verschiedenen Browsern konnten keine konstanten spezifischen Probleme auf einem der Browser festgestellt werden.
 Daher ist davon auszugehen, dass die Anwendung in allen gängigen Browsern gleich gut funktioniert.
+
+% Word korrigiert

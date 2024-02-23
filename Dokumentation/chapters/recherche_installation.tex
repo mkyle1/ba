@@ -2,7 +2,7 @@
 
 \chapter{Recherche und Installation des Groupware-Systems}
 
-In diesem Kapitel wird der Prozess und die Ergebnisse der Recherche mehrerer Groupware-Systeme und die anschließende Installation eines der Groupware-Systeme beschrieben.
+In diesem Kapitel werden der Prozess und die Ergebnisse der Recherche mehrerer Open-Source-Groupware-Systeme und die anschließende Installation eines der Systeme beschrieben.
 Dabei wird zunächst auf die Kriterien für das Groupware-System eingegangen, die im Laufe der Recherche berücksichtigt wurden.
 Anschließend werden die betrachteten Groupware-Systeme vorgestellt und die Entscheidung für eines der Systeme begründet.
 Zuletzt wird die Installation und Konfiguration des ausgewählten Groupware-Systems auf einer Cloud-Instanz beschrieben.
@@ -17,13 +17,12 @@ Zuletzt wird die Installation und Konfiguration des ausgewählten Groupware-Syst
     \item \textbf{Eigenadministration durch die Hochschule:}
     Die Hochschule Esslingen hat ein eigenes Rechenzentrum und eine IT-Fakultät.
     Daher sollte die Software von der Hochschule Esslingen selbst installiert und administriert werden können.
-    \item \textbf{Deutsche Firma:}
-    Als deutsche Hochschule möchte die Hochschule Esslingen auch deutsche Firmen unterstützen.
-    Deshalb ist es eine Vorgabe, dass das Groupware-System von einer deutschen Firma entwickelt wird.
-    Eine Nichterfüllung dieses Kriteriums muss aber nicht zwingend zum Ausschluss führen.
     \item \textbf{Automatisierung:}
     Teile der Konfiguration des Groupware-Systems, wie beispielsweise das Hinzufügen und die Konfiguration von Nutzern, sollen automatisierbar sein, beziehungsweise über Skripte gelöst werden können.
     Das soll zum Beispiel das Hinzufügen und Entfernen der vielen Nutzer, die an der Hochschule Esslingen beschäftigt sind, erleichtern.
+    \item \textbf{Deutsche Firma:}
+    Als deutsche Hochschule möchte die Hochschule Esslingen auch deutsche Firmen unterstützen, weshalb die Groupware, wenn möglich, von einer deutschen Firma entwickelt sein soll.
+    Eine Nichterfüllung dieses Kriteriums muss aber nicht zwingend zum Ausschluss führen, es wird eher als Bonus-Kriterium angesehen.
 \end{itemize}
 
 \newpage
@@ -48,13 +47,13 @@ Das Groupware-System Kolab wird von der Schweizer Firma Aphelia IT AG entwickelt
     \item Notizen
     \item Sprach- und Videoanrufe
 \end{itemize}
-\autocite[Quelle:][]{kolab}
+\autocite[][]{kolab}
 
 Kolab wird von der Firma Nestlé und der Universität Tübingen verwendet und ist daher vermutlich auch für größere Organisationen geeignet.
 
 \subsection{Horde}
 
-Horde wird von einem gleichnamigen amerikanischen Unternehmen entwickelt und ist wie die anderen Systeme Open-Source und gratis verfügbar. Es bietet dabei die folgenden Funktionalitäten:
+Horde wird von einem gleichnamigen amerikanischen Unternehmen, Horde LLC, entwickelt und ist wie die anderen Systeme Open-Source und gratis verfügbar. Es bietet dabei die folgenden Funktionalitäten:
 \begin{itemize}
     \item E-Mail
     \item Kalender
@@ -65,13 +64,14 @@ Horde wird von einem gleichnamigen amerikanischen Unternehmen entwickelt und ist
     \item Dokumentenmanagement
     
 \end{itemize}
-\autocite[Quelle:][]{horde}
+\autocite[][]{horde}
 
-Horde wird schon von einigen anderen Universitäten und Hochschulen, wie beispielsweise der Universität Tübingen und Universität Paderborn, verwendet.
+Horde wird schon von einigen anderen Universitäten und Hochschulen, wie beispielsweise der Universität Tübingen und Universität Paderborn als Webmail-Software, verwendet.
 
 \subsection{Sogo}
 
 Sogo ist ein Open-Source-Groupware-System, welches von der französischen Firma Alinto entwickelt wird.
+Es nutzt die Microsoft Exchange ActiveSync Technologie und kann daher auch in bestehenden Groupware-Systemen wie Microsoft Outlook oder Apple Kalender integriert werden.
 Das System ist frei verfügbar und bietet die folgenden Features:
 
 \begin{itemize}
@@ -82,9 +82,9 @@ Das System ist frei verfügbar und bietet die folgenden Features:
     \item 2-Faktor-Authentifizierung
     \item Raum Reservationen
 \end{itemize}
-\autocite[Quelle:][]{sogo}
+\autocite[][]{sogo}
 
-Ähnlich wie Horde wird auch Sogo von einigen Universitäten und Hochschulen verwendet, wie beispielsweise der Universität Koblenz und der Universität Ulm.
+Sogo wird von den untersuchten Groupware-Systemen von den meisten Universitäten und Hochschulen verwendet, wie beispielsweise der Universität Koblenz und der Universität Ulm.
 
 \subsection{EGroupware}
 
@@ -108,7 +108,7 @@ Auch EGroupware wird von einigen Hochschulen genutzt, jedoch von deutlich wenige
 
 Bei der Recherche der verschiedenen Groupware-Systeme wurde klar, dass alle der untersuchten Systeme die grundlegenden gewünschten Funktionalitäten bieten und daher grundsätzlich alle für die Hochschule Esslingen geeignet sind.
 Durch diesen Umstand konnte die Entscheidung nicht rein aufgrund der Funktionalitäten der Systeme getroffen werden, da sich keines der Systeme in diesem Punkt stark von den anderen abhebt.
-Somit fiel final die Entscheidung auf EGroupware, da es von einer deutschen Firma entwickelt wird und umfangreiche Funktionen bietet, die für die Hochschule Esslingen relevant sein könnten.
+Somit wurde final die Entscheidung basierend auf dem Bonus-Kriterium, dass das System von einer deutschen Firma entwickelt wird, getroffen.
 
 
 
@@ -117,12 +117,12 @@ Somit fiel final die Entscheidung auf EGroupware, da es von einer deutschen Firm
 
 Für die Installation der EGroupware-Software stellt die EGroupware GmbH eine Installationsanleitung zu Verfügung.
 Darin wird auf einer Linux Instanz zunächst ein Docker Repository von EGroupware hinzugefügt und anschließend die EGroupware-Software in Form von 5 Docker Containern installiert und gestartet.
-Alle dafür benötigten Konsolenbefehle waren in der Installationsanleitung angegeben. \autocite{egroupware-installation}
+Alle dafür benötigten Konsolenbefehle waren in der Installationsanleitung angegeben \autocite[]{egroupware-installation}.
 
 Für das Hosting der EGroupware-Software wurden sowohl WSL2 (Windows-Subsystem für Linux) als auch eine bwCloud-Instanz getestet.
 Die reine Installation der Software verlief auf beiden Systemen auf einer Ubuntu 22.04 Instanz ohne Probleme.
 Im Laufe der Konfiguration wurde jedoch klar, dass die Netzwerkkonfiguration bei bwCloud einfacher zu handhaben ist als bei WSL2.
-Daher wurde die finale Installation und Konfiguration nur auf einer bwCloud-Instanz durchgeführt.
+Daher wurden die finale Installation und Konfiguration nur auf einer bwCloud-Instanz durchgeführt.
 Damit das Frontend der Software über das Internet erreichbar ist, muss Port 80 für HTTP Kommunikation freigegeben werden, was, wie in Abbildung \ref{fig:bwcloud_security_group} gezeigt, in einer benutzerdefinierten Sicherheitsgruppe der bwCloud-Instanz realisiert wurde.
 \begin{figure}[H]
     \centering
@@ -139,3 +139,5 @@ Für den ersten Zugriff auf die tatsächliche Software, beispielsweise für das 
 Das Frontend der Groupware ist dann über die folgende URL erreichbar:
 
 \fbox{\texttt{http://host-or-ip/egroupware/login.php/}}
+
+% Word korrigiert
