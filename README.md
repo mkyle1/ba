@@ -1,4 +1,4 @@
-#Interaktive Visualisierung von Software-Requirements mit Augmented Reality: Eine Analyse der Usability und Effektivität
+# Interaktive Visualisierung von Software-Requirements mit Augmented Reality: Eine Analyse der Usability und Effektivität
 
 ## Bachelorarbeit von Kyle Mezger
 
