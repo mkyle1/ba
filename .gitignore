@@ -10,3 +10,4 @@
 *.bbl
 *.blg
 *.fdb_latexmk
+node_modules

@@ -1,47 +1,60 @@
-window.addEventListener('DOMContentLoaded', () => {
-    // Get the canvas element
-    const canvas = document.getElementById('renderCanvas');
+var canvas = document.getElementById("renderCanvas");
 
-    // Generate the BABYLON 3D engine
-    const engine = new BABYLON.Engine(canvas, true);
+var startRenderLoop = function (engine, canvas) {
+    engine.runRenderLoop(function () {
+        if (sceneToRender && sceneToRender.activeCamera) {
+            sceneToRender.render();
+        }
+    });
+}
 
-    // Create the scene
-    const createScene = () => {
-        // Create a basic BJS Scene object
-        const scene = new BABYLON.Scene(engine);
+var engine = null;
+var scene = null;
+var sceneToRender = null;
+var createDefaultEngine = function() { return new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true,  disableWebGL2Support: false}); };
+var createScene = async function () {
 
-        // Create a FreeCamera, and set its position to (x:0, y:5, z:-10)
-        const camera = new BABYLON.FreeCamera('camera1', new BABYLON.Vector3(0, 5, -10), scene);
+    var scene = new BABYLON.Scene(engine);
+    var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+    camera.setTarget(BABYLON.Vector3.Zero());
+    camera.attachControl(canvas, true);
+    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+    light.intensity = 0.7;
+    var sphere = BABYLON.Mesh.CreateBox("box1", 2, scene);
+    sphere.position.y = 2;
+    sphere.position.z = 1;
 
-        // Target the camera to scene origin
-        camera.setTarget(BABYLON.Vector3.Zero());
-
-        // Attach the camera to the canvas
-        camera.attachControl(canvas, false);
-
-        // Create a basic light, aiming 0, 1, 0 - meaning, to the sky
-        const light = new BABYLON.HemisphericLight('light1', new BABYLON.Vector3(0, 1, 0), scene);
-
-        // Create a built-in "sphere" shape; its constructor takes 6 params: name, segment, diameter, scene, updatable, sideOrientation
-        const sphere = BABYLON.MeshBuilder.CreateSphere('sphere1', {segments: 16, diameter: 2}, scene);
-
-        // Move the sphere upward 1/2 of its height
-        sphere.position.y = 1;
-
-        // Create a built-in "ground" shape
-        const ground = BABYLON.MeshBuilder.CreateGround('ground1', {width: 6, height: 6}, scene);
-
-        return scene;
-    };
-
-    const scene = createScene();
-
-    engine.runRenderLoop(() => {
-        scene.render();
+    const xr = await scene.createDefaultXRExperienceAsync({
+        uiOptions: {
+            sessionMode: 'immersive-ar'
+        }
     });
 
-    // Resize the engine on window resize
-    window.addEventListener('resize', () => {
-        engine.resize();
-    });
+    return scene;
+};
+window.initFunction = async function() {
+    
+    
+    
+    var asyncEngineCreation = async function() {
+        try {
+        return createDefaultEngine();
+        } catch(e) {
+        console.log("the available createEngine function failed. Creating the default engine instead");
+        return createDefaultEngine();
+        }
+    }
+
+    window.engine = await asyncEngineCreation();
+    if (!engine) throw 'engine should not be null.';
+    startRenderLoop(engine, canvas);
+    window.scene = createScene();
+};
+initFunction().then(() => {scene.then(returnedScene => { sceneToRender = returnedScene; });
+                    
+});
+
+// Resize
+window.addEventListener("resize", function () {
+    engine.resize();
 });
