@@ -30,13 +30,18 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
     \end{itemize}
     \autocite[][S. 19]{Rupp2014}
 
+    
+    Natürlichsprachliche Anforderungen können sehr einfach selbst formuliert werden, sind dadurch jedoch auch anfällig für Missverständnisse und Unklarheiten.
+    Das Ziel von reQlab ist es, diese Missverständnisse und Unklarheiten zu erkennen und so die Qualität der Anforderungen zu verbessern.
+    Daher werden im Unfamg dieser Bachelorarbeit nur natürlichsprachliche Anforderungen genutzt.
+
     Zudem werden Requirements in funktionale und nicht-funktionale Requirements unterteilt.
     Funktionale Requirements beschreiben \glqq{}die Funktionen, die das System leisten soll, die Informationen die es verarbeiten soll; das gewünschte Verhalten, welches das System an den Tag legen soll.\grqq{} \autocite[][S. 12]{Hruschka2023}
     Nicht-funktionale Requirements hingegen beschreiben alle Requirements, die nicht funktionaler Natur sind, also beispielsweise Performance, Sicherheit oder Zuverlässigkeit.
     Peter Hruschka beschreibt in seinem Buch Funktionale Anforderungen mit der Frage: \glqq{}Was soll das System/Produkt tun?\grqq{}.
-    Zudem unterteilt er nicht-funktionale Anforderungen in die zwei Kategorien Qualitätsanforderungen (\glqq{}Wie gut? Wie schnell? Wie zuverlässig? ...\grqq{}) und Randbedingungen (\glqq{}Ressourcen, Wiederverwendung, Zukauf, geforderte Technologie ...\grqq{}) \grqq{} \autocite[][S. 13]{Hruschka2023}
-    Im Umfang dieser Bachelorarbeit werden jedoch nur natürlichsprachliche Anforderungen genutzt, da diese am weitesten verbreitet sind und die Anforderungen in reQlab ebenfalls in natürlicher Sprache verfasst sind.
-
+    Auch unterteilt er nicht-funktionale Anforderungen in die zwei Kategorien Qualitätsanforderungen (\glqq{}Wie gut? Wie schnell? Wie zuverlässig? ...\grqq{}) und Randbedingungen (\glqq{}Ressourcen, Wiederverwendung, Zukauf, geforderte Technologie ...\grqq{}) \grqq{} \autocite[][S. 13]{Hruschka2023}.
+    Diese Unterteilung ist hilfreich zur Strukturierung der Anforderungen und könnte im User-Interface der Visualisierung genutzt werden, um die Anforderungen zu kategorisieren.
+    
     \titleemph{Stakeholder}
 
     Stakeholder können \glqq{}Personen oder Organisationen sein, die die Anforderungen eines Systems beeinflussen oder die von dem System beeinflusst werden.\grqq{} \autocite[][]{ireb_cpre_glossary}.
@@ -44,13 +49,13 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
     Sie haben also ein Bedürfnis an das System, können dieses jedoch nicht selbst umsetzen.
     Im Gegensatz dazu stehen die Auftraggeber beziehungsweise der Produkteigner (Product Owner), welche das System entwickeln und die Anforderungen festlegen.
 
-    Je nach der größe und Komplexität des Systems kann es sehr viele Anforderungen geben.
+    Je nach der Größe und Komplexität des Systems kann es sehr viele Anforderungen geben.
     Durch die Menge an Anforderungen kann so schnell die Übersicht über das System und dessen Requirements verloren gehen, vor allem für Stakeholder, die nicht tagtäglich mit dem System arbeiten.
 
     \titleemph{System}
 
     Die IREB definiert ein System als \glqq{}Eine kohärente, abgrenzbare Menge von Elementen, die durch koordiniertes Handeln einen bestimmten Zweck erfüllen.\grqq{} \autocite[][]{ireb_cpre_glossary}
-    System ist dabei ein Überbegriff für Produkte, Services, Geräte, Prozeduren und Werkzeuge und kann sowohl physisch als auch virtuell sein.
+    Das Wort System ist dabei ein Überbegriff für Produkte, Services, Geräte, Prozeduren und Werkzeuge und kann sowohl physisch als auch virtuell sein.
 
     \titleemph{Requirements Engineering}
 
@@ -66,12 +71,68 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
 
   \section{reQlab}
 
+  Die Software reQlab ist ein Requirements-Engineering-Tool, welches von der IT-Designers GmbH entwickelt wurde.
+  Es dient dazu, Requirements zu verwalten und zu bewerten.
+  Dafür nutzt die Software ein Large-Language-Model, welches natürlichsprachliche Anforderungen analysiert und bewertet.
+  Dafür werden in reQlab alle Anforderungen als natürlichsprachliche Anforderungen verfasst.
+  Die Software analysiert diese Anforderungen und gibt eine Bewertung aus, ob die Anforderung gut oder schlecht ist und gibt Verbesserungsvorschläge.
+  Das Ziel von reQlab ist es, die Qualität der Anforderungen zu verbessern und so die Qualität des gesamten Systems zu steigern.
+
+
+  \section{Virtuelle Realität}
+  Für das Verständnis von Augmented Reality ist es wichtig, die Begriffe der virtuellen Realität zu kennen und zu verstehen.
+  Dabei wird der Nutzer in eine virtuelle Welt versetzt, die durch Computer generiert wird.
+  In virtueller Realität ist die gesamte Umgebung digital und der Nutzer kann sich in dieser Welt bewegen und interagieren.
+  \autocite[vgl.][S.14]{Dalton2023}
+
   \section{Augmented Reality}
+  Augmented Reality (AR) ist eine Technologie, die die reale Welt mit digitalen Informationen erweitert.
+  Dabei wird ein ähnlicher Ansatz wie bei Virtueller Realität verfolgt, jedoch wird die reale Welt nicht komplett ersetzt, sondern nur erweitert.
+  Der Nutzer sieht also weiterhin seine reale Umgebung, diese wird aber durch digitale Informationen ergänzt.
+  Auf dem Realitäts-Virtualitäts-Kontinuum von Milgram liegt Augmented Reality zwischen der realen Welt und der virtuellen Welt \autocite[vgl.][S.9]{milgram1999}.
+  Daher fällt Augmented Reality unter den Überbegriff der Mixed Reality, da die reale Welt mit der digitalen Welt gemischt wird.
+  Für diese Erweiterung der Realität müssen die Anzeigegeräte auch Informationen über die echte Umgebung sammeln können.
+  Will man beispielsweise virtuelle Objekte in die reale Welt einfügen, so muss das Anzeigegerät die eigene Position kontinuierlich bestimmen können und die Position und Rotation des virtuellen Objekts anhand der Bewegungen des Nutzers anpassen.
 
     \subsection{Anzeigegeräte für Augmented Reality}
 
+    Anzeigegeräte für Augmented Reality haben viele Gemeinsamkeiten mit Anzeigegeräten für Virtuelle Realität.
+    Die Besonderheit von AR-Anzeigegeräten ist jedoch, dass sie die reale Welt mit digitalen Informationen erweitern.
+    Das heißt sie müssen dem Nutzer auch eine Sicht auf die reale Welt ermöglichen und in diese Informationen einblenden.
+    Beispielsweise kann das Display eines Anzeigegeräts transparent sein, sodass der Nutzer durch das Display hindurch sehen kann, oder das Gerät kann eine Kamera haben, dessen Aufnahme auf undurchsichtige Bildschirme projiziert wird.
+    Dafür gibt es verschiedene Arten von Anzeigegeräten, die für Augmented Reality genutzt werden können.
+
     \subsubsection{Head-Mounted Displays}
+
+    Head-Mounted Displays (HMDs) sind Bildschirme, die auf dem Kopf getragen werden und üblicherweise 2 Bildschirme hinter 2 Linsen haben.
+    Sie ermöglichen es das volle Sichtfeld des Nutzers abzudecken und so eine immersive Erfahrung zu schaffen.
+    Die neusten HMDs, beispielsweise die Oculus Quest 3, sind standalone Geräte, die mit einem Akku betrieben werden und ihre eigene Rechenleistung haben.
+    Dadurch sind sie unabhängig von einem Computer und können überall genutzt werden.
+
+    Da HMDs das volle Sichtfeld des Nutzers abdecken und in der Regel keine durchsichten Displays haben, müssen sie für Augmented Reality über eine Kamera verfügen, die die reale Welt aufnimmt und auf dem Display anzeigt.
+    Nur so kann der Schritt von VR zu AR gemacht werden.
+
+    Der Nachteil von HMDs ist, dass sie noch immer relativ groß und schwer sind und unangenehm zu tragen sein können.
+    Zudem sind sie sehr auffällig und können so in der Öffentlichkeit unangenehm zu tragen sein.
 
     \subsubsection{Smartphones}
 
-    \subsubsection{AR-Brillen}
+    Heutzutage können fast alle Smartphones für AR genutzt werden.
+    Dafür nutzen sie die Kamera des Smartphones, um die reale Welt aufzunehmen und digitale Informationen einzublenden.
+    Das Smartphone ist dabei wie ein Fenster in die digitale Welt, durch das der Nutzer die erweiterte Realität sehen kann.
+
+    Die Immersion ist bei diesem Anzeigegerät jedoch am geringsten, da der Nutzer weiterhin immer die reale Welt sieht und das Smartphone nur ein kleines Fenster in die digitale Welt ist.
+    Jedoch ist die Nutzung von Smartphones für AR sehr weit verbreitet, da fast jeder ein Smartphone besitzt und so keine zusätzliche Hardware benötigt wird.
+
+    Auch können Smartphones als Displays für HMDs genutzt werden, um so die Rechenleistung des Smartphones zu nutzen und die Immersion zu steigern.
+    Dabei ist jedoch meist die Kamera des Smartphones nicht nutzbar, wodurch eigentlich nur VR möglich ist.
+    Zudem ist die Pixeldichte von Smartphones meist geringer als bei speziellen AR-Anzeigegeräten, was die Immersion und Nutzererfahrung verschlechtern kann.
+
+    \subsubsection{Smart-Glasses}
+
+    Smart-Glasses sind Brillen, die digitale Informationen in das Sichtfeld des Nutzers einblenden.
+    Sie stellen Informationen auf einer semitransparenten Fläche dar, sodass der Nutzer weiterhin die reale Welt sehen kann.
+
+    Da sie fast aussehen wie normale Brillen die unauffälligste Art von AR-Anzeigegeräten.
+    Dadurch sind sie auch in der Öffentlichkeit unauffällig zu tragen und können so potentiell auch im Alltag genutzt werden.
+    Zudem sind sie, vor allem über einen längeren Zeitraum, meist deutlich leichter und angenehmer zu tragen als HMDs.
