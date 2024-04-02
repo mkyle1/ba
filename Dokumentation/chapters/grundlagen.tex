@@ -56,6 +56,7 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
 
     Die IREB definiert ein System als \glqq{}Eine kohärente, abgrenzbare Menge von Elementen, die durch koordiniertes Handeln einen bestimmten Zweck erfüllen.\grqq{} \autocite[][]{ireb_cpre_glossary}
     Das Wort System ist dabei ein Überbegriff für Produkte, Services, Geräte, Prozeduren und Werkzeuge und kann sowohl physisch als auch virtuell sein.
+    Daher wird auch in dieser Bachelorarbeit das Wort System als Überbegriff für alle Arten von Systemen genutzt.
 
     \titleemph{Requirements Engineering}
 
@@ -69,70 +70,120 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
     \end{itemize}
     \autocite[][S.20]{Rupp2014}
 
+    Diese Bachelorarbeit soll versuchen einen neuen Ansatz in der Vermittlung von Anforderungen zu finden, um so langfristig die Qualität und Nützlichkeit der Anforderungen zu verbessern.
+    Zudem soll die Visualisierung der Anforderungen helfen, bei großen Projekten die eine sehr große Zahl an Anforderungen besitzen, eine Übersicht über die Anforderungen zu erhalten und so eventuell eine bessere Kommunikation zwischen Stakeholdern und Entwicklern zu ermöglichen.
+
   \section{reQlab}
 
-  Die Software reQlab ist ein Requirements-Engineering-Tool, welches von der IT-Designers GmbH entwickelt wurde.
-  Es dient dazu, Requirements zu verwalten und zu bewerten.
-  Dafür nutzt die Software ein Large-Language-Model, welches natürlichsprachliche Anforderungen analysiert und bewertet.
-  Dafür werden in reQlab alle Anforderungen als natürlichsprachliche Anforderungen verfasst.
-  Die Software analysiert diese Anforderungen und gibt eine Bewertung aus, ob die Anforderung gut oder schlecht ist und gibt Verbesserungsvorschläge.
+  Die Software reQlab ist ein Requirements-Engineering-Tool, welches von der IT-Designers GmbH entwickelt wird.
+  Es dient dazu, Requirements automatisiert zu analysieren und zu bewerten.
+  Dafür nutzt die Software ein Large-Language-Model (LLM), welches natürlichsprachliche Anforderungen analysiert und bewertet.
+  Daher werden in reQlab alle Anforderungen als natürlichsprachliche Anforderungen verfasst um dann vom LLM verarbeitet werden zu können.
+  Die Software analysiert diese Anforderungen und gibt eine begründete Bewertung aus, ob die Anforderung gut oder schlecht ist und gibt Verbesserungsvorschläge.
   Das Ziel von reQlab ist es, die Qualität der Anforderungen zu verbessern und so die Qualität des gesamten Systems zu steigern.
 
 
   \section{Virtuelle Realität}
   Für das Verständnis von Augmented Reality ist es wichtig, die Begriffe der virtuellen Realität zu kennen und zu verstehen.
   Dabei wird der Nutzer in eine virtuelle Welt versetzt, die durch Computer generiert wird.
-  In virtueller Realität ist die gesamte Umgebung digital und der Nutzer kann sich in dieser Welt bewegen und interagieren.
-  \autocite[vgl.][S.14]{Dalton2023}
+  In virtueller Realität ist, im Gegensatz zu Augmented Reality die gesamte Umgebung digital.
+  \autocite[vgl.][S.15]{Dalton2023}
+  Zusätzlich wird unterschieden zwischen immersiver und nicht-immersiver virtueller Realität.
+  Folgende auf den Nutzer bezogene Eigenschaften sind dabei Indikatoren für nicht-immersive virtuelle Realität:
+  \begin{itemize}
+    \item Der Nutzer steht nicht im Mittelpunkt.
+    \item Der Nutzer ist nicht vollständig von digitalen Inhalten umgeben.
+    \item Der Nutzer erfährt die virtuelle Realität als Beobachter anstatt als Teilnehmer.
+  \end{itemize}
+  Bei immersiver virtueller Realität sind alle äußeren Einflüsse so weit reduziert wie möglich und alle Indikatoren sollten auf immersive virtuelle Realität hinweisen.
+  Der Nutzer sollte bei immersiver VR das Gefühl haben, sich selbst in der virtuellen Umgebung zu befinden.
+  \autocite[vgl.][S.23-24]{Wolfel2023}
 
   \section{Augmented Reality}
   Augmented Reality (AR) ist eine Technologie, die die reale Welt mit digitalen Informationen erweitert.
   Dabei wird ein ähnlicher Ansatz wie bei Virtueller Realität verfolgt, jedoch wird die reale Welt nicht komplett ersetzt, sondern nur erweitert.
   Der Nutzer sieht also weiterhin seine reale Umgebung, diese wird aber durch digitale Informationen ergänzt.
-  Auf dem Realitäts-Virtualitäts-Kontinuum von Milgram liegt Augmented Reality zwischen der realen Welt und der virtuellen Welt \autocite[vgl.][S.9]{milgram1999}.
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/RV-Continuum.png}
+    \caption{Realitäts-Virtualitäts-Kontinuum nach Milgram}
+    \label{fig:rv-continuum}
+\end{figure}
+  Auf dem Realitäts-Virtualitäts-Kontinuum von Milgram, welches, wie in Abbildung \ref{fig:rv-continuum} dargestellt, einen fließenden Übergang zwischen Realität und Virtualität beschreibt, liegt Augmented Reality zwischen der realen Welt und der virtuellen Welt \autocite[vgl.][S.9]{milgram1999}.
   Daher fällt Augmented Reality unter den Überbegriff der Mixed Reality, da die reale Welt mit der digitalen Welt gemischt wird.
   Für diese Erweiterung der Realität müssen die Anzeigegeräte auch Informationen über die echte Umgebung sammeln können.
   Will man beispielsweise virtuelle Objekte in die reale Welt einfügen, so muss das Anzeigegerät die eigene Position kontinuierlich bestimmen können und die Position und Rotation des virtuellen Objekts anhand der Bewegungen des Nutzers anpassen.
 
-    \subsection{Anzeigegeräte für Augmented Reality}
+  Anzeigegeräte für Augmented Reality haben viele Gemeinsamkeiten mit Anzeigegeräten für Virtuelle Realität.
+  Die Besonderheit von AR-Anzeigegeräten ist jedoch, dass sie die reale Welt mit digitalen Informationen erweitern.
+  Das heißt sie müssen dem Nutzer auch eine Sicht auf die reale Welt ermöglichen und in diese Informationen einblenden.
+  Beispielsweise kann das Display eines Anzeigegeräts transparent sein, sodass der Nutzer durch das Display hindurch sehen kann, oder das Gerät kann eine Kamera haben, dessen Aufnahme auf undurchsichtige Bildschirme projiziert wird.
+  Dafür gibt es verschiedene Arten von Anzeigegeräten, die für Augmented Reality genutzt werden können, wobei man allgemein zwischen 3 Haputkategorien unterscheiden kann: Head-Mounted Displays, Hand-Held-Devices und Spatial Displays \autocite[][S. 346]{Carmigniani2011}.
+  Im Folgenden werden einige dieser Anzeigegeräte erklärt und ihre Use-Cases erläutert.
 
-    Anzeigegeräte für Augmented Reality haben viele Gemeinsamkeiten mit Anzeigegeräten für Virtuelle Realität.
-    Die Besonderheit von AR-Anzeigegeräten ist jedoch, dass sie die reale Welt mit digitalen Informationen erweitern.
-    Das heißt sie müssen dem Nutzer auch eine Sicht auf die reale Welt ermöglichen und in diese Informationen einblenden.
-    Beispielsweise kann das Display eines Anzeigegeräts transparent sein, sodass der Nutzer durch das Display hindurch sehen kann, oder das Gerät kann eine Kamera haben, dessen Aufnahme auf undurchsichtige Bildschirme projiziert wird.
-    Dafür gibt es verschiedene Arten von Anzeigegeräten, die für Augmented Reality genutzt werden können.
+  \subsection{Head-Mounted Displays}
+    Head-Mounted Displays (HMDs) sind grundsätzlich Bildschirme, die direkt auf dem Kopf des Nutzers getragen werden.
+    Durch ihre Nähe zu den Augen des Nutzers können sie ein großes Sichtfeld abdecken, ohne dabei selbst große Displays zu nutzen.
+    Dadurch sind sie für volle Immersion im Normalfall kosteneffektiver als große Displays, wie bspw. eine Leinwand.
 
-    \subsubsection{Head-Mounted Displays}
 
-    Head-Mounted Displays (HMDs) sind Bildschirme, die auf dem Kopf getragen werden und üblicherweise 2 Bildschirme hinter 2 Linsen haben.
-    Sie ermöglichen es das volle Sichtfeld des Nutzers abzudecken und so eine immersive Erfahrung zu schaffen.
-    Die neusten HMDs, beispielsweise die Oculus Quest 3, sind standalone Geräte, die mit einem Akku betrieben werden und ihre eigene Rechenleistung haben.
-    Dadurch sind sie unabhängig von einem Computer und können überall genutzt werden.
+    \subsubsection{VR Headsets}
 
-    Da HMDs das volle Sichtfeld des Nutzers abdecken und in der Regel keine durchsichten Displays haben, müssen sie für Augmented Reality über eine Kamera verfügen, die die reale Welt aufnimmt und auf dem Display anzeigt.
-    Nur so kann der Schritt von VR zu AR gemacht werden.
+    Klassische VR-Headsets kann man sich vorstellen wie eine Skibrille mit 2 Bildschirmen, die auf dem Kopf getragen wird und üblicherweise 2 Displays hinter 2 Linsen hat, bzw. ein Display virtuell in 2 Displays aufteilt.
+    Durch die 2 Bildschirme wird für jedes Auge ein eigenes Bild erzeugt, wodurch Inhalte in 3D dargestellt werden können.
+    Außerdem können sie das volle Sichtfeld des Nutzers abdecken und so eine immersive Erfahrung schaffen.
 
-    Der Nachteil von HMDs ist, dass sie noch immer relativ groß und schwer sind und unangenehm zu tragen sein können.
-    Zudem sind sie sehr auffällig und können so in der Öffentlichkeit unangenehm zu tragen sein.
+    Die Position des Headsets muss dabei kontinuierlich bestimmt werden, um die Bewegungen der Nutzer zu verfolgen und so die virtuelle Welt anpassen zu können.
+    Dies geschieht meist durch Basisstationen (bspw. bei der Valve Index) oder durch Kameras im Headset (bspw. bei der Oculus Quest 3).
+    Die Interaktion mit der Umgebung wird dann meist mit Controllern realisiert, deren Position und Rotation ebenfalls kontinuierlich bestimmt werden muss.
+    In VR-Headsets mit eigenen Kameras ist es auch möglich, die Hände des Nutzers zu tracken und als Controller zu nutzen.
+    Dabei können dann bestimmte Gesten oder Handbewegungen als Eingabe interpretiert werden.
+    
+    Ursprünglich mussten VR-Headsets mit einem Computer verbunden werden, um die Rechenleistung für die Darstellung der Inhalte zu haben.
+    Mit der Zeit wurden jedoch auch standalone VR-Headsets, wie bspw. die 2024 auf den Markt gebrachte Apple Vision Pro, die ihre eigene Rechenleistung haben und so unabhängig von einem Computer genutzt werden können.
 
-    \subsubsection{Smartphones}
+    \begin{figure}[H]
+      \centering
+      \includegraphics[width=0.9\textwidth]{images/quest3_example.jpg}
+      \caption{Oculus Quest 3 VR-Headset}
+      \source{https://unsplash.com/de/fotos/ein-mann-der-auf-einem-stuhl-sitzt-und-eine-virtuelle-brille-tragt-AZ-ND5uJ4S4}
+      \label{fig:oculus-quest-3}
+    \end{figure}
 
-    Heutzutage können fast alle Smartphones für AR genutzt werden.
-    Dafür nutzen sie die Kamera des Smartphones, um die reale Welt aufzunehmen und digitale Informationen einzublenden.
-    Das Smartphone ist dabei wie ein Fenster in die digitale Welt, durch das der Nutzer die erweiterte Realität sehen kann.
+    Jedoch sind nicht alle VR-Headsets für AR geeignet.
+    Die meisten VR-Headsets besitzen keine Kamera, um die reale Welt aufzunehmen und dem Nutzer wiederzugeben.
+    Nur Headsets wie bspw. die Oculus Quest 3, welche in Abbildung  dargestellt ist, oder die Apple Vision Pro besitzen eine Kamera nach außen, um die reale Welt aufzunehmen und so AR zu ermöglichen.
+    
+    Durch all diese Technik, können die neusten VR-Headsets eine sehr hohe Immersion und Qualität für Anwendungen in AR bieten.
+    Doch für lange Anwendungszeiten und die Verwendung in der Öffentlichkeit sind sie meist zu groß und schwer.
 
-    Die Immersion ist bei diesem Anzeigegerät jedoch am geringsten, da der Nutzer weiterhin immer die reale Welt sieht und das Smartphone nur ein kleines Fenster in die digitale Welt ist.
-    Jedoch ist die Nutzung von Smartphones für AR sehr weit verbreitet, da fast jeder ein Smartphone besitzt und so keine zusätzliche Hardware benötigt wird.
-
-    Auch können Smartphones als Displays für HMDs genutzt werden, um so die Rechenleistung des Smartphones zu nutzen und die Immersion zu steigern.
-    Dabei ist jedoch meist die Kamera des Smartphones nicht nutzbar, wodurch eigentlich nur VR möglich ist.
-    Zudem ist die Pixeldichte von Smartphones meist geringer als bei speziellen AR-Anzeigegeräten, was die Immersion und Nutzererfahrung verschlechtern kann.
+   
 
     \subsubsection{Smart-Glasses}
 
     Smart-Glasses sind Brillen, die digitale Informationen in das Sichtfeld des Nutzers einblenden.
+    Grundsätzlich sind auch sie HMDs, jedoch werden sie aufgrund ihrer 
     Sie stellen Informationen auf einer semitransparenten Fläche dar, sodass der Nutzer weiterhin die reale Welt sehen kann.
 
     Da sie fast aussehen wie normale Brillen die unauffälligste Art von AR-Anzeigegeräten.
     Dadurch sind sie auch in der Öffentlichkeit unauffällig zu tragen und können so potentiell auch im Alltag genutzt werden.
     Zudem sind sie, vor allem über einen längeren Zeitraum, meist deutlich leichter und angenehmer zu tragen als HMDs.
+
+
+  \subsection{Hand-Held-Devices}
+
+  Hand-Held-Devices sind Geräte, die ein Nutzer in der Hand hält.
+  Diese Kategorie besteht heutzutage hauptsächlich aus Smartphones und Tablets, da die meisten dieser Geräte über eine Kamera und einen Bildschirm verfügen, können sie fast alle für die Darstellung von AR-Inhalten genutzt werden.
+  Das Smartphone oder Tablet ist dabei wie ein Fenster in die digitale Welt, durch das der Nutzer die erweiterte Realität sehen kann.
+
+  Die Immersion ist bei diesem Anzeigegerät jedoch relativ gering, da der Nutzer immer die reale Welt sieht und das Smartphone oder Tablet nur ein kleines Fenster in die digitale Welt ist.
+  Allein durch die Entfernung der Geräte vom den Augen der Nutzer können sie nur ein vergleichsweise kleines Sichtfeld abdecken.
+  Jedoch ist die Nutzung von Smartphones für AR sehr weit verbreitet, da fast jeder ein Smartphone besitzt und so keine zusätzliche Hardware benötigt wird.
+
+  Auch können Smartphones als Displays für HMDs genutzt werden, um so die Rechenleistung des Smartphones zu nutzen und die Immersion zu steigern.
+  Dabei ist jedoch meist die Kamera des Smartphones nicht mehr nutzbar, wodurch normalerweise nur VR möglich ist.
+  Zudem ist die Pixeldichte von Smartphones meist geringer als bei speziellen AR-Anzeigegeräten, was die Immersion und Nutzererfahrung verschlechtern kann, da das Display sehr nah an den Augen des Nutzers ist.
+
+  
+
+  \subsection{Spatial Displays}
