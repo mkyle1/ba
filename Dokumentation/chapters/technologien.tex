@@ -15,6 +15,16 @@ Auch die Hände des Nutzers können mithilfe von Kameras, die nach unten gericht
 
 \section{WebGL}
 
+WebGL ist eine JavaScript-API, die das rendern von 3D-Grafiken in einem Webbrowser ermöglicht.
+Die WebGL Spezifikation wird von der Khronos Group entwickelt, einer non-profit Organisation, welche als ein Zusammenschluss aus über 180 Unternehmen aus der Industrie, darunter auch die Unternehmen hinter den größten Browsern Google (Chrome), Mozilla (Firefox), Apple (Safari) und Microsoft (Edge), technologiespezifische Standards entwickelt \autocite[]{khronos-webgl, khronos-about}.
+Aufgrund dieser Mitarbeit verschiedener Unternehmen und der offenen Entwicklung der Spezifikation kann WebGL in fast allen modernen Webbrowsern verwendet werden.
+
+WebGL basiert dabei auf der OpenGL ES Spezifikation, welche, ebenfalls von der Khronos Group, speziell für Embedded Systems, also Systeme ohne eigene Grafikkarte, entwickelt wurde \autocite[]{khronos-opengles}.
+Aufgrund dieser Ausrichtung auf mobile Geräte, können mit WebGL Anwendungen entwickelt werden, die auf einfachen Geräten wie Smartphones oder aber auch auf VR- und AR-Headsets ohne zusätzliche Rechenleistung laufen \autocite[][S.3]{Baruah2021}.
+
+
+
+
 \section{WebXR}
 
 WebXR ist eine standardisierte API für Webanwendungen, welche es ermöglicht, immersive VR und AR Anwendungen für das Internet zu erstellen.
@@ -30,9 +40,10 @@ Mit WebXR entwickelte Anwendungen können als Webanwendungen direkt von einem We
   \end{figure}
 
 Der Flow von WebXR-Anwendungen ist in Abbildung \ref{fig:webxr-app-flow} dargestellt.
-Dabei wird zuerst beim Aufrufen der Anwendung geprüft, ob die angegebene Art von XR-Inhalt von der Hardware und dem User Agent (UA), also der Software mit der der Nutzer auf den Inhalt zugreift, unterstützt werden.
-Ist dies der Fall, kann die XR-Session vom Nutzer manuell gestartet werden.
-Startet die Session erfolgreich wird der Frame Loop der Anwendung gestartet.
+Dabei wird zuerst beim Aufrufen der Anwendung geprüft, ob die angegebene Art von XR-Inhalt von der Hardware und dem User Agent (UA) unterstützt werden.
+Mit dem User Agent (UA) der Software, ist dabei die Software gemeint, mit welcher der Nutzer auf die Anwendung zugreift, also der Webbrowser des Nutzers.
+Ist die Art des XR-Inhalts von der Technik des Nutzers unterstützt, kann die XR-Session vom Nutzer manuell über einen Knopf gestartet werden.
+Startet die Session erfolgreich, wird der Frame Loop der Anwendung gestartet.
 Der Frame Loop ist eine Schleifenfunktion, die kontinuierlich während der XR-Session ausgeführt wird um die einzelnen Frames, bzw. Bilder, für das XR-Display zu rendern.
 Dieser Frame Loop läuft, bis die Session durch den UA beendet wird.
 Befindet sich der UA noch auf der Seite der WebXR-Anwendung, wird wieder der Knopf zum Starten der XR-Session angezeigt, falls der Nutzer direkt wieder eine neue Session starten möchte.
