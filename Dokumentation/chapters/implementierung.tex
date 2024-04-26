@@ -6,10 +6,38 @@
 
 \subsection{Interaktionskonzepte für Requirements}
 
+Die Bachelorarbeit beschäftigt sich mit der Darstellung von Requirements in AR beziehungsweise VR.
+Dabei soll untersucht werden, wie Anforderungen in einer 3D-Umgebung dargestellt werden könnten.
+Dazu werden verschiedene Interaktionskonzepte entwickelt, welche als Basis für die Implementierung mit WebXR dienen.
+
+
 \subsubsection{Beispiel 1: Explodierende Bauteile}
+
+Das erste untersuchte Interaktionskonzept ist hauptsächlich für die Darstellung von Anforderungen von Produkten gedacht.
+Die Idee ist, ein Produkt in einer Animation in seine einzelnen Bauteile zu zerlegen und die Anforderungen auf ihren zugehörigen Bauteilen darzustellen.
+In der Animation werden die Bauteile von einem Punkt in der Mitte des Produkts nach außen bewegt, sodass sie sich um den Ursprungspunkt des Produkts herum anordnen.
+Beispielsweise könnte ein Auto so zerlegt werden, dass bei der Animation die Räder, die Karosserie, der Motor und die Innenausstattung einzeln als eigene Objekte sichtbar werden.
+So kann der Nutzer das gesamte Produkt betrachten und sich dann auf Wunsch einzelne Bauteile und deren Anforderungen genauer ansehen.
+
+Am bereits genannten Beispiel des Autos wird klar, dass die Komplexität der Darstellung bei vielen Bauteilen schnell ansteigt und die Übersichtlichkeit verloren gehen kann.
+Daher ist es bei umfangreichen Produkten eventuell sinnvoll, die Darstellung der Bauteile in mehreren Schritten zu realisieren.
+Zum Beispiel könnte in einer Übersicht das gesamte Auto in wenigen Bauteilen dargestellt werden, indem beispielsweise ein Rad, das eigentlich aus Reifen, Felge, Radmuttern, Bremsscheibe etc. besteht, als ein einzelnes Objekt dargestellt wird.
+Will der Nutzer dann die Räder genauer betrachten, kann er in eine Detailansicht wechseln, in der nur ein Rad mit all seinen Bauteilen animiert wird.
+So lässt sich eine hohe Komplexität der Darstellung erreichen, ohne dass die Übersichtlichkeit verloren geht.
+
+
+Für diese Darstellung soll der Nutzer zunächst mithilfe eines Controllers einen Ort für die Darstellung im Raum auswählen.
+Dieser Ort wird als Ursprungspunkt für die Darstellung der Bauteile verwendet.
+Dann soll der Nutzer frei durch die Explosionsanimation navigieren können, um sich die Bauteile aus verschiedenen Perspektiven anzusehen.
+
+Auch bei Software-Requirements ist es denkbar, diese in ihre Komponenten zu zerlegen und zu diesen Komponenten zugehörige Anforderungen darzustellen.
+Jedoch bietet die Darstellung in AR bzw. VR hierbei quasi keine Vorteile im Gegensatz zu einer 2D-Darstellung auf einem Bildschirm.
+Bei Software-Anwendungen ist die einfache Darstellung auf einem Bildschirm näher an der tatsächlichen Laufumgebung der meisten Softwares als bei physischen Produkten, bei denen durch eine dreidimensionale Darstellung ein Mehrwert entstehen kann.
 
 \subsubsection{Beispiel 2: Wolken von Anforderungen}
 
 \subsubsection{Beispiel 3: Anforderungen als 3D-Objekte}
+
+\subsection{Implementierung der Interaktionskonzepte}
 
 \section{User Tests}
