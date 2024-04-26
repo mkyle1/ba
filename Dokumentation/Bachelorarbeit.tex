@@ -47,6 +47,11 @@
 \usepackage{float}
 \usepackage{caption}
 
+% Neuer Befehl zur Definition von Bildunterschriften mit separater Quellenangabe für das Bildverzeichnis
+\newcommand{\sourcecaption}[2]{%
+    \caption[{#1 -- \textit{\small Quelle: #2}}]{#1}%
+}
+
 \newcommand{\source}[1]{\vspace{-8pt} \caption*{\small Quelle: {#1}} }
 
 % Language

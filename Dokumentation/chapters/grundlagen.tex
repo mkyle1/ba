@@ -31,13 +31,15 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
     \autocite[][S. 19]{Rupp2014}
 
     
-    Natürlichsprachliche Anforderungen können sehr einfach selbst formuliert werden, sind dadurch jedoch auch anfällig für Missverständnisse und Unklarheiten.
-    Das Ziel von reQlab ist es, diese Missverständnisse und Unklarheiten zu erkennen und so die Qualität der Anforderungen zu verbessern.
+    Natürlichsprachliche Anforderungen können sehr einfach selbst formuliert werden.
+    Dadurch sind sie jedoch auch anfällig für Missverständnisse und Unklarheiten.
+    Das Ziel von reQlab ist es, diese Missverständnisse und Unklarheiten in natürlichsprachlichen Anforderungen zu erkennen und so die Qualität der Anforderungen zu verbessern.
     Daher werden im Unfamg dieser Bachelorarbeit nur natürlichsprachliche Anforderungen genutzt.
 
     Zudem werden Requirements in funktionale und nicht-funktionale Requirements unterteilt.
     Funktionale Requirements beschreiben \glqq{}die Funktionen, die das System leisten soll, die Informationen die es verarbeiten soll; das gewünschte Verhalten, welches das System an den Tag legen soll.\grqq{} \autocite[][S. 12]{Hruschka2023}
     Nicht-funktionale Requirements hingegen beschreiben alle Requirements, die nicht funktionaler Natur sind, also beispielsweise Performance, Sicherheit oder Zuverlässigkeit.
+    Der Begriff nicht-funktional ist dabei jedoch etwas irreführend, da auch nicht-funktionale Requirements gewissermaßen Funktionen des Systems beschreiben.
     Peter Hruschka beschreibt in seinem Buch Funktionale Anforderungen mit der Frage: \glqq{}Was soll das System/Produkt tun?\grqq{}.
     Auch unterteilt er nicht-funktionale Anforderungen in die zwei Kategorien Qualitätsanforderungen (\glqq{}Wie gut? Wie schnell? Wie zuverlässig? ...\grqq{}) und Randbedingungen (\glqq{}Ressourcen, Wiederverwendung, Zukauf, geforderte Technologie ...\grqq{}) \grqq{} \autocite[][S. 13]{Hruschka2023}.
     Diese Unterteilung ist hilfreich zur Strukturierung der Anforderungen und könnte im User-Interface der Visualisierung genutzt werden, um die Anforderungen zu kategorisieren.
@@ -47,10 +49,14 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
     Stakeholder können \glqq{}Personen oder Organisationen sein, die die Anforderungen eines Systems beeinflussen oder die von dem System beeinflusst werden.\grqq{} \autocite[][]{ireb_cpre_glossary}.
     Beispielsweise wären die Endnutzer eines Systems Stakeholder, welche durch das System beeinflusst werden.
     Sie haben also ein Bedürfnis an das System, können dieses jedoch nicht selbst umsetzen.
-    Im Gegensatz dazu stehen die Auftraggeber beziehungsweise der Produkteigner (Product Owner), welche das System entwickeln und die Anforderungen festlegen.
+    Im Gegensatz dazu stehen die Auftraggeber, beziehungsweise der Produkteigner (Product Owner), welche das System entwickeln und die Anforderungen festlegen.
 
-    Je nach der Größe und Komplexität des Systems kann es sehr viele Anforderungen geben.
-    Durch die Menge an Anforderungen kann so schnell die Übersicht über das System und dessen Requirements verloren gehen, vor allem für Stakeholder, die nicht tagtäglich mit dem System arbeiten.
+    Viele Stakeholder, wie bspw. der Product Owner, sind dabei nicht direkt in den täglichen Entwicklungsprozess des Systems involviert und haben daher nur wenig Überblick über den aktuellen Stand des Systems.
+    Sie nehmen durch die gestellten Anforderungen jedoch großen Einfluss auf das System.
+    Für eine effiziente Zusammenarbeit zwischen Stakeholdern und Entwicklern ist es also wichtig, dass die Anforderungen sowohl den Stakeholdern als auch den Entwicklern klar und verständlich sind.
+
+    Das kann vor allem bei großen und komplexen Systemen schwierig sein, da die Zahl der Anforderungen mit der Komplexität des Systems stark wächst.
+    Durch die große Menge an Anforderungen kann in solchen Projekten schnell die Übersicht verloren gehen, weshalb es wichtig ist, die Anforderungen klar und übersichtlich zu dokumentieren und zu verwalten.
 
     \titleemph{System}
 
@@ -68,10 +74,15 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
         \item Anforderungen vermitteln
         \item Anforderungen verwalten
     \end{itemize}
+    Requirements-Engineering ist der erste Schritt bei der Entwicklung eines Systems und kann daher große Auswirkungen auf die Qualität und den Erfolg des Systems haben.
+    Ein sauberes Requirements-Engineering verhindert Missverständnisse und Unklarheiten und verhindert so Fehler, welche sich durch die Systementwicklung ziehen und dann teuer und aufwendig behoben werden müssen, wenn sie erkannt sind.
     \autocite[][S.20]{Rupp2014}
 
-    Diese Bachelorarbeit soll versuchen einen neuen Ansatz in der Vermittlung von Anforderungen zu finden, um so langfristig die Qualität und Nützlichkeit der Anforderungen zu verbessern.
-    Zudem soll die Visualisierung der Anforderungen helfen, bei großen Projekten die eine sehr große Zahl an Anforderungen besitzen, eine Übersicht über die Anforderungen zu erhalten und so eventuell eine bessere Kommunikation zwischen Stakeholdern und Entwicklern zu ermöglichen.
+    Diese Bachelorarbeit soll versuchen einen neuen Ansatz in der Vermittlung und Verwaltung von Anforderungen zu finden, um so langfristig die Qualität und Nützlichkeit der Anforderungen zu verbessern.
+    Zudem soll die Visualisierung der Anforderungen helfen, bei großen Projekten, welche eine sehr große Zahl an Anforderungen besitzen, eine bessere Übersicht über die Anforderungen zu erhalten, um die Verwaltung der Anforderungen zu erleichtern.
+    In der Vermittlung kann die Visualisierung den Stakeholdern eventuell helfen, die Anforderungen besser zu verstehen und so Missverständnisse und Unklarheiten zu vermeiden.
+    So können teure Fehler in der Systementwicklung schon früher erkannt und vermieden werden.
+    
 
   \section{reQlab}
 
@@ -84,19 +95,23 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
 
 
   \section{Virtuelle Realität}
-  Für das Verständnis von Augmented Reality ist es wichtig, die Begriffe der virtuellen Realität zu kennen und zu verstehen.
+  Für das Verständnis von Augmented Reality ist es wichtig, die Begriffe der virtuellen Realität (VR) zu kennen und zu verstehen.
   Dabei wird der Nutzer in eine virtuelle Welt versetzt, die durch Computer generiert wird.
-  In virtueller Realität ist, im Gegensatz zu Augmented Reality die gesamte Umgebung digital.
-  \autocite[vgl.][S.15]{Dalton2023}
-  Zusätzlich wird unterschieden zwischen immersiver und nicht-immersiver virtueller Realität.
-  Folgende auf den Nutzer bezogene Eigenschaften sind dabei Indikatoren für nicht-immersive virtuelle Realität:
+  In virtueller Realität ist, im Gegensatz zu Augmented Reality, die gesamte Umgebung digital
+  \autocite[vgl.][S.15]{Dalton2023}.
+
+  Der Begriff der virtuellen Realität lässt sich noch genauer in die Begriffe immersive und nicht-immersive virtuelle Realität unterschieden.
+  Folgende nutzerbezogene Eigenschaften sind dabei Indikatoren für nicht-immersive virtuelle Realität:
   \begin{itemize}
     \item Der Nutzer steht nicht im Mittelpunkt.
     \item Der Nutzer ist nicht vollständig von digitalen Inhalten umgeben.
     \item Der Nutzer erfährt die virtuelle Realität als Beobachter anstatt als Teilnehmer.
   \end{itemize}
-  Bei immersiver virtueller Realität sind alle äußeren Einflüsse so weit reduziert wie möglich und alle Indikatoren sollten auf immersive virtuelle Realität hinweisen.
+  Im Gegensatz dazu sind bei immersiver virtueller Realität alle äußeren Einflüsse so weit wie möglich reduziert und alle Indikatoren sollten auf immersive virtuelle Realität hinweisen.
   Der Nutzer sollte bei immersiver VR das Gefühl haben, sich selbst in der virtuellen Umgebung zu befinden \autocite[vgl.][S.23-24]{Wolfel2023}.
+  Daher geht es bei immersiver virtueller Realität vor allem um den visuellen Sinn, da dieser am meisten zur Immersion in die virtuelle Welt beiträgt.
+  Jedoch wird in den meisten immersiven VR-Anwendungen auch der auditive Sinn über Kopfhörer oder Lautsprecher angesprochen, um die Immersion zu steigern.
+  Auch der Tastsinn spielt heutzutage eine Rolle, da viele VR-Controller, wie bspw. die Meta Quest Touch Plus-Controller, dem Nutzer auch haptisches Feedback für Interaktionen geben.
 
   \section{Augmented Reality}
   Augmented Reality (AR) ist eine Technologie, die die reale Welt mit digitalen Informationen erweitert.
@@ -154,8 +169,7 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
     \begin{figure}[H]
       \centering
       \includegraphics[width=0.9\textwidth]{images/quest3_example.jpg}
-      \caption{Oculus Quest 3 VR-Headset}
-      \source{https://unsplash.com/de/fotos/ein-mann-der-auf-einem-stuhl-sitzt-und-eine-virtuelle-brille-tragt-AZ-ND5uJ4S4}
+      \sourcecaption{Oculus Quest 3 VR-Headset}{https://unsplash.com/de/fotos/ein-mann-der-auf-einem-stuhl-sitzt-und-eine-virtuelle-brille-tragt-AZ-ND5uJ4S4}
       \label{fig:oculus-quest-3}
     \end{figure}
 
