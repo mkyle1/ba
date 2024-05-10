@@ -451,7 +451,7 @@ class XrExperience {
     
 
     createTetrisT() {
-        SceneLoader.Append("/models/", "Tetris.glb", this._scene, ((scene: Scene) => {
+        SceneLoader.Append("/models/", "TetrisAnimation.glb", this._scene, ((scene: Scene) => {
             this._tetrisRed = scene.getMeshByName(TetrisMeshes.Red);
             this._tetrisBlue = scene.getMeshByName(TetrisMeshes.Blue);
             this._tetrisGreen = scene.getMeshByName(TetrisMeshes.Green);
@@ -490,91 +490,71 @@ class XrExperience {
 
         this._animationLock = true;
 
+        
         meshes.forEach((mesh, index) => {
             if (mesh) {
-                // ---------- Add GUI Panel ----------
-                const plane = MeshBuilder.CreatePlane("plane", {size: 1.5}, this._scene);
-                plane.parent = mesh;
-                plane.position.y = 0.3;
-
-                plane.billboardMode = Mesh.BILLBOARDMODE_Y;
-
-                // Create a simple button text
-                /* const text1 = new TextBlock();
-                text1.text = 'This block should be ' + mesh.name;
-                text1.color = "black";
-                text1.fontSize = 30;
-                 */
+                if(!this._tetrisIsExtended) {
+                    this._animationLock = true;
+                    this._scene.beginAnimation(mesh, 0, mesh.animations[0].getHighestFrame(), false, 1, () => {
+                        this._animationLock = false;
+                    });
+                } else {
+                    this._animationLock = true;
+                    this._scene.beginAnimation(mesh, mesh.animations[0].getHighestFrame(), 0, false, 1, () => {
+                        this._animationLock = false;
+                    });
+                }
                 
-                
+                if (mesh.getChildMeshes().length === 0) {
+                    // ---------- Add GUI Panel ----------
+                    let plane = MeshBuilder.CreatePlane("plane", {size: 1.5}, this._scene);
+                    plane.parent = mesh;
+                    plane.position.y = 0.3;
 
-                const advancedTexture = AdvancedDynamicTexture.CreateForMesh(plane);
-                //advancedTexture.addControl(text1);
+                    plane.billboardMode = Mesh.BILLBOARDMODE_Y;
 
-                var button1 = GuiButton.CreateSimpleButton("but1", mesh.name);
-                button1.width = 0.5;
-                button1.height = 0.2;
-                button1.color = "white";
-                button1.fontSize = 30;
-                button1.background = "gray";
-                button1.onPointerUpObservable.add(() => {
-                    if(this._focusedMesh === mesh) {                            //deselect highlightet part
-                        this._focusedMesh.scaling = new Vector3(1, 1, 1);
-                        this._focusedMesh = null;
-                    } else {                                                    //select new part to highlight
-                        if (this._focusedMesh) {
+                    const advancedTexture = AdvancedDynamicTexture.CreateForMesh(plane);
+                    //advancedTexture.addControl(text1);
+
+                    var button1 = GuiButton.CreateSimpleButton("but1", mesh.name);
+                    button1.width = 0.5;
+                    button1.height = 0.2;
+                    button1.color = "white";
+                    button1.fontSize = 30;
+                    button1.background = "gray";
+                    button1.onPointerUpObservable.add(() => {
+                        if(this._focusedMesh === mesh) {                            //deselect highlightet part
                             this._focusedMesh.scaling = new Vector3(1, 1, 1);
-                        }    
-                        this._focusedMesh = mesh;
-                        this._focusedMesh.scaling = new Vector3(1.3, 1.3, 1.3);
-                    }
-                    
-                });
-                advancedTexture.addControl(button1);
-
-                if (this._tetrisIsExtended) {
-                    plane.isVisible = false;
-                } else {
-                    plane.isVisible = true;
-                }
-
-
-
-                // Create a new animation for the mesh position
-                animations.push(new Animation(`explode${index}`, "position", 30,
-                    Animation.ANIMATIONTYPE_VECTOR3, Animation.ANIMATIONLOOPMODE_CONSTANT));
-
-                // The starting point is the initial position
-                this._tetrisOgStartPos.push(mesh.position.clone());
-                const startPosition = mesh.position.clone();
-                // Calculate the end position
-                let endPosition: Vector3 = new Vector3(0, 0, 0);
-
-                if (!this._tetrisIsExtended) {
-                    endPosition = this._tetrisOgStartPos[index].add(directions[mesh.name]);
-                } else {
-                    console.dir(directions);
-                    console.dir(mesh.name);
-                    console.dir(directions[mesh.name]);
-                    endPosition = this._tetrisOgStartPos[index];
-                }
-            
-                // Set keys for the animation
-                const keys = [
-                    { frame: 0, value: startPosition },
-                    { frame: 30, value: endPosition }
-                ];
-
-                animations[index].setKeys(keys);
-
-                // Run the animation
-                this._scene.beginDirectAnimation(mesh, animations, 0, 30, false).waitAsync().then(() => {
-                    this._animationLock = false;
-                });
+                            this._focusedMesh = null;
+                        } else {                                                    //select new part to highlight
+                            if (this._focusedMesh) {
+                                this._focusedMesh.scaling = new Vector3(1, 1, 1);
+                            }    
+                            this._focusedMesh = mesh;
+                            this._focusedMesh.scaling = new Vector3(1.3, 1.3, 1.3);
+                        }
+                        
+                    });
+                    advancedTexture.addControl(button1);
+                };
+                
+                
             }
         });
-
-        this._animationLock = false;
+        if (this._tetrisIsExtended) {
+            meshes.forEach((mesh) => {
+                mesh!.getChildMeshes().forEach((childMesh) => {
+                    childMesh.isVisible = false;
+                });
+            });
+        } else {
+            meshes.forEach((mesh) => {
+                mesh!.getChildMeshes().forEach((childMesh) => {
+                    childMesh.isVisible = true;
+                });
+            });
+        }
+        this._tetrisIsExtended = !this._tetrisIsExtended;
     }
 
     extendTetris() {
