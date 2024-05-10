@@ -83,12 +83,15 @@ class XrExperience {
     _tetrisGreen: AbstractMesh | null;
     _tetrisGreenOgPos: Vector3 | null;
     _tetrisYellow: AbstractMesh | null;
+    _tetrisOgStartPos: Vector3[];
     _tetrisYellowOgPos: Vector3 | null;
     _tetrisContainer: AbstractMesh | null;
     _tetrisContainerOgPos: Vector3 | null;
     _tetrisIsExtended: boolean;
     _tetrisIsPlaced: boolean;
+    _focusedMesh: AbstractMesh | null;
     _centerPoint: Vector3 | null;
+    _animationLock: boolean;
 
 
     /**
@@ -125,11 +128,14 @@ class XrExperience {
         this._tetrisGreenOgPos = null;
         this._tetrisYellow = null;
         this._tetrisYellowOgPos = null;
+        this._tetrisOgStartPos = [];
         this._tetrisContainer = null;
         this._tetrisContainerOgPos = null;
         this._tetrisIsExtended = false;
         this._tetrisIsPlaced = false;
+        this._focusedMesh = null;
         this._centerPoint = null;
+        this._animationLock = false;
 
         this.createXrExperience().then(() => {
             this.addFeaturesToSession();
@@ -343,7 +349,7 @@ class XrExperience {
 
                 if (buttonComponent) {
                     buttonComponent.onButtonStateChangedObservable.add((component) => {
-                        if (component.pressed) {
+                        if (component.pressed && this._animationLock === false) {
                             (this._tetrisIsExtended) ? this.retractTetris() : this.extendTetris();
                         }
                     });
@@ -480,6 +486,10 @@ class XrExperience {
 
         const meshes = [this._tetrisRed, this._tetrisBlue, this._tetrisGreen, this._tetrisYellow];
 
+        let animations: Animation[] = [];
+
+        this._animationLock = true;
+
         meshes.forEach((mesh, index) => {
             if (mesh) {
                 // ---------- Add GUI Panel ----------
@@ -507,65 +517,46 @@ class XrExperience {
                 button1.color = "white";
                 button1.fontSize = 30;
                 button1.background = "gray";
-                button1.onPointerUpObservable.add(function() {
-                    mesh.scaling = new Vector3(2, 2, 2);
+                button1.onPointerUpObservable.add(() => {
+                    if(this._focusedMesh === mesh) {                            //deselect highlightet part
+                        this._focusedMesh.scaling = new Vector3(1, 1, 1);
+                        this._focusedMesh = null;
+                    } else {                                                    //select new part to highlight
+                        if (this._focusedMesh) {
+                            this._focusedMesh.scaling = new Vector3(1, 1, 1);
+                        }    
+                        this._focusedMesh = mesh;
+                        this._focusedMesh.scaling = new Vector3(1.3, 1.3, 1.3);
+                    }
+                    
                 });
                 advancedTexture.addControl(button1);
+
                 if (this._tetrisIsExtended) {
                     plane.isVisible = false;
                 } else {
                     plane.isVisible = true;
                 }
 
-                
-
-                /* const panel = new Rectangle(`panel${index}`);
-                panel.width = "250px";
-                panel.height = "80px";
-                panel.cornerRadius = 10;
-                panel.color = "white";
-                panel.thickness = 2;
-                panel.background = "green";
-                panel.addControl(text1);
-
-                // Link the panel to the mesh
-                const advancedTexture = AdvancedDynamicTexture.CreateFullscreenUI("UI");
-                advancedTexture.addControl(panel);
-                panel.linkWithMesh(mesh);
-                panel.linkOffsetY = -100; // Offset the panel to avoid covering the mesh
-                if (this._tetrisIsExtended) {
-                    console.log('EXTENDED');
-                    console.dir(panel);
-                    panel.alpha = 0.01;
-                    panel.isVisible = false;
-                    panel.isEnabled = false;
-                }
-                if (!this._tetrisIsExtended) {
-                    console.dir(panel);
-                    console.log('NOT EXTENDED');
-                    panel.alpha = 1;
-                    panel.isVisible = true;
-                    panel.isEnabled = true;
-                } */
-
 
 
                 // Create a new animation for the mesh position
-                const explosionAnimation = new Animation(`explode${index}`, "position", 30,
-                    Animation.ANIMATIONTYPE_VECTOR3, Animation.ANIMATIONLOOPMODE_CONSTANT);
+                animations.push(new Animation(`explode${index}`, "position", 30,
+                    Animation.ANIMATIONTYPE_VECTOR3, Animation.ANIMATIONLOOPMODE_CONSTANT));
 
                 // The starting point is the initial position
+                this._tetrisOgStartPos.push(mesh.position.clone());
                 const startPosition = mesh.position.clone();
                 // Calculate the end position
                 let endPosition: Vector3 = new Vector3(0, 0, 0);
 
                 if (!this._tetrisIsExtended) {
-                    endPosition = startPosition.add(directions[mesh.name]);
+                    endPosition = this._tetrisOgStartPos[index].add(directions[mesh.name]);
                 } else {
                     console.dir(directions);
                     console.dir(mesh.name);
                     console.dir(directions[mesh.name]);
-                    endPosition = startPosition.subtract(directions[mesh.name]);
+                    endPosition = this._tetrisOgStartPos[index];
                 }
             
                 // Set keys for the animation
@@ -574,12 +565,16 @@ class XrExperience {
                     { frame: 30, value: endPosition }
                 ];
 
-                explosionAnimation.setKeys(keys);
+                animations[index].setKeys(keys);
 
                 // Run the animation
-                this._scene.beginDirectAnimation(mesh, [explosionAnimation], 0, 30, false);
+                this._scene.beginDirectAnimation(mesh, animations, 0, 30, false).waitAsync().then(() => {
+                    this._animationLock = false;
+                });
             }
         });
+
+        this._animationLock = false;
     }
 
     extendTetris() {
