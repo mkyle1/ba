@@ -19,6 +19,8 @@ In der Animation werden die Bauteile von einem Punkt in der Mitte des Produkts n
 Beispielsweise könnte ein Auto so zerlegt werden, dass bei der Animation die Räder, die Karosserie, der Motor und die Innenausstattung einzeln als eigene Objekte sichtbar werden.
 So kann der Nutzer das gesamte Produkt betrachten und sich dann auf Wunsch einzelne Bauteile und deren Anforderungen genauer ansehen.
 
+Die Anforderungen sollen dabei als Text auf UI-Panelen dargestellt werden, die an den zugehörigen Bauteilen angebracht sind.
+
 Am bereits genannten Beispiel des Autos wird klar, dass die Komplexität der Darstellung bei vielen Bauteilen schnell ansteigt und die Übersichtlichkeit verloren gehen kann.
 Daher ist es bei umfangreichen Produkten eventuell sinnvoll, die Darstellung der Bauteile in mehreren Schritten zu realisieren.
 Zum Beispiel könnte in einer Übersicht das gesamte Auto in wenigen Bauteilen dargestellt werden, indem beispielsweise ein Rad, das eigentlich aus Reifen, Felge, Radmuttern, Bremsscheibe etc. besteht, als ein einzelnes Objekt dargestellt wird.
@@ -34,10 +36,66 @@ Auch bei Software-Requirements ist es denkbar, diese in ihre Komponenten zu zerl
 Jedoch bietet die Darstellung in AR bzw. VR hierbei quasi keine Vorteile im Gegensatz zu einer 2D-Darstellung auf einem Bildschirm.
 Bei Software-Anwendungen ist die einfache Darstellung auf einem Bildschirm näher an der tatsächlichen Laufumgebung der meisten Softwares als bei physischen Produkten, bei denen durch eine dreidimensionale Darstellung ein Mehrwert entstehen kann.
 
+Bei diesem Konzept soll die Realisierbarkeit solcher Darstellungen für physische Produkte untersucht werden.
+Dabei muss die Kosten-Nutzen-Relation kritisch betrachtet werden, da die Implementierung einer solchen Darstellung sehr aufwändig sein kann und daher einen hohen Mehrwert gegenüber anderer Darstellungen bieten muss.
+
 \subsubsection{Beispiel 2: Wolken von Anforderungen}
+
+Der Ansatz der explodierenden Bauteile ist aufgrund der Individualität des Konzepts sehr zeitaufwendig und komplex zu implementieren.
+Zudem ist dieser Ansatz nur für die Darstellung von Produkten, also physischen Systemen, geeignet.
+Daher wird ein weiteres Interaktionskonzept entwickelt, welches sich theoretisch auch automatisiert generieren lässt und für alle Arten von Anforderungen geeignet ist.
+
+Die grundlegende Idee ist, Anforderungen in Wolken von Texten darzustellen, also als eine Gruppierung von UI-Elementen im Raum.
+Hierbei soll eine räumliche Gruppierung der Anforderungen nach verschiedenen Kriterien möglich sein.
+Beispielsweise könnten Anforderungen, die zu einem bestimmten Feature gehören, in einer Wolke gruppiert werden, während Anforderungen, die zu einem anderen Feature gehören, in einer anderen Wolke gruppiert werden.
+Durch die räumliche Anordnung der Wolken kann der Nutzer schnell erkennen, welche Anforderungen zusammen gehören und welche nicht.
+
+Dabei soll es auch möglich sein in Wolken hinein- und herauszuzoomen, um die Granularität der angezeigten Anforderungen zu erhöhen.
+Gehen wir dabei wieder vom Beispiel des Autos aus, soll es möglich sein in die Wolke der Räder hineinzuzoomen, um die Anforderungen an die Reifen, Felgen, Radmuttern etc. zu sehen.
+Daraufhin kann wieder herausgezoomt werden, um die Anforderungen an das gesamte Auto zu sehen.
+Diese Interaktion und die räumliche Anordnung der Wolken sollen dem Nutzer helfen, auch bei einer großen Anzahl von Anforderungen einen Überblick zu behalten und schnell die gewünschten Anforderungen zu finden.
+
+Bei diesem Konzept soll vor allem der Vorteil gegenüber einer 2D-Darstellung kritisch untersucht werden.
+Denn die Darstellung der Anforderungen in Wolken ist prinzipiell auch in 2D möglich, auch mit der Interaktionsmöglichkeit des Hinein- und Herauszoomens.
+Daher soll untersucht werden, ob die räumliche Anordnung der Anforderungen in AR tatsächlich einen Mehrwert gegenüber einer 2D-Darstellung bietet und ob die Interaktionen intuitiv und effizient sind.
+
 
 \subsubsection{Beispiel 3: Anforderungen als 3D-Objekte}
 
 \subsection{Implementierung der Interaktionskonzepte}
+
+In den folgenden Abschnitten wird auf die Implementierung der zuvor beschriebenen Interaktionskonzepte eingegangen.
+Dabei werden grundlegende Konzepte und Technologien vorgestellt und erklärt, die für die Implementierung notwendig sind.
+Zudem werden Screenshots der implementierten Konzepte gezeigt und die Funktionsweise der Interaktionen beschrieben.
+Dabei werden auch die Herausforderungen und Probleme bei der Implementierung aufgezeigt und diskutiert.
+
+Vor der Implementierung des Konzepts muss zunächst eine grundlegende WebXR-Anwendung erstellt werden, die die Interaktionen mit dem Controller ermöglicht.
+Hierfür wird das Skelett einer WebXR-Anwendung aus einer Artikelserie des Taikonauten-Magazins verwendet, welches als Basis für die Implementierung dient \autocite[][]{taikonauten-magazine}.
+Die Anwendung nutzt bereits die vom Nutzer gescannten Umgebungen um einen virtuellen Raum zu erstellen, in dem die Interaktionen stattfinden.
+Dabei werden Wände und Böden der Umgebung erkannt und als Mesh in die Szene eingefügt, um dem Nutzer eine Interaktion mit der realen Umgebung zu ermöglichen.
+
+Der erste Schritt bei der Implementierung der Interaktionskonzepte ist die Erstellung eines 3D-Modells, welches die Bauteile des Produkts enthält.
+Dabei muss jedes Bauteil als eigenes Objekt im 3D-Modell vorhanden sein, um sie in der Animation separat darstellen zu können.
+Für die erste Implementierung wird ein einfaches 3D-Modell eines Tetris Blocks verwendet, welcher aus 4 verschiedenfarbigen Bauteilen besteht.
+
+Dieses Modell wurde in Blender erstellt und als 3D-Modell im glTF-Format, welches wie WebXR von der Khronos Group entwickelt wurde, in die Anwendung exportiert.
+Das glTF-Format ist ein offenes 3D-Dateiformat, welches für die effiziente Übertragung von 3D-Modellen im Web optimiert ist und die Dateigröße möglichst klein hält.
+
+Der nächste Schritt ist das Platzieren des erstellten 3D-Modells in der WebXR-Umgebung.
+Dazu wird das Prinzip des Raycastings verwendet, um dem Nutzer zu ermöglichen, mit dem Controller einen Punkt im Raum auszuwählen, an dem das 3D-Modell platziert werden soll.
+Dabei wird vom Controller ein Strahl in die Szene geschossen, und der Punkt, an dem der Strahl ein Objekt trifft, wird als Event zurückgegeben.
+Da durch das Skelett der Anwendung bereits die Wände und Böden der Umgebung als Mesh erkannt wurden, kann der Punkt auf diesen Meshes platziert werden, um das 3D-Modell an der gewünschten Stelle zu platzieren.
+
+Nachdem das 3D-Modell platziert werden kann, wird die Animation der explodierenden Bauteile implementiert.
+Dazu wird jedes Bauteil des 3D-Modells einzeln animiert, indem es von einem Punkt in der Mitte des Produkts nach außen bewegt wird.
+
+\subsubsection{Explodierende Bauteile}
+
+Für die Implementierung des Interaktionskonzepts sind mehrere Schritte notwendig.
+Zunächst muss ein 3D-Modell erstellt werden, welches die Bauteile des Produkts enthält.
+Zudem muss zu jedem Bauteil eine Anforderung vorliegen, die als Text dargestellt werden soll.
+
+
+\subsubsection{Wolken von Anforderungen}
 
 \section{User Tests}
