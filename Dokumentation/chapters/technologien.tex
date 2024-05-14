@@ -51,7 +51,7 @@ Mit WebXR entwickelte Anwendungen können als Webanwendungen direkt von einem We
     \caption{Application Flow von WebXR-Anwendungen}
     \source{nach \autocite[][Kap. 1.2. Application Flow]{w3c_webxr}}
     \label{fig:webxr-app-flow}
-  \end{figure}
+\end{figure}
 
 Der Flow von WebXR-Anwendungen ist in Abbildung \ref{fig:webxr-app-flow} dargestellt.
 Dabei wird zuerst beim Aufrufen der Anwendung geprüft, ob die angegebene Art von XR-Inhalt von der Hardware und dem User Agent (UA) unterstützt werden.
@@ -64,6 +64,17 @@ Befindet sich der UA noch auf der Seite der WebXR-Anwendung, wird wieder der Kno
 
 \subsection{Three.js}
 
+Three.js ist eine Open-Source JavaScript-Bibliothek unter der MIT-Lizenz, die auf WebGL basiert und die Erstellung und Darstellung von 3D-Grafiken in Webanwendungen vereinfacht.
+Die Bibliothek bietet eine Vielzahl von Funktionen, die es Entwicklern ermöglichen, detaillierte 3D-Modelle und -Szenen zu erstellen und zu rendern \autocite[][]{threejs-docs}.
+Dabei unterstützt Three.js auch die Erstellung von AR- und VR-Anwendungen mithilfe von WebXR.
+
+Es existieren auch einige Frameworks die auf der Three.js API basieren und die Entwicklung von AR- und VR-Anwendungen und 3D-Anwendungen generell weiter vereinfachen.
+Ein Beispiel dafür ist das Framework A-Frame, welches auf die Entwicklung von AR und VR Anwendungen spezialisiert ist und Features einer fast vollwertigen Game-Engine bietet \autocite[]{a-frame-introduction}.
+
+Zudem wird Three.js von vielen Entwicklern und Unternehmen verwendet und hat dadurch eine große Community und so viele Ressourcen und Tutorials, die Entwicklern helfen können, ihre Anwendungen zu erstellen und zu debuggen.
+
+Diese Vielfalt an Features und die große Community machen Three.js, vor allem in Kombination mit A-Frame, zu einer interessanten Option für die Entwicklung von AR- und VR-Anwendungen.
+Jedoch ergaben sich in den ersten Tests der Funktionalität von Three.js und A-Frame im Browser der Oculus Quest 3 Probleme mit der Erkennung der VR-Brille und der Darstellung von AR-Inhalten.
 
 \subsection{Babylon.js}
 
@@ -71,5 +82,13 @@ Babylon.js ist eine Open-Source Rendering- und Game-Engine verpackt in einer Jav
 Es bietet Support für WebGL 1.0/2.0 sowie WebGPU und hat eine Vielzahl von Funktionen, die es Entwicklern ermöglichen, detaillierte 3D-Modelle und -Szenen zu erstellen und zu rendern.
 Außerdem bietet es native Unterstützung und eine Dokumentation für WebXR, wodurch die Entwicklung von VR- und AR-Anwendungen vereinfacht wird \autocite[][]{babylon-features}.
 
+Die Bibliothek bietet dabei auch viele Quality-of-Life-Features, wie beispielsweise einen Szenen-Explorer und -Inspektor, der sich für die Entwicklung und das Debugging von 3D-Szenen eignet und mit einer Zeile Code in die Anwendung eingebunden werden kann.
+Über den Szenen-Explorer, welcher in Abbildung \ref{fig:babylon-inspector} links dargestellt ist, können aus dem Szenengraph der aktuellen Szene Objekte ausgewählt werden um im Szenen-Inspektor eine Detailansicht des Objekts und seinen Eigenschaften zu erhalten.
+Mithilfe des Szenen-Inspektors, welcher in Abbildung \ref{fig:babylon-inspector} rechts dargestellt ist,  können dann in Echtzeit die Eigenschaften von Objekten betrachtet und verändert werden.
 
-\section{Android Debug Bridge}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{images/Babylon-Inspector.png}
+  \caption{Szenen-Explorer und -Inspektor von Babylon.js}
+  \label{fig:babylon-inspector}
+\end{figure}
