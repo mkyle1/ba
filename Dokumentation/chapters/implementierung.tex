@@ -2,7 +2,32 @@
 
 \section{Entwicklungsumgebung für WebXR und Oculus Quest 3}
 
+Die Entwicklung von WebXR-Anwendungen für die Oculus Quest 3 erfordert eine spezielle Entwicklungsumgebung für einen effizienten Entwicklungsprozess.
+Dabei müssen verschiedene Technologien und Tools miteinander kombiniert werden, um eine reibungslose Entwicklung und ein möglichst schnelles Testen der Anwendung zu ermöglichen.
+
+Der erste Schritt ist das Anzeigen der WebXR-Anwendung auf der Oculus Quest 3.
+Das Problem dabei im Vergleich zu \glqq{} normalen\grqq{} Webanwendungen ist, dass WebXR-Anwendungen nur über HTTPS aufgerufen werden können.
+Das bedeutet, dass die Anwendung über HTTPS gehostet werden muss, um direkt vom Browser der Oculus Quest 3 aufgerufen werden zu können.
+Hierfür gibt es verschiedene Möglichkeiten, wie beispielsweise das Erstellen eines eigenen Zertifikats für den lokalen Entwicklungsrechner oder das Hosting der Anwendung auf einem Server mit HTTPS-Unterstützung.
+Für den Rahmen der Entwicklung dieser Bachelorarbeit wird die Anwendung jedoch, wie auch in der Artikelserie des Taikonautenmagazins \autocite[Part 0/8]{taikonauten-magazine} empfohlen, mit LocalTunnel gehostet, um die Anwendung direkt von der Oculus Quest 3 aus testen zu können.
+LocalTunnel erstellt einen temporären HTTPS-Link, über den die Anwendung aufgerufen werden kann, ohne dass ein eigenes Zertifikat oder ein eigener Server notwendig ist.
+Dafür muss die Anwendung nur lokal auf dem Entwicklungsrechner laufen und der LocalTunnel-Client gestartet sein, um den temporären Link zu generieren.
+Als zusätzliche Sicherheit muss dann beim Aufrufen der Seite noch die IP-Adresse des Entwicklungsrechners angegeben werden, um sicherzustellen, dass nur der Entwickler die Anwendung testen kann.
+Dies muss in der Regel jedoch nur einmal nach jedem Neustart oder Crash gemacht werden, da der Link für die Dauer der Sitzung gespeichert wird.
+
+Der nächste Schritt, wenn Zugriff mit der Oculus Quest 3 auf die WebXR-Anwendung besteht, ist die Anzeige von Entwickler-Tools und Debugging-Informationen der Oculus Quest 3.
+Da die Oculus Quest 3 auf Android basiert, kann auf dem Entwicklungsrechner Android Debug Bridge (ADB) installiert werden, um über USB eine Verbindung zur Oculus Quest 3 herzustellen.
+Die Verbindung muss noch in der VR-Brille bestätigt werden, um den Zugriff auf die Entwickleroptionen zu ermöglichen.
+Ist das geschehen, erscheint die Quest 3 mit ihren geöffneten Websites in der Geräteliste der Chrome DevTools, die über die URL \url{chrome://inspect/#devices} aufgerufen werden können.
+Dort können dann die Entwickler-Tools der Oculus Quest 3 geöffnet werden, um beispielsweise die Performance der Anwendung zu überwachen und Fehlermeldungen zu sehen.
+
+
+
+
 \section{Implementierung der Anwendung}
+
+In diesem Kapitel wird der Prozess der Implementierung der Anwendung beschrieben.
+Dabei wird zunächst die Entwicklung der grundlegenden zu implementierenden Konzepte beschrieben, bevor auf die tatsächliche Implementierung der ausgearbeiteten Interaktionskonzepte eingegangen wird.
 
 \subsection{Interaktionskonzepte für Requirements}
 
@@ -71,30 +96,39 @@ Dabei werden auch die Herausforderungen und Probleme bei der Implementierung auf
 
 Vor der Implementierung des Konzepts muss zunächst eine grundlegende WebXR-Anwendung erstellt werden, die die Interaktionen mit dem Controller ermöglicht.
 Hierfür wird das Skelett einer WebXR-Anwendung aus einer Artikelserie des Taikonauten-Magazins verwendet, welches als Basis für die Implementierung dient \autocite[][]{taikonauten-magazine}.
-Die Anwendung nutzt bereits die vom Nutzer gescannten Umgebungen um einen virtuellen Raum zu erstellen, in dem die Interaktionen stattfinden.
+Die Anwendung nutzt bereits die vom Nutzer gescannten Umgebungen, um einen virtuellen Raum zu erstellen, in dem die Interaktionen stattfinden.
 Dabei werden Wände und Böden der Umgebung erkannt und als Mesh in die Szene eingefügt, um dem Nutzer eine Interaktion mit der realen Umgebung zu ermöglichen.
+Zudem wurden schon einige Interaktionen des Controllers, wie das Auswählen von Objekten durch Raycasting, implementiert, die als Basis für die Implementierung der Interaktionskonzepte dienen.
 
-Der erste Schritt bei der Implementierung der Interaktionskonzepte ist die Erstellung eines 3D-Modells, welches die Bauteile des Produkts enthält.
-Dabei muss jedes Bauteil als eigenes Objekt im 3D-Modell vorhanden sein, um sie in der Animation separat darstellen zu können.
+
+
+\subsubsection{Explodierende Bauteile}
+
+Der erste Schritt bei der Implementierung des Interaktionskonzepts der "explodierenden" Bauteile ist die Erstellung eines 3D-Modells, welches die Bauteile des Produkts enthält.
+Dabei muss jedes Bauteil als eigenes Objekt im 3D-Modell vorhanden sein, um sie in der Animation separat darstellen und referenzieren zu können.
 Für die erste Implementierung wird ein einfaches 3D-Modell eines Tetris Blocks verwendet, welcher aus 4 verschiedenfarbigen Bauteilen besteht.
 
 Dieses Modell wurde in Blender erstellt und als 3D-Modell im glTF-Format, welches wie WebXR von der Khronos Group entwickelt wurde, in die Anwendung exportiert.
 Das glTF-Format ist ein offenes 3D-Dateiformat, welches für die effiziente Übertragung von 3D-Modellen im Web optimiert ist und die Dateigröße möglichst klein hält.
+Ein weiterer Vorteil des glTF-Formats ist, dass es auch Animationen und Materialien unterstützt, die im 3D-Modell enthalten sind.
+So kann die Animation der Bauteile auch direkt in der Modellierungssoftware erstellt und in das glTF-Modell mit eingebacken werden.
 
 Der nächste Schritt ist das Platzieren des erstellten 3D-Modells in der WebXR-Umgebung.
 Dazu wird das Prinzip des Raycastings verwendet, um dem Nutzer zu ermöglichen, mit dem Controller einen Punkt im Raum auszuwählen, an dem das 3D-Modell platziert werden soll.
 Dabei wird vom Controller ein Strahl in die Szene geschossen, und der Punkt, an dem der Strahl ein Objekt trifft, wird als Event zurückgegeben.
 Da durch das Skelett der Anwendung bereits die Wände und Böden der Umgebung als Mesh erkannt wurden, kann der Punkt auf diesen Meshes platziert werden, um das 3D-Modell an der gewünschten Stelle zu platzieren.
 
-Nachdem das 3D-Modell platziert werden kann, wird die Animation der explodierenden Bauteile implementiert.
-Dazu wird jedes Bauteil des 3D-Modells einzeln animiert, indem es von einem Punkt in der Mitte des Produkts nach außen bewegt wird.
+Ist das 3D-Modell platziert, kann die Animation des Produkts gestartet werden.
+Dafür wird ein Knopf des Controllers als Start-Button für die Animation verwendet, mit dem sich die Animation vorwärts und wieder rückwärts abspielen lässt.
+Für die Animation wird die aus Blender in das glTF-Modell eingebackene Animation verwendet.
+Dafür wird in Babylon.js eine Animationsfunktion erstellt, die die Animation des Modells über einige Parameter, wie beispielsweise den Start- und Endframe der Animation, steuert.
+So kann für die Vorwärts- und Rückwärtsanimation die gleiche Funktion verwendet werden, indem die Start- und Endframe-Parameter basierend auf einem globalen Boolean der den Animationsstatus speichert gesetzt werden.
 
-\subsubsection{Explodierende Bauteile}
-
-Für die Implementierung des Interaktionskonzepts sind mehrere Schritte notwendig.
-Zunächst muss ein 3D-Modell erstellt werden, welches die Bauteile des Produkts enthält.
-Zudem muss zu jedem Bauteil eine Anforderung vorliegen, die als Text dargestellt werden soll.
-
+Beim Abspielen der Animation wird jedes Bauteil des Produkts in einer Schleife durchgegangen und dessen Animation gestartet.
+Diese Schleife wird dann auch genutzt, um den einzelnen Bauteilen ihre Anforderungen als Text-UI-Elemente zuzuweisen.
+Dafür wird in Babylon.js eine Fläche erstellt, auf der der Text dargestellt wird, und diese Fläche an das Bauteil angehängt.
+Die Fläche kann dabei auch als Knopf funktionieren um bei einem Klick beispielsweise das Bauteil zu vergrößern.
+Diese UI-Elemente werden aber nur angezeigt, wenn das Produkt gerade \glqq{}explodiert\grqq{} ist und nicht, wenn das Produkt gerade im Normalzustand ist.
 
 \subsubsection{Wolken von Anforderungen}
 
