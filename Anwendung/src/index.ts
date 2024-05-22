@@ -47,6 +47,8 @@ type classArguments = {
 
 type SessionModes = "immersive-ar" | "immersive-vr" | "inline";
 
+type ViewMode = "explosion" | "cloud";
+
 type ReferenceSpaceType = "local-floor" | "bounded-floor" | "unbounded" | "local" | "viewer";
 
 enum TetrisMeshes {
@@ -65,6 +67,7 @@ class XrExperience {
     _debug: boolean;
     _xr: WebXRDefaultExperience | null;
     _sessionMode: SessionModes;
+    _viewMode: ViewMode;
     _referenceSpaceType: ReferenceSpaceType;
     _optionalFeatures: boolean;
     _fm: WebXRFeaturesManager | null;
@@ -108,6 +111,7 @@ class XrExperience {
         this._scene = new Scene(this._engine);
         this._debug = args.debug;
         this._sessionMode = "immersive-ar";
+        this._viewMode = "explosion";                   // can be "cloud" or "explosion"
         this._referenceSpaceType = "local-floor";
         this._optionalFeatures = true;
         this._xr = null;
@@ -147,7 +151,7 @@ class XrExperience {
                     this._engine.resize();
                 });
             });
-            console.log('SCENE 9 CREATED');
+            console.log('REQLAB AR STARTED!');
         }).catch((error) => {
             console.log(error);
         });
@@ -206,7 +210,12 @@ class XrExperience {
 
         this.createLightsAndShadows();
         this.createPlaneMeshesFromXrPlane();
-        this.createTetrisT();
+        if (this._viewMode === "explosion") {
+            this.createTetrisT();
+        } else if (this._viewMode === "cloud") {
+            //TODO: Implement cloud view initialization of requirement objects
+        }
+        
 
         if (this._xrAnchors && this._xrAnchors.isCompatible()) {
 
@@ -332,9 +341,6 @@ class XrExperience {
     }
 
 
-    /**
-     * Handles controller selection.
-     */
     handleControllerSelection() {
 
         if (this._xr === null) {
@@ -344,14 +350,19 @@ class XrExperience {
             motionControllerAdded.onMotionControllerInitObservable.add((motionControllerInit) => {
 
                 const motionControllerComponentIds = motionControllerInit.getComponentIds();
-                const triggerComponent = motionControllerInit.getComponent(motionControllerComponentIds[0]);
-                const buttonComponent = motionControllerInit.getComponent(motionControllerComponentIds[3]);
+                const triggerComponent = motionControllerInit.getComponent(motionControllerComponentIds[0]);    // Upper trigger
+                const buttonComponent = motionControllerInit.getComponent(motionControllerComponentIds[3]);     // The "A" button
 
                 if (buttonComponent) {
                     buttonComponent.onButtonStateChangedObservable.add((component) => {
-                        if (component.pressed && this._animationLock === false) {
-                            (this._tetrisIsExtended) ? this.retractTetris() : this.extendTetris();
+                        if (this._viewMode === "explosion") {
+                            if (component.pressed && this._animationLock === false) {
+                                (this._tetrisIsExtended) ? this.retractTetris() : this.extendTetris();
+                            } 
+                        } else {
+                            // TODO: Implement cloud view handling of "A" button
                         }
+                        
                     });
                 }
 
@@ -367,12 +378,6 @@ class XrExperience {
                                 (raycastHit.pickedMesh.name.includes('horizontal') && raycastHit.pickedMesh.position.y > 0.5)) {
                                 (this._debug) && console.log('hit a plane other than the floor');
                                 return;
-                            }
-
-                            if (raycastHit.pickedMesh === this._box) {
-                                const mat = this._box!.material as StandardMaterial;
-                                mat.diffuseColor = Color3.Random();
-                                this._box!.material = mat;
                             }
 
                             /* if (raycastHit.pickedMesh === this._tetrisRed ||
