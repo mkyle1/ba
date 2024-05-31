@@ -32,6 +32,8 @@ import {
     AbstractMesh,
     TransformNode,
     PBRMetallicRoughnessMaterial,
+    Axis,
+    Space,
 } from '@babylonjs/core';
 
 import '@babylonjs/loaders/glTF';
@@ -43,6 +45,13 @@ import { Button } from '@babylonjs/inspector/components/Button';
 
 type classArguments = {
     debug: boolean;
+}
+
+type Requirement = {
+    id: string;
+    partName: string | null;
+    partAmount: number | null;
+    requirements: string[];
 }
 
 type SessionModes = "immersive-ar" | "immersive-vr" | "inline";
@@ -79,6 +88,10 @@ class XrExperience {
     _planes: Mesh[] = [];
     _marker: Mesh | null;
     _box: Mesh | null;
+    _carRequirements: Requirement[] = [];
+    _car: AbstractMesh | null;
+    _carIsPlaced: boolean;
+    _carIsExtended: boolean;
     _tetrisRed: AbstractMesh | null;
     _tetrisRedOgPos: Vector3 | null;
     _tetrisBlue: AbstractMesh | null;
@@ -124,6 +137,23 @@ class XrExperience {
         this._planes = [];
         this._marker = null;
         this._box = null;
+        this._carRequirements = [
+            { id: '#1', partName: 'Wheel', partAmount: 4, requirements: ['The wheel has to pass CE certification to be driven at 360km/h.'] },
+            { id: '#2', partName: 'Breakhub', partAmount: 4, requirements: ['The breakhub has to have sufficient cooling to sustain 10 laps around the Nürburgring without smoking.'] },
+            { id: '#3', partName: 'Bodywork', partAmount: 1, requirements: ['The bodywork has to weigh less than 290kg.', 'The part should be painted in white car paint.'] },
+            { id: '#4', partName: 'PorscheEmblem', partAmount: 1, requirements: ['The emblem should be covered in a protective coating to protect it from corrosion.'] },
+            { id: '#5', partName: 'MainStructure', partAmount: 1, requirements: ['Each Passenger of the main structure has to be protected by airbags.'] },
+            { id: '#6', partName: 'FrunkLid', partAmount: 1, requirements: ['The lid to the front storage has to be IP67 water- and dust resistant.'] },
+            { id: '#7', partName: 'FrontLight', partAmount: 2, requirements: ['The lights should automatically detect incoming traffic.'] },
+            { id: '#8', partName: 'Windows', partAmount: 1, requirements: ['The windows should be double glazed.'] },
+            { id: '#9', partName: 'Spoiler', partAmount: 1, requirements: ['The rear wing has to be adjustable to increase downforce.'] },
+            { id: '#10', partName: 'Tire', partAmount: 4, requirements: ['The tires should be semi-slicks.'] },
+            { id: '#11', partName: 'Rim', partAmount: 4, requirements: ['The rims should be made of solid magnesium.'] },
+            { id: '#12', partName: 'BreakDisk', partAmount: 4, requirements: ['The exhaust should be made of titanium.'] },
+        ]
+        this._car = null;
+        this._carIsPlaced = false;
+        this._carIsExtended = false;
         this._tetrisRed = null;
         this._tetrisRedOgPos = null;
         this._tetrisBlue = null;
@@ -172,6 +202,7 @@ class XrExperience {
                 referenceSpaceType: this._referenceSpaceType,
             },
             optionalFeatures: this._optionalFeatures,
+            disableTeleportation: true,
         });
 
         if (!this._xr.baseExperience) {
@@ -211,7 +242,8 @@ class XrExperience {
         this.createLightsAndShadows();
         this.createPlaneMeshesFromXrPlane();
         if (this._viewMode === "explosion") {
-            this.createTetrisT();
+            //this.createTetrisT();
+            this.createCar();
         } else if (this._viewMode === "cloud") {
             //TODO: Implement cloud view initialization of requirement objects
         }
@@ -340,6 +372,10 @@ class XrExperience {
         return polygon;
     }
 
+    rotateMesh(mesh: AbstractMesh, axis: Vector3, angle: number) {
+        mesh.rotate(axis, angle, Space.LOCAL);
+    }
+
 
     handleControllerSelection() {
 
@@ -352,12 +388,14 @@ class XrExperience {
                 const motionControllerComponentIds = motionControllerInit.getComponentIds();
                 const triggerComponent = motionControllerInit.getComponent(motionControllerComponentIds[0]);    // Upper trigger
                 const buttonComponent = motionControllerInit.getComponent(motionControllerComponentIds[3]);     // The "A" button
+                const thumbstickComponent = motionControllerInit.getComponent(motionControllerComponentIds[2]); // The thumbstick
 
                 if (buttonComponent) {
                     buttonComponent.onButtonStateChangedObservable.add((component) => {
                         if (this._viewMode === "explosion") {
                             if (component.pressed && this._animationLock === false) {
-                                (this._tetrisIsExtended) ? this.retractTetris() : this.extendTetris();
+                                /* (this._tetrisIsExtended) ? this.retractTetris() : this.extendTetris(); */
+                                (this._carIsExtended) ? this.animateCar() : this.animateCar();
                             } 
                         } else {
                             // TODO: Implement cloud view handling of "A" button
@@ -365,6 +403,27 @@ class XrExperience {
                         
                     });
                 }
+
+                thumbstickComponent.onAxisValueChangedObservable.add((component) => {
+                    const rootMesh = this._scene.getMeshById('__root__');
+                    if (rootMesh) {
+                        rootMesh.rotationQuaternion = Quaternion.RotationYawPitchRoll(rootMesh.rotation.y, rootMesh.rotation.x, rootMesh.rotation.z);
+                    }
+                    
+                    const rotationSpeed = 0.5;
+                    if (component.x > 0.3) {
+                        if (rootMesh && rootMesh.rotationQuaternion) {
+                            console.log('thumbstick right');
+                            console.dir(rootMesh);
+                            this.rotateMesh(rootMesh, Axis.Y, rotationSpeed);
+                            //rootMesh.rotation.y = rootMesh.rotation.y + rotationSpeed;
+                        }
+                    } else if (component.x < -0.3) {
+                        console.log('thumbstick left');
+                    } else if (-0.3 < component.x && component.x < 0.3) {
+                        console.log('thumbstick neutral');
+                    }
+                });
 
                 triggerComponent.onButtonStateChangedObservable.add((component) => {
                     if (component.pressed && component.value > 0.8) {
@@ -379,13 +438,6 @@ class XrExperience {
                                 (this._debug) && console.log('hit a plane other than the floor');
                                 return;
                             }
-
-                            /* if (raycastHit.pickedMesh === this._tetrisRed ||
-                                raycastHit.pickedMesh === this._tetrisBlue ||
-                                raycastHit.pickedMesh === this._tetrisGreen ||
-                                raycastHit.pickedMesh === this._tetrisYellow) {
-                                this.animateTetris();
-                            } */
                             
                             if (!this._tetrisIsPlaced) {
                                 (this._debug) ?? console.log(raycastHit);
@@ -418,20 +470,26 @@ class XrExperience {
     addAnchorAtPosition(raycastHit: PickingInfo) {
 
         this._xrAnchors!.addAnchorAtPositionAndRotationAsync(raycastHit.pickedPoint!).then((anchor) => {
-        this._tetrisRed!.isVisible = true;
+        /* this._tetrisRed!.isVisible = true;
         this._tetrisBlue!.isVisible = true;
         this._tetrisGreen!.isVisible = true;
-        this._tetrisYellow!.isVisible = true;
+        this._tetrisYellow!.isVisible = true; */
+        this._car!.isVisible = true;
+        for (let i = 0; i < this._car!.getChildMeshes().length; i++) {
+            this._car!.getChildMeshes()[i].isVisible = true;
+        }
         
-        anchor.attachedNode = this._tetrisContainer!;
+        //anchor.attachedNode = this._tetrisContainer!;
+        anchor.attachedNode = this._car!;
         anchor.attachedNode.position = raycastHit.pickedPoint!;
+        console.dir(this._xrAnchors);
 
-        this._tetrisContainerOgPos = anchor.attachedNode.position.clone();
+        /* this._tetrisContainerOgPos = anchor.attachedNode.position.clone();
         this._tetrisRedOgPos = this._tetrisRed!.position.clone();
         this._tetrisBlueOgPos = this._tetrisBlue!.position.clone();
         this._tetrisGreenOgPos = this._tetrisGreen!.position.clone();
-        this._tetrisYellowOgPos = this._tetrisYellow!.position.clone();
-        this._tetrisIsPlaced = true;
+        this._tetrisYellowOgPos = this._tetrisYellow!.position.clone(); */
+        //this._tetrisIsPlaced = true;
         });
     }
 
@@ -453,7 +511,101 @@ class XrExperience {
         })
     }
 
+    createCar() {
+        SceneLoader.Append("/models/", "BachelorCarBigAnimation.glb", this._scene, ((scene: Scene) => {
+            this._car = scene.getMeshByName("__root__");
+            console.dir(this._car);
+            console.dir(this._car!.getChildMeshes());
+
+            
+            const meshes = this._car!.getChildMeshes();
+
+            console.dir(meshes);
+
+            meshes.forEach((mesh) => {
+                if (mesh) {
+                    this._shadowGenerator!.addShadowCaster(mesh);
+                    mesh.receiveShadows = true;
+                    mesh.isVisible = false;
+                }
+            });
+
+            this._car!.isVisible = false;
+        }));
+    }
+
+    animateCar() {
+        const meshes = this._car!.getChildMeshes();
+
+
+        this._animationLock = true;
+
+        meshes.forEach((mesh) => {
+            if (mesh && mesh.animations.length > 0) {
+                if(!this._carIsExtended) {
+                    this._animationLock = true;
+                    this._scene.beginAnimation(mesh, 0, mesh.animations[0].getHighestFrame(), false, 1, () => {
+                        this._animationLock = false;
+                    });
+
+                } else {
+                    this._animationLock = true;
+                    this._scene.beginAnimation(mesh, mesh.animations[0].getHighestFrame(), 0, false, 1, () => {
+                        this._animationLock = false;
+                    });
+
+                }
+            }
+            for (let i = 0; i < this._carRequirements.length; i++) {
+                if (mesh.name.includes(this._carRequirements[i].id + '_')) {
+                    if (this._carRequirements[i].requirements?.length === 1) {
+                        let plane = MeshBuilder.CreatePlane("plane", {size: 1.5}, this._scene);
+                        plane.parent = mesh;
+                        plane.position.y = 0.4;
     
+                        plane.billboardMode = Mesh.BILLBOARDMODE_Y;
+    
+                        const advancedTexture = AdvancedDynamicTexture.CreateForMesh(plane);
+                        //advancedTexture.addControl(text1);
+    
+                        var button1 = GuiButton.CreateSimpleButton("but1", this._carRequirements[i].requirements[0]);
+                        button1.width = 0.5;
+                        button1.height = "100px";
+                        button1.color = "white";
+                        button1.fontSize = 30;
+                        button1.background = "";
+                        button1.thickness = 1;
+                        button1.cornerRadius = 20;
+    
+                        var buttonBackGround = new Rectangle("");
+                        buttonBackGround.color = "";
+                        buttonBackGround.thickness = 0;
+                        buttonBackGround.background = "lightblue";
+                        buttonBackGround.alpha = 0.2;
+                        buttonBackGround.zIndex = -1;
+                        button1.addControl(buttonBackGround);
+    
+                        advancedTexture.addControl(button1); 
+
+
+                    } else if (this._carRequirements[i].requirements?.length > 1) {
+
+                    }
+                }
+            }
+        });
+
+        if (this._carIsExtended) {
+            meshes.forEach((mesh) => {
+                // TODO: Implement behaviour for showing requirements
+            });
+        } else {
+            meshes.forEach((mesh) => {
+                // TODO: Implement behaviour for hiding requirements
+            });
+        }
+        this._carIsExtended = !this._carIsExtended;
+    }
 
     createTetrisT() {
         SceneLoader.Append("/models/", "TetrisAnimation.glb", this._scene, ((scene: Scene) => {
@@ -480,18 +632,8 @@ class XrExperience {
     }
 
     animateTetris(): void {
-        const directions = {
-            Red: new Vector3(0, 0, 0),
-            Blue: new Vector3(0, 0, -1),
-            Green: new Vector3(0, 1, 0),
-            Yellow: new Vector3(0, 0, 1),
-        }
-        
-        //const meshes = this._tetrisContainer!.getChildMeshes();
-
         const meshes = [this._tetrisRed, this._tetrisBlue, this._tetrisGreen, this._tetrisYellow];
 
-        let animations: Animation[] = [];
 
         this._animationLock = true;
 
@@ -514,19 +656,32 @@ class XrExperience {
                     // ---------- Add GUI Panel ----------
                     let plane = MeshBuilder.CreatePlane("plane", {size: 1.5}, this._scene);
                     plane.parent = mesh;
-                    plane.position.y = 0.3;
+                    plane.position.y = 0.4;
 
                     plane.billboardMode = Mesh.BILLBOARDMODE_Y;
 
                     const advancedTexture = AdvancedDynamicTexture.CreateForMesh(plane);
                     //advancedTexture.addControl(text1);
 
-                    var button1 = GuiButton.CreateSimpleButton("but1", mesh.name);
+                    var button1 = GuiButton.CreateSimpleButton("but1", "This cube should be " + mesh.name);
                     button1.width = 0.5;
-                    button1.height = 0.2;
+                    button1.height = "100px";
                     button1.color = "white";
                     button1.fontSize = 30;
-                    button1.background = "gray";
+                    button1.background = "";
+                    button1.thickness = 1;
+                    button1.cornerRadius = 20;
+
+                    var buttonBackGround = new Rectangle("");
+                    buttonBackGround.color = "";
+                    buttonBackGround.thickness = 0;
+                    buttonBackGround.background = "lightblue";
+                    buttonBackGround.alpha = 0.2;
+                    buttonBackGround.zIndex = -1;
+                    button1.addControl(buttonBackGround);
+
+                    advancedTexture.addControl(button1); 
+
                     button1.onPointerUpObservable.add(() => {
                         if(this._focusedMesh === mesh) {                            //deselect highlightet part
                             this._focusedMesh.scaling = new Vector3(1, 1, 1);
