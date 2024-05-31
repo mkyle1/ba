@@ -122,13 +122,56 @@ Ist das 3D-Modell platziert, kann die Animation des Produkts gestartet werden.
 Dafür wird ein Knopf des Controllers als Start-Button für die Animation verwendet, mit dem sich die Animation vorwärts und wieder rückwärts abspielen lässt.
 Für die Animation wird die aus Blender in das glTF-Modell eingebackene Animation verwendet.
 Dafür wird in Babylon.js eine Animationsfunktion erstellt, die die Animation des Modells über einige Parameter, wie beispielsweise den Start- und Endframe der Animation, steuert.
-So kann für die Vorwärts- und Rückwärtsanimation die gleiche Funktion verwendet werden, indem die Start- und Endframe-Parameter basierend auf einem globalen Boolean der den Animationsstatus speichert gesetzt werden.
+So kann für die Vorwärts- und Rückwärtsanimation die gleiche Funktion verwendet werden, indem die Start- und Endframe-Parameter basierend auf einem globalen Boolean, der den Animationsstatus speichert, gesetzt werden.
 
 Beim Abspielen der Animation wird jedes Bauteil des Produkts in einer Schleife durchgegangen und dessen Animation gestartet.
 Diese Schleife wird dann auch genutzt, um den einzelnen Bauteilen ihre Anforderungen als Text-UI-Elemente zuzuweisen.
 Dafür wird in Babylon.js eine Fläche erstellt, auf der der Text dargestellt wird, und diese Fläche an das Bauteil angehängt.
-Die Fläche kann dabei auch als Knopf funktionieren um bei einem Klick beispielsweise das Bauteil zu vergrößern.
-Diese UI-Elemente werden aber nur angezeigt, wenn das Produkt gerade \glqq{}explodiert\grqq{} ist und nicht, wenn das Produkt gerade im Normalzustand ist.
+Die Fläche kann dabei auch als Knopf funktionieren, um bei einem Klick beispielsweise das Bauteil zu vergrößern.
+Diese UI-Elemente werden aber, wie in Abbildung \ref{fig:tetris-explosion} zu sehen ist, nur angezeigt, wenn das Produkt gerade \glqq{}explodiert\grqq{} ist und nicht, wenn das Produkt gerade im Normalzustand ist.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/tetris-explosion.png}
+    \caption{Screenshots des explodierenden Tetris-Blocks mit Anforderungen in AR}
+    \label{fig:tetris-explosion}
+\end{figure}
+
+\subsubsection{Implementation an einem komplexeren Modell}
+
+Nachdem das Interaktionskonzept funktionell am einfachen Modell eines Tetris-Blocks implementiert wurde, ist die nächste Herausforderung die Implementierung an einem komplexeren Modell.
+Dafür wird ein relativ detailliertes 3D-Modell eines Porsche 911 von der 3D-Asset-Website Sketchfab verwendet, welches von dem Nutzer Abdul Azim Sharif erstellt und unter der CC BY 4.0 Lizenz veröffentlicht wurde \autocite[][]{SketchfabPorsche}.
+Das Modell, welches in Abbildung \ref{fig:porsche} zu sehen ist, wurde ausgewählt, da es viele verschiedene Bauteile enthält, die in der Animation separat dargestellt werden können.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/PorscheModell.png}
+    \caption{Screenshot des in der Anwendung genutzten Porsche Modells}
+    \label{fig:porsche}
+\end{figure}
+
+Bei dem in dieser Bachelorarbeit verwendetem Modell ist es jedoch wichtig zu beachten, dass es sich um kein vollständig akkurates und funktionales Modell eines Autos handelt.
+Beispielsweise existieren keine Achsen an denen die Räder hängen.
+Für den anschaulichen Zweck dieser Bachelorarbeit ist das Modell jedoch ausreichend, da es genug \glqq{}reale\grqq{}  Bauteile enthält um das Interaktionskonzept zu demonstrieren.
+Würde das Interaktionskonzept in einer echten Anwendung für Kunden verwendet werden, sollte jedoch mit möglichst akkuraten CAD-Modellen gearbeitet werden, um die Anforderungen an die Bauteile möglichst genau darzustellen.
+Auf die Möglichkeit einer solchen professionellen Anwendung wird in der Diskussion eingegangen.
+
+Für die Verwendung des Modells in der Anwendung muss als nächstes eine Animation mit dem Modell erstellt werden, die die Bauteile des Autos in ihre Einzelteile zerlegt.
+Dafür wird in Blender eine Animation erstellt, welche einige Bauteile, wie beispielsweise die Verkleidung, die Räder und der Spoiler, nach außen weg bewegt.
+Zum besseren Verständnis ist in Abbildung \ref{fig:porsche-explosion} eine Bildsequenz der Animation des Porsche Modells zu sehen.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/PorscheExplosion.png}
+    \caption{Bildsequenz der Animation des Porsche Modells}
+    \label{fig:porsche-explosion}
+\end{figure}
+
+Um den Bauteilen später ihre Anforderungen zuzuweisen, müssen die relevanten Bauteile identifizierbar sein.
+Dafür wird in Blender jedem animierten Objekt eine ID am Anfang des Objektnames zugewiesen, die später in der Anwendung als Referenz für die Anforderungen dient.
+
+
+
 
 \subsubsection{Wolken von Anforderungen}
 
