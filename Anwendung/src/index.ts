@@ -89,9 +89,14 @@ class XrExperience {
     _marker: Mesh | null;
     _box: Mesh | null;
     _carRequirements: Requirement[] = [];
-    _car: AbstractMesh | null;
+    _car: TransformNode | null;
     _carIsPlaced: boolean;
     _carIsExtended: boolean;
+    _wheel: TransformNode | null;
+    _wheelIsExtended: boolean;
+    _wheelCloseUp: boolean;
+
+
     _tetrisRed: AbstractMesh | null;
     _tetrisRedOgPos: Vector3 | null;
     _tetrisBlue: AbstractMesh | null;
@@ -154,6 +159,12 @@ class XrExperience {
         this._car = null;
         this._carIsPlaced = false;
         this._carIsExtended = false;
+        this._wheel = null;
+        this._wheelIsExtended = false;
+        this._wheelCloseUp = false;
+
+
+
         this._tetrisRed = null;
         this._tetrisRedOgPos = null;
         this._tetrisBlue = null;
@@ -244,6 +255,7 @@ class XrExperience {
         if (this._viewMode === "explosion") {
             //this.createTetrisT();
             this.createCar();
+            this.createWheel();
         } else if (this._viewMode === "cloud") {
             //TODO: Implement cloud view initialization of requirement objects
         }
@@ -394,8 +406,12 @@ class XrExperience {
                     buttonComponent.onButtonStateChangedObservable.add((component) => {
                         if (this._viewMode === "explosion") {
                             if (component.pressed && this._animationLock === false) {
-                                /* (this._tetrisIsExtended) ? this.retractTetris() : this.extendTetris(); */
-                                (this._carIsExtended) ? this.animateCar() : this.animateCar();
+                                if (this._wheelCloseUp) {
+                                    this.animateWheel();
+                                } else {
+                                    this.animateCar();
+                                }
+                                
                             } 
                         } else {
                             // TODO: Implement cloud view handling of "A" button
@@ -438,6 +454,11 @@ class XrExperience {
                                 (this._debug) && console.log('hit a plane other than the floor');
                                 return;
                             }
+                            if (raycastHit.pickedMesh.name.includes('#2') || raycastHit.pickedMesh.name.includes('#1')) {
+                                console.log('Hit a wheel');
+                                this._wheelCloseUp = true;
+                                
+                            }
                             
                             if (!this._tetrisIsPlaced) {
                                 (this._debug) ?? console.log(raycastHit);
@@ -474,13 +495,36 @@ class XrExperience {
         this._tetrisBlue!.isVisible = true;
         this._tetrisGreen!.isVisible = true;
         this._tetrisYellow!.isVisible = true; */
-        this._car!.isVisible = true;
-        for (let i = 0; i < this._car!.getChildMeshes().length; i++) {
-            this._car!.getChildMeshes()[i].isVisible = true;
+
+        const carMeshes = this._car!.getChildMeshes();
+        const wheelMeshes = this._wheel!.getChildMeshes();
+
+        if (this._wheelCloseUp === false) {
+            for (let i = 0; i < carMeshes.length; i++) {
+                carMeshes[i].isVisible = true;
+            }
+            //TODO: Make tire meshes disappear
+            for (let i = 0; i < wheelMeshes.length; i++) {
+                wheelMeshes[i].isVisible = false;
+            }
+        } else {
+            for (let i = 0; i < carMeshes.length; i++) {
+                carMeshes[i].isVisible = false;
+            }
+            //TODO: Make tire meshes appear
+            for (let i = 0; i < wheelMeshes.length; i++) {
+                wheelMeshes[i].isVisible = true;
+            }
         }
+       
         
         //anchor.attachedNode = this._tetrisContainer!;
-        anchor.attachedNode = this._car!;
+        if (this._wheelCloseUp) {
+            anchor.attachedNode = this._wheel!;
+            console.dir("Wheel attached to anchor");
+        } else {
+            anchor.attachedNode = this._car!;
+        }
         anchor.attachedNode.position = raycastHit.pickedPoint!;
         console.dir(this._xrAnchors);
 
@@ -511,9 +555,41 @@ class XrExperience {
         })
     }
 
+    addRequirementPanelToMesh(mesh: AbstractMesh, requirement: Requirement) {
+        let plane = MeshBuilder.CreatePlane("plane", {size: 1.5}, this._scene);
+        plane.parent = mesh;
+        plane.position.y = -0.4;
+        plane.rotation._x = Math.PI;
+        //plane.rotate(Axis.X, Math.PI);
+
+        plane.billboardMode = Mesh.BILLBOARDMODE_Y;
+
+        const advancedTexture = AdvancedDynamicTexture.CreateForMesh(plane);
+        //advancedTexture.addControl(text1);
+
+        var button1 = GuiButton.CreateSimpleButton("but1", requirement.requirements[0]);
+        button1.width = 0.5;
+        button1.height = "100px";
+        button1.color = "white";
+        button1.fontSize = 30;
+        button1.background = "";
+        button1.thickness = 1;
+        button1.cornerRadius = 20;
+
+        var buttonBackGround = new Rectangle("");
+        buttonBackGround.color = "";
+        buttonBackGround.thickness = 0;
+        buttonBackGround.background = "lightblue";
+        buttonBackGround.alpha = 0.2;
+        buttonBackGround.zIndex = -1;
+        button1.addControl(buttonBackGround);
+
+        advancedTexture.addControl(button1); 
+    }
+
     createCar() {
         SceneLoader.Append("/models/", "BachelorCarBigAnimation.glb", this._scene, ((scene: Scene) => {
-            this._car = scene.getMeshByName("__root__");
+            this._car = scene.getTransformNodeByName("EntireChassis");
             console.dir(this._car);
             console.dir(this._car!.getChildMeshes());
 
@@ -530,7 +606,6 @@ class XrExperience {
                 }
             });
 
-            this._car!.isVisible = false;
         }));
     }
 
@@ -556,56 +631,92 @@ class XrExperience {
 
                 }
             }
-            for (let i = 0; i < this._carRequirements.length; i++) {
-                if (mesh.name.includes(this._carRequirements[i].id + '_')) {
-                    if (this._carRequirements[i].requirements?.length === 1) {
-                        let plane = MeshBuilder.CreatePlane("plane", {size: 1.5}, this._scene);
-                        plane.parent = mesh;
-                        plane.position.y = 0.4;
-    
-                        plane.billboardMode = Mesh.BILLBOARDMODE_Y;
-    
-                        const advancedTexture = AdvancedDynamicTexture.CreateForMesh(plane);
-                        //advancedTexture.addControl(text1);
-    
-                        var button1 = GuiButton.CreateSimpleButton("but1", this._carRequirements[i].requirements[0]);
-                        button1.width = 0.5;
-                        button1.height = "100px";
-                        button1.color = "white";
-                        button1.fontSize = 30;
-                        button1.background = "";
-                        button1.thickness = 1;
-                        button1.cornerRadius = 20;
-    
-                        var buttonBackGround = new Rectangle("");
-                        buttonBackGround.color = "";
-                        buttonBackGround.thickness = 0;
-                        buttonBackGround.background = "lightblue";
-                        buttonBackGround.alpha = 0.2;
-                        buttonBackGround.zIndex = -1;
-                        button1.addControl(buttonBackGround);
-    
-                        advancedTexture.addControl(button1); 
+            if (mesh.getChildMeshes().length === 0) {   //create requirement planes if they dont exist already
+                for (let i = 0; i < this._carRequirements.length; i++) {
+                    if (mesh.name.includes(this._carRequirements[i].id + '_')) {
+                        if (this._carRequirements[i].requirements?.length === 1) {
+                            this.addRequirementPanelToMesh(mesh, this._carRequirements[i]); 
 
+                        } else if (this._carRequirements[i].requirements?.length > 1) {
 
-                    } else if (this._carRequirements[i].requirements?.length > 1) {
-
+                        }
                     }
                 }
             }
+            if (this._carIsExtended) {
+                mesh.getChildMeshes().forEach((childMesh) => {
+                    childMesh.isVisible = false;
+                })
+            } else {
+                mesh.getChildMeshes().forEach((childMesh) => {
+                    childMesh.isVisible = true;
+                })
+            }
         });
 
-        if (this._carIsExtended) {
-            meshes.forEach((mesh) => {
-                // TODO: Implement behaviour for showing requirements
-            });
-        } else {
-            meshes.forEach((mesh) => {
-                // TODO: Implement behaviour for hiding requirements
-            });
-        }
         this._carIsExtended = !this._carIsExtended;
     }
+
+    createWheel() {
+        SceneLoader.Append("/models/", "BachelorCarTireAnimation.glb", this._scene, ((scene: Scene) => {
+            this._wheel = scene.getTransformNodeByName("EntireWheel");
+
+            const meshes = this._wheel!.getChildMeshes();
+
+            meshes.forEach((mesh) => {
+                if (mesh) {
+                    this._shadowGenerator!.addShadowCaster(mesh);
+                    mesh.receiveShadows = true;
+                    mesh.isVisible = false;
+                }
+            });
+        }));
+    }
+
+    animateWheel() {
+        const meshes = this._wheel!.getChildMeshes();
+
+        this._animationLock = true;
+
+        meshes.forEach((mesh) => {
+            if (mesh && mesh.animations.length > 0) {
+                if(!this._wheelIsExtended) {
+                    this._animationLock = true;
+                    this._scene.beginAnimation(mesh, 0, mesh.animations[0].getHighestFrame(), false, 1, () => {
+                        this._animationLock = false;
+                    });
+
+                } else {
+                    this._animationLock = true;
+                    this._scene.beginAnimation(mesh, mesh.animations[0].getHighestFrame(), 0, false, 1, () => {
+                        this._animationLock = false;
+                    });
+
+                }
+            }
+            if (mesh.getChildMeshes().length === 0) {   //create requirement planes if they dont exist already
+                for (let i = 0; i < this._carRequirements.length; i++) {
+                    if (mesh.name.includes(this._carRequirements[i].id + '_')) {
+                        if (this._carRequirements[i].requirements?.length === 1) {
+                            this.addRequirementPanelToMesh(mesh, this._carRequirements[i]); 
+
+                        } else if (this._carRequirements[i].requirements?.length > 1) {
+
+                        }
+                    }
+                }
+            }
+            if (this._carIsExtended) {
+                mesh.getChildMeshes().forEach((childMesh) => {
+                    childMesh.isVisible = false;
+                })
+            } else {
+                mesh.getChildMeshes().forEach((childMesh) => {
+                    childMesh.isVisible = true;
+                })
+            }
+        });
+    } 
 
     createTetrisT() {
         SceneLoader.Append("/models/", "TetrisAnimation.glb", this._scene, ((scene: Scene) => {
