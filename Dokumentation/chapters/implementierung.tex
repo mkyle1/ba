@@ -6,7 +6,7 @@ Die Entwicklung von WebXR-Anwendungen für die Oculus Quest 3 erfordert eine spe
 Dabei müssen verschiedene Technologien und Tools miteinander kombiniert werden, um eine reibungslose Entwicklung und ein möglichst schnelles Testen der Anwendung zu ermöglichen.
 
 Der erste Schritt ist das Anzeigen der WebXR-Anwendung auf der Oculus Quest 3.
-Das Problem dabei im Vergleich zu \glqq{} normalen\grqq{} Webanwendungen ist, dass WebXR-Anwendungen nur über HTTPS aufgerufen werden können.
+Das Problem dabei im Vergleich zu \glqq{}normalen\grqq{} Webanwendungen ist, dass WebXR-Anwendungen nur über HTTPS aufgerufen werden können.
 Das bedeutet, dass die Anwendung über HTTPS gehostet werden muss, um direkt vom Browser der Oculus Quest 3 aufgerufen werden zu können.
 Hierfür gibt es verschiedene Möglichkeiten, wie beispielsweise das Erstellen eines eigenen Zertifikats für den lokalen Entwicklungsrechner oder das Hosting der Anwendung auf einem Server mit HTTPS-Unterstützung.
 Für den Rahmen der Entwicklung dieser Bachelorarbeit wird die Anwendung jedoch, wie auch in der Artikelserie des Taikonautenmagazins \autocite[Part 0/8]{taikonauten-magazine} empfohlen, mit LocalTunnel gehostet, um die Anwendung direkt von der Oculus Quest 3 aus testen zu können.
@@ -21,6 +21,24 @@ Die Verbindung muss noch in der VR-Brille bestätigt werden, um den Zugriff auf 
 Ist das geschehen, erscheint die Quest 3 mit ihren geöffneten Websites in der Geräteliste der Chrome DevTools, die über die URL \url{chrome://inspect/#devices} aufgerufen werden können.
 Dort können dann die Entwickler-Tools der Oculus Quest 3 geöffnet werden, um beispielsweise die Performance der Anwendung zu überwachen und Fehlermeldungen zu sehen.
 
+
+Für viele Aspekte der Entwicklung von XR-Anwendungen, wie beispielsweise einfache Tests von Interaktionen wie einzelnen Klicks können auch über einen WebXR-Emulator direkt am Entwicklungsrechner getestet werden.
+In dieser Arbeit wird dafür die Chrome-Erweiterung Immersive Web Emulator von Meta verwendet, die es ermöglicht, WebXR-Anwendungen direkt im Browser zu testen.
+Mit dieser Erweiterung wird für WebXR ein einfacher Raum mit einem Headset und den beiden Meta Quest Controllern simuliert.
+Das Headset sowie die beiden Controller können unabhängig voneinander über die Erweiterung positioniert und gesteuert werden.
+In dem in Abbildung \ref{fig:webxr-emulator} links dargestellten Panel können verschiedene Interaktionen, wie beispielsweise Klicks oder das Bewegen der Controller, simuliert werden, um die Anwendung zu testen.
+Der Emulator generiert dann eine live Vorschau der Anwendung, die direkt im Browser angezeigt wird.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/WebXR-Emulator.png}
+    \caption{Screenshots der Immersive Web Emulator Erweiterung in Chrome}
+    \label{fig:webxr-emulator}
+\end{figure}
+
+Das Testen der Anwendung mit dieser Erweiterung ist deutlich schneller und einfacher als das Testen auf der Oculus Quest 3, da die Anwendung direkt im Browser getestet werden kann und keine Verbindung zur Oculus Quest 3 notwendig ist.
+Zudem sind die Ladezeiten beim Neuladen der Anwendung deutlich kürzer, da die Anwendung nicht auf die Übertragung der Daten auf die Oculus Quest 3 warten muss.
+Dennoch ist es wichtig, die Anwendung auch regelmäßig auf der Oculus Quest 3 zu testen, da die Performance und die Interaktionen auf dem Emulator nicht immer exakt der Realität entsprechen.
 
 
 
@@ -76,8 +94,9 @@ Beispielsweise könnten Anforderungen, die zu einem bestimmten Feature gehören,
 Durch die räumliche Anordnung der Wolken kann der Nutzer schnell erkennen, welche Anforderungen zusammen gehören und welche nicht.
 
 Dabei soll es auch möglich sein in Wolken hinein- und herauszuzoomen, um die Granularität der angezeigten Anforderungen zu erhöhen.
-Gehen wir dabei wieder vom Beispiel des Autos aus, soll es möglich sein in die Wolke der Räder hineinzuzoomen, um die Anforderungen an die Reifen, Felgen, Radmuttern etc. zu sehen.
+Gehen wir dabei wieder vom Beispiel des Autos aus, könnte es möglich sein in die Wolke der Räder hineinzuzoomen, um die Anforderungen an die Reifen, Felgen, Radmuttern etc. zu sehen.
 Daraufhin kann wieder herausgezoomt werden, um die Anforderungen an das gesamte Auto zu sehen.
+Eine weitere Möglichkeit wäre es, auf den Anforungspanels Filtermöglichkeiten für verschiedene Beziehungen der Anforderung darszustellen, um dann bei einer Auswahl in die neue Anforderungswolke zu zoomen.
 Diese Interaktion und die räumliche Anordnung der Wolken sollen dem Nutzer helfen, auch bei einer großen Anzahl von Anforderungen einen Überblick zu behalten und schnell die gewünschten Anforderungen zu finden.
 
 Bei diesem Konzept soll vor allem der Vorteil gegenüber einer 2D-Darstellung kritisch untersucht werden.
@@ -104,7 +123,7 @@ Zudem wurden schon einige Interaktionen des Controllers, wie das Auswählen von 
 
 \subsubsection{Explodierende Bauteile}
 
-Der erste Schritt bei der Implementierung des Interaktionskonzepts der "explodierenden" Bauteile ist die Erstellung eines 3D-Modells, welches die Bauteile des Produkts enthält.
+Der erste Schritt bei der Implementierung des Interaktionskonzepts der \glqq{}explodierenden\grqq{} Bauteile ist die Erstellung eines 3D-Modells, welches die Bauteile des Produkts enthält.
 Dabei muss jedes Bauteil als eigenes Objekt im 3D-Modell vorhanden sein, um sie in der Animation separat darstellen und referenzieren zu können.
 Für die erste Implementierung wird ein einfaches 3D-Modell eines Tetris Blocks verwendet, welcher aus 4 verschiedenfarbigen Bauteilen besteht.
 
@@ -115,8 +134,14 @@ So kann die Animation der Bauteile auch direkt in der Modellierungssoftware erst
 
 Der nächste Schritt ist das Platzieren des erstellten 3D-Modells in der WebXR-Umgebung.
 Dazu wird das Prinzip des Raycastings verwendet, um dem Nutzer zu ermöglichen, mit dem Controller einen Punkt im Raum auszuwählen, an dem das 3D-Modell platziert werden soll.
-Dabei wird vom Controller ein Strahl in die Szene geschossen, und der Punkt, an dem der Strahl ein Objekt trifft, wird als Event zurückgegeben.
-Da durch das Skelett der Anwendung bereits die Wände und Böden der Umgebung als Mesh erkannt wurden, kann der Punkt auf diesen Meshes platziert werden, um das 3D-Modell an der gewünschten Stelle zu platzieren.
+Der Raum, in dem sich der Anwender befindet, muss dafür zu Beginn einmalig in den Meta Quest Einstellungen eingescannt werden.
+Ist das geschehen, werden durch das Skelett der Anwendung des Taikonauten-Magazins bereits die Wände und Böden der Umgebung als Meshes erkannt und in die Szene eingefügt.
+Dann wird vom Controller ein Strahl in die Szene geschossen, und der Punkt, an dem der Strahl ein Objekt trifft, wird als Event zurückgegeben.
+
+An diesem Punkt wird dann ein Ankerpunkt erstellt, an den das 3D-Modell angehaftet wird.
+Dieser Ankerpunkt ist ein Babylon.js-Objekt, welches einen Punkt im Raum in AR an einer bestimmten Position darstellen kann.
+Das 3D-Modell wird dann an diesen Ankerpunkt angehängt, sodass es sich relativ zu diesem Punkt bewegt.
+
 
 Ist das 3D-Modell platziert, kann die Animation des Produkts gestartet werden.
 Dafür wird ein Knopf des Controllers als Start-Button für die Animation verwendet, mit dem sich die Animation vorwärts und wieder rückwärts abspielen lässt.
@@ -168,7 +193,18 @@ Zum besseren Verständnis ist in Abbildung \ref{fig:porsche-explosion} eine Bild
 \end{figure}
 
 Um den Bauteilen später ihre Anforderungen zuzuweisen, müssen die relevanten Bauteile identifizierbar sein.
-Dafür wird in Blender jedem animierten Objekt eine ID am Anfang des Objektnames zugewiesen, die später in der Anwendung als Referenz für die Anforderungen dient.
+Dafür wird in Blender jedem animierten Objekt eine ID (bspw. \#1\_Rad, \#2\_Lichter) am Anfang des Objektnamens zugewiesen, die später in der Anwendung als Referenz für die Anforderungen dient.
+Die IDs werden dabei zusätzlich in anzeigende und nicht-anzeigende IDs unterteilt, um bei Bauteilen welche aus mehreren kleinen Objekten bestehen in der großen Ansicht nur die Anforderungen des Hauptobjekts anzuzeigen.
+Beispielsweise besteht ein Rad aus Reifen, Felge, Bremsscheibe etc., wobei nur das Rad als Hauptobjekt die Anforderungen an das Rad anzeigt und die anderen Objekte die Anforderungen an sich selbst in der Detailansicht.
+Um die Objekte jedoch einfach ihren Elternobjekten zuordnen zu können, wie beispielsweise für die Klick-Abfrage des Rads, werden die IDs der Elternobjekte in den IDs der Kindobjekte gespeichert.
+Dabei jedoch ohne Unterstrich \glqq{}\_\grqq{} hinter der ID, wodurch sie beim Erstellen der Anforderungspanels ignoriert werden.
+
+Für die Änderung auf die detaillierte Radansicht wird einer Abfrage hinzugefügt, die prüft, ob der Nutzer auf ein Rad klickt.
+Dafür wird wieder das Raycasting-Prinzip verwendet, um den Punkt zu bestimmen, an dem der Controller auf ein Objekt trifft.
+Ist das getroffene Objekt Teil vom Rad, wird an der Stelle ein neuer Ankerpunkt erstellt, an dem die Detailansicht des Rads angezeigt wird.
+Der alte Ankerpunkt und die Bauteile des Autos werden dann ausgeblendet, und die Bauteile des Rads werden an den neuen Ankerpunkt angehängt.
+So kann der Nutzer die Anforderungen an das Rad in einer Detailansicht betrachten und bei Bedarf wieder zur Gesamtansicht des Autos zurückkehren.
+
 
 
 
