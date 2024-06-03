@@ -60,13 +60,6 @@ type ViewMode = "explosion" | "cloud";
 
 type ReferenceSpaceType = "local-floor" | "bounded-floor" | "unbounded" | "local" | "viewer";
 
-enum TetrisMeshes {
-        Red = 'Red',
-        Blue = 'Blue',
-        Green = 'Green',
-        Yellow = 'Yellow',
-        Container = '__root__',
-}
 
 
 class XrExperience {
@@ -95,21 +88,6 @@ class XrExperience {
     _wheel: TransformNode | null;
     _wheelIsExtended: boolean;
     _wheelCloseUp: boolean;
-
-
-    _tetrisRed: AbstractMesh | null;
-    _tetrisRedOgPos: Vector3 | null;
-    _tetrisBlue: AbstractMesh | null;
-    _tetrisBlueOgPos: Vector3 | null;
-    _tetrisGreen: AbstractMesh | null;
-    _tetrisGreenOgPos: Vector3 | null;
-    _tetrisYellow: AbstractMesh | null;
-    _tetrisOgStartPos: Vector3[];
-    _tetrisYellowOgPos: Vector3 | null;
-    _tetrisContainer: AbstractMesh | null;
-    _tetrisContainerOgPos: Vector3 | null;
-    _tetrisIsExtended: boolean;
-    _tetrisIsPlaced: boolean;
     _focusedMesh: AbstractMesh | null;
     _centerPoint: Vector3 | null;
     _animationLock: boolean;
@@ -163,21 +141,6 @@ class XrExperience {
         this._wheelIsExtended = false;
         this._wheelCloseUp = false;
 
-
-
-        this._tetrisRed = null;
-        this._tetrisRedOgPos = null;
-        this._tetrisBlue = null;
-        this._tetrisBlueOgPos = null;
-        this._tetrisGreen = null;
-        this._tetrisGreenOgPos = null;
-        this._tetrisYellow = null;
-        this._tetrisYellowOgPos = null;
-        this._tetrisOgStartPos = [];
-        this._tetrisContainer = null;
-        this._tetrisContainerOgPos = null;
-        this._tetrisIsExtended = false;
-        this._tetrisIsPlaced = false;
         this._focusedMesh = null;
         this._centerPoint = null;
         this._animationLock = false;
@@ -253,7 +216,6 @@ class XrExperience {
         this.createLightsAndShadows();
         this.createPlaneMeshesFromXrPlane();
         if (this._viewMode === "explosion") {
-            //this.createTetrisT();
             this.createCar();
             this.createWheel();
         } else if (this._viewMode === "cloud") {
@@ -459,11 +421,7 @@ class XrExperience {
                                 this._wheelCloseUp = true;
                                 
                             }
-                            
-                            if (!this._tetrisIsPlaced) {
-                                (this._debug) ?? console.log(raycastHit);
-                                this.addAnchorAtPosition(raycastHit);
-                            }
+                            this.addAnchorAtPosition(raycastHit);
                         }
                     }
                 });
@@ -491,10 +449,6 @@ class XrExperience {
     addAnchorAtPosition(raycastHit: PickingInfo) {
 
         this._xrAnchors!.addAnchorAtPositionAndRotationAsync(raycastHit.pickedPoint!).then((anchor) => {
-        /* this._tetrisRed!.isVisible = true;
-        this._tetrisBlue!.isVisible = true;
-        this._tetrisGreen!.isVisible = true;
-        this._tetrisYellow!.isVisible = true; */
 
         const carMeshes = this._car!.getChildMeshes();
         const wheelMeshes = this._wheel!.getChildMeshes();
@@ -518,7 +472,6 @@ class XrExperience {
         }
        
         
-        //anchor.attachedNode = this._tetrisContainer!;
         if (this._wheelCloseUp) {
             anchor.attachedNode = this._wheel!;
             console.dir("Wheel attached to anchor");
@@ -527,13 +480,6 @@ class XrExperience {
         }
         anchor.attachedNode.position = raycastHit.pickedPoint!;
         console.dir(this._xrAnchors);
-
-        /* this._tetrisContainerOgPos = anchor.attachedNode.position.clone();
-        this._tetrisRedOgPos = this._tetrisRed!.position.clone();
-        this._tetrisBlueOgPos = this._tetrisBlue!.position.clone();
-        this._tetrisGreenOgPos = this._tetrisGreen!.position.clone();
-        this._tetrisYellowOgPos = this._tetrisYellow!.position.clone(); */
-        //this._tetrisIsPlaced = true;
         });
     }
 
@@ -717,126 +663,6 @@ class XrExperience {
             }
         });
     } 
-
-    createTetrisT() {
-        SceneLoader.Append("/models/", "TetrisAnimation.glb", this._scene, ((scene: Scene) => {
-            this._tetrisRed = scene.getMeshByName(TetrisMeshes.Red);
-            this._tetrisBlue = scene.getMeshByName(TetrisMeshes.Blue);
-            this._tetrisGreen = scene.getMeshByName(TetrisMeshes.Green);
-            this._tetrisYellow = scene.getMeshByName(TetrisMeshes.Yellow);
-            this._tetrisContainer = scene.getMeshByName(TetrisMeshes.Container);
-
-            const meshes = this._tetrisContainer!.getChildMeshes();
-
-            meshes.forEach((mesh) => {
-                if (mesh) {
-                    this._shadowGenerator!.addShadowCaster(mesh);
-                    mesh.receiveShadows = true;
-                }
-            });
-
-            this._tetrisRed!.isVisible = false;
-            this._tetrisBlue!.isVisible = false;
-            this._tetrisGreen!.isVisible = false;
-            this._tetrisYellow!.isVisible = false;
-        }));
-    }
-
-    animateTetris(): void {
-        const meshes = [this._tetrisRed, this._tetrisBlue, this._tetrisGreen, this._tetrisYellow];
-
-
-        this._animationLock = true;
-
-        
-        meshes.forEach((mesh, index) => {
-            if (mesh) {
-                if(!this._tetrisIsExtended) {
-                    this._animationLock = true;
-                    this._scene.beginAnimation(mesh, 0, mesh.animations[0].getHighestFrame(), false, 1, () => {
-                        this._animationLock = false;
-                    });
-                } else {
-                    this._animationLock = true;
-                    this._scene.beginAnimation(mesh, mesh.animations[0].getHighestFrame(), 0, false, 1, () => {
-                        this._animationLock = false;
-                    });
-                }
-                
-                if (mesh.getChildMeshes().length === 0) {
-                    // ---------- Add GUI Panel ----------
-                    let plane = MeshBuilder.CreatePlane("plane", {size: 1.5}, this._scene);
-                    plane.parent = mesh;
-                    plane.position.y = 0.4;
-
-                    plane.billboardMode = Mesh.BILLBOARDMODE_Y;
-
-                    const advancedTexture = AdvancedDynamicTexture.CreateForMesh(plane);
-                    //advancedTexture.addControl(text1);
-
-                    var button1 = GuiButton.CreateSimpleButton("but1", "This cube should be " + mesh.name);
-                    button1.width = 0.5;
-                    button1.height = "100px";
-                    button1.color = "white";
-                    button1.fontSize = 30;
-                    button1.background = "";
-                    button1.thickness = 1;
-                    button1.cornerRadius = 20;
-
-                    var buttonBackGround = new Rectangle("");
-                    buttonBackGround.color = "";
-                    buttonBackGround.thickness = 0;
-                    buttonBackGround.background = "lightblue";
-                    buttonBackGround.alpha = 0.2;
-                    buttonBackGround.zIndex = -1;
-                    button1.addControl(buttonBackGround);
-
-                    advancedTexture.addControl(button1); 
-
-                    button1.onPointerUpObservable.add(() => {
-                        if(this._focusedMesh === mesh) {                            //deselect highlightet part
-                            this._focusedMesh.scaling = new Vector3(1, 1, 1);
-                            this._focusedMesh = null;
-                        } else {                                                    //select new part to highlight
-                            if (this._focusedMesh) {
-                                this._focusedMesh.scaling = new Vector3(1, 1, 1);
-                            }    
-                            this._focusedMesh = mesh;
-                            this._focusedMesh.scaling = new Vector3(1.3, 1.3, 1.3);
-                        }
-                        
-                    });
-                    advancedTexture.addControl(button1);
-                };
-                
-                
-            }
-        });
-        if (this._tetrisIsExtended) {
-            meshes.forEach((mesh) => {
-                mesh!.getChildMeshes().forEach((childMesh) => {
-                    childMesh.isVisible = false;
-                });
-            });
-        } else {
-            meshes.forEach((mesh) => {
-                mesh!.getChildMeshes().forEach((childMesh) => {
-                    childMesh.isVisible = true;
-                });
-            });
-        }
-        this._tetrisIsExtended = !this._tetrisIsExtended;
-    }
-
-    extendTetris() {
-        this.animateTetris();
-        this._tetrisIsExtended = true;
-    }
-
-    retractTetris() {
-        this.animateTetris();
-        this._tetrisIsExtended = false;
-    }
 
 }
 
