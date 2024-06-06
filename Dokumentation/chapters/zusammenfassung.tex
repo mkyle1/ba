@@ -1,7 +1,53 @@
 \chapter{Zusammenfassung}
 
+In diesem Kapitel wird ein Rückblick auf die Arbeit gegeben und die Ergebnisse zusammengefasst.
+Zudem werden die Ergebnisse bewertet indem ein Fazit über die Effektivität und Usability der entwickelten gezogen wird.
+Zuletzt wird ein Ausblick auf mögliche Weiterentwicklungen der Konzepte gegeben.
+
 \section{Ergebnisse}
+
+Im Rahmen der Bachelorarbeit wurden zwei Konzepte für die Visualisierung von Requirements in Augmented Reality ausgearbeitet und in einem Prototypen umgesetzt.
+Der Prototyp ist dabei eine WebXR-Anwendung, die mit dem Framework Babylon.js entwickelt wurde.
+Die Anwendung kann direkt von einem AR-fähigen Browser aufgerufen werden und ist somit plattformunabhängig.
+
+Das erste Konzept ist die Visualisierung von Requirements in Kombination mit einem 3D-Modell des zu entwickelnden Produkts.
+Dabei wird das 3D-Modell in einer AR-Umgebung dargestellt und kann in einer \glqq{}Explosions\grqq{}-Animation zerlegt werden.
+Ist das Modell in seine Einzelteile zerlegt, werden die Anforderungen als Panels an den einzelnen Bauteilen visualisiert.
+Der Nutzer kann dann die Animation rückwärts abspielen, um das Modell wieder zusammenzusetzen.
+Dabei verschwinden die Anforderungen wieder, und das Produkt kann in seinem Gesamtzustand betrachtet werden.
+Im Prototyp wurde dafür ein Auto-Modell verwendet, welches in seine Einzelteile zerlegt wird.
+Zur Visualisierung der eingeplanten Detailansicht können im Prototyp die Räder des Modells angeklickt werden, um so eine Detailansicht der Anforderungen an die Räder zu erhalten.
+Das Interaktionskonzept zeigt dabei viel Potenzial, um viele Interaktionsmöglichkeiten mit dem 3D-Modell und den Anforderungen zu ermöglichen.
+Ein großer Mehrwert der Visualisierung in AR ist dabei, dass das 3D-Modell in Originalgröße dargestellt werden kann und so eine realistische Darstellung des Produkts ermöglicht wird.
+
+Das zweite Konzept ist die Visualisierung von Requirements in Wolken aus Textpanels, die in der AR-Umgebung schweben.
+Die Wolken sind dabei Cluster von Anforderungen, die thematisch zusammengehören.
+Zusätzlich können die Anforderungen in den Wolken angeklickt werden, um zugehörige Anforderungen anzuzeigen.
+Dieses Konzept ist deutlich einfacher automatisiert umzusetzen, da die Anforderungen in den Wolken nur als Textpanels dargestellt werden und keine extra Animationen oder 3D-Modelle benötigt werden.
+Jedoch ist auch der Mehrwert für den Nutzer in diesem Konzept geringer, da es weniger Möglichkeiten zur Interaktion in Augmented Reality gibt als im ersten Konzept.
+Hier ist fraglich, ob durch eine Darstellung in AR ein Mehrwert gegenüber einer 2D-Darstellung des gleichen Interaktionskonzepts erreicht wird.
+
 
 \section{Fazit}
 
+Insgesamt konnte in dieser Arbeit gezeigt werden, dass die Visualisierung von Requirements in Augmented Reality zumindest in einem Prototypen umsetzbar ist.
+Das erste Konzept zeigt dabei auch, dass mit der Visualisierung in AR durch viele neue Interaktionsmöglichkeiten ein Mehrwert in der Visualisierung von Requirements erreicht werden kann.
+
+In AR können, wie vor allem am Konzept der explodierten 3D-Modelle gezeigt wurde, viele neue Interaktionsmöglichkeiten geschaffen werden, die in einer 2D-Darstellung nicht möglich wären.
+Physische Produkte und ihre Bauteile können in Originalgröße dargestellt und interaktiv mit ihren Anforderungen verknüpft werden.
+So entsteht ein neuer Ansatz, um Anforderungen besser zu verstehen, zu kommunizieren und zu visualisieren.
+
+Die Arbeit zeigt jedoch auch, dass die Umsetzung der untersuchten Konzepte noch viele Herausforderungen mit sich bringt.
+Visuell beeindruckende Darstellungen erfordern meist auch eine aufwendige und somit teure Implementierung.
+Das erste Konzept beispielsweise erfordert die Erstellung und instandhaltung eines aktuellen 3D-Modells des Produkts, welches in der Anwendung dargestellt wird.
+Da dieses Konzept der explodierenden Bauteile, welches den meisten Mehrwert der Usability bietet, nur schwer automatisiert umzusetzen ist, ist die Implementierung in einer realen Anwendung zeitaufwändig und damit teuer.
+Das zweite Konzept hingegen ist zwar einfacher umzusetzen, bietet jedoch auch weniger Mehrwert für den Nutzer.
+Die Kosten-Nutzen-Effektivität beider Konzepte muss daher in weiteren Untersuchungen genauer betrachtet werden.
+
+
 \section{Ausblick}
+
+In weiteren Arbeiten könnte die Umsetzung der beiden Konzepte in einer realen Anwendung weiter untersucht werden.
+Dabei würde sich vor allem eine Untersuchung der professionellen Umsetzbarkeit des Konzepts der explodierenden Bauteile anbieten, da dieses schon im Prototypen den größten Mehrwert der Darstellung bietet und noch stark ausgebaut werden kann.
+Das Konzept bietet auch viele Möglichkeiten zur Erweiterung der Interaktionsmöglichkeiten.
+Beispielsweise könnten Bauteile aus dem explodierten Modell herausgegriffen werden, um so das Bauteil und die Anforderungen daran genauer zu betrachten.

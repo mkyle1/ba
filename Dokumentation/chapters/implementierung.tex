@@ -199,10 +199,12 @@ Beispielsweise besteht ein Rad aus Reifen, Felge, Bremsscheibe etc., wobei nur d
 Um die Objekte jedoch einfach ihren Elternobjekten zuordnen zu können, wie beispielsweise für die Klick-Abfrage des Rads, werden die IDs der Elternobjekte in den IDs der Kindobjekte gespeichert.
 Dabei jedoch ohne Unterstrich \glqq{}\_\grqq{} hinter der ID, wodurch sie beim Erstellen der Anforderungspanels ignoriert werden.
 
+Die detaillierte Radansicht ist eine seperate, ebenfalls in Blender erstelltes glTF-Modell, welches nur das Rad, seine Bauteile und seine eingebackenen Animationen enthält.
 Für die Änderung auf die detaillierte Radansicht wird einer Abfrage hinzugefügt, die prüft, ob der Nutzer auf ein Rad klickt.
 Dafür wird wieder das Raycasting-Prinzip verwendet, um den Punkt zu bestimmen, an dem der Controller auf ein Objekt trifft.
 Ist das getroffene Objekt Teil vom Rad, wird an der Stelle ein neuer Ankerpunkt erstellt, an dem die Detailansicht des Rads angezeigt wird.
 Der alte Ankerpunkt und die Bauteile des Autos werden dann ausgeblendet, und die Bauteile des Rads werden an den neuen Ankerpunkt angehängt.
+Wechselt der Nutzer dann wieder zurück zur Gesamtansicht des Autos, wird wieder das Auto-Modell an den Ankerpunkt angehängt und die Detailansicht des Rads ausgeblendet.
 So kann der Nutzer die Anforderungen an das Rad in einer Detailansicht betrachten und bei Bedarf wieder zur Gesamtansicht des Autos zurückkehren.
 
 
