@@ -141,30 +141,51 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
     Head-Mounted Displays (HMDs) sind grundsätzlich Bildschirme, die direkt auf dem Kopf des Nutzers getragen werden.
     Durch ihre Nähe zu den Augen des Nutzers können sie ein großes Sichtfeld abdecken, ohne dabei selbst große Displays zu nutzen.
     Dadurch sind sie für volle Immersion im Normalfall kosteneffektiver als große Displays, wie bspw. eine Leinwand.
+    Jedoch entsteht durch die Befestigung am Kopf auch automatisch ein höheres Gewicht am Kopf des Nutzers, was bei längerer Nutzung unangenehm werden kann.
 
 
     \subsubsection{VR Headsets}
 
-    Klassische VR-Headsets kann man sich vorstellen wie eine Skibrille mit 2 Bildschirmen, die auf dem Kopf getragen wird und üblicherweise 2 Displays hinter 2 Linsen hat, bzw. ein Display virtuell in 2 Displays aufteilt.
-    Durch die 2 Bildschirme wird für jedes Auge ein eigenes Bild erzeugt, wodurch Inhalte in 3D dargestellt werden können.
+    Klassische VR-Headsets kann man sich vorstellen wie eine Skibrille mit 2 Bildschirmen, die auf dem Kopf getragen wird und üblicherweise 2 Displays hinter 2 Linsen haben, bzw. ein Display virtuell in 2 Displays aufteilen.
+    Durch die 2 Bildschirme wird für jedes Auge ein eigenes, leicht verschobenes Bild erzeugt, wodurch Inhalte in 3D dargestellt werden können.
     Außerdem können sie das volle Sichtfeld des Nutzers abdecken und so eine immersive Erfahrung schaffen.
-    Jedoch entstehen durch die Nähe des Nutzers zu den Displays auch Probleme, wie bspw. der Screen-Door-Effekt, bei welchem die Zwischenräume zwischen den Pixeln sichtbar sind.
+
+    Jedoch entstehen durch die Nähe des Nutzers zu den Displays auch visuelle technische Probleme, wie bspw. der Screen-Door-Effekt, bei welchem die Zwischenräume zwischen den Pixeln sichtbar sind.
     Entscheidend dabei ist die Kennzahl der Pixel pro Grad (Pixel per Degree, PPD), welche angibt, wie viele Pixel auf einen Grad des Sichtfelds des Nutzers kommen.
     Eine Möglichkeit um die PPD zu erhöhen und so den Screen-Door-Effekt zu minimieren, ist das Einsetzen von Displays mit einer hohen Pixeldichte (Pixels per Inch, PPI).
     Beispielsweise hat die Oculus Quest 3 eine PPI von 1218 und erreicht damit einen PPD Wert von 25 Pixeln pro Grad \autocite[]{meta-quest-3}.
     Vergleichsweise hat das iPhone 15 Pro eine Pixeldichte von nur 460 PPI \autocite[]{iPhone15Pro-datenblatt}.
 
-    Die Position des Headsets muss dabei kontinuierlich bestimmt werden, um die Bewegungen der Nutzer zu verfolgen und so die virtuelle Welt anpassen zu können.
-    Das Tracking kann beispielsweise durch Basisstationen (bspw. bei der Valve Index) realisiert werden, welche im Raum verteilt werden und mithilfe von Kameras und Sensoren die Position des Headsets bestimmen.
-    Eine andere, modernere Methode des Headset Trackings ist das Tracking durch Kameras im Headset (bspw. bei der Oculus Quest 3).
-    Diese Kameras nehmen die Umgebung des Nutzers auf und können mithilfe dieser Daten kontinuierlich die Position des Headsets bestimmen.
-    Die Interaktion mit der Umgebung wird dann meist mit Controllern realisiert, deren Position und Rotation ebenfalls kontinuierlich durch Tracking Stationen oder eigene Kameras bestimmt werden muss.
-    In VR-Headsets mit eigenen Kameras ist es auch möglich, die Hände des Nutzers zu tracken und als Eingabegeräte zu nutzen.
+    Da die Displays jedoch das gesamte Sichtfeld des Nutzers einnehmen, kann es bei diesen Anzeigegeräten schnell zu Übelkeitsgefühlen kommen, wenn die Bewegungen des Nutzers nicht mit den Bewegungen in der virtuellen Welt übereinstimmen.
+    Dem wird so weit wie möglich mit einer hohen Bildwiederholrate der Displays entgegengewirkt, um die Bewegungen des Nutzers möglichst flüssig darzustellen.
+
+    Die Position des Headsets muss kontinuierlich bestimmt werden, um die Bewegungen der Nutzer zu verfolgen und so die virtuelle Welt auf den Bildschirmen anpassen zu können.
+    Dabei wird generell durch 2 Methoden unterschieden:
+    \begin{itemize}
+      \item Inside-Out-Tracking: Das Headset trackt seine eigene Position mithilfe von Kameras und Sensoren.
+      \item Outside-In-Tracking: Die Position des Headsets wird durch externe Kameras oder Sensoren bestimmt.
+    \end{itemize}
+    \autocite[]{Gourlay2017}
+
+    Outside-In-Tracking kann beispielsweise durch Kameras realisiert werden, welche im Raum verteilt werden und visuelle Marker am Headset und den Steuergeräten tracken.
+    Diese Methode ist sehr genau in der Bestimmung der Position, jedoch ist der Nutzer dadurch an einen festen Raum gebunden, in dem die Trackingstationen aufgestellt sind und muss immer in deren Blickfeld sein.
+    Zudem müssen die Kameras zuerst aufgestellt und kalibriert werden, was den Aufwand für die Installation erhöht.
+    Eine Methode des Inside-Out-Trackings ist das Berechnen der Position durch Daten aus Kameras und 3D-Sensoren im Headset.
+    Dabei wird die Umgebung des Nutzers aufgenommen und sich daraus ein 3D-Modell der Umgebung erstellt, um die Position des Headsets zu bestimmen.
+    So wird kontinuierlich eine neue 3D-Repräsentation der Kamera- und Sensorendaten erstellt, um die Postition des Headsets über die Zeit zu tracken.
+    Für diese Methode des Trackings ist jedoch eine hohe interne Rechenleistung notwendig, um die Daten in Echtzeit auf dem Headset selbst zu verarbeiten.
+
+    Die Interaktion mit der Umgebung wird dann meist mit Controllern realisiert, deren Position und Rotation ebenfalls kontinuierlich durch Inside-Out- oder Outside-In-Tracking bestimmt werden muss.
+    In AR-Headsets mit eigenen Kameras ist es auch möglich, die Hände des Nutzers zu tracken und als Eingabegeräte zu nutzen.
     Dabei können dann bestimmte Gesten oder Handbewegungen als Eingaben interpretiert und zur Interaktion genutzt werden.
+    Beispielsweise interpretiert die Oculus Quest 3 ein Zusammenführen des Zeigefingers und Daumens als Klick.
+    Berühren sich die Finger jedoch nicht ganz, wird dies als Zeigen interpretiert.
     
-    Ursprünglich mussten VR-Headsets mit einem Computer verbunden werden, um die Rechenleistung für die Darstellung der Inhalte zu haben.
+    
+    Ursprünglich mussten fast alle VR-Headsets mit einem Computer verbunden werden, um genug Rechenleistung für die Darstellung der Inhalte zu haben.
     Mit der Zeit wurden jedoch auch Standalone-VR-Headsets entwickelt, wie zum Beispiel das im Jahr 2024 auf den Markt gebrachte Apple Vision Pro.
-    Diese verfügen über eine eigene Rechenleistung und können somit unabhängig von einem Computer genutzt werden.
+    Diese verfügen über eine eigene Rechenleistung, meist in Form von ARM-Prozessoren, und können somit unabhängig von einem Computer genutzt werden.
+    Da sie ohne Kabel auskommen, bieten sie eine größere Bewegungsfreiheit und sind daher besser für Anwendungen geeignet, bei denen der Nutzer sich viel bewegt.
 
     \begin{figure}[H]
       \centering
@@ -175,12 +196,16 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
 
     Jedoch sind nicht alle VR-Headsets für AR geeignet.
     Die meisten VR-Headsets besitzen keine Kamera, um die reale Welt aufzunehmen und dem Nutzer wiederzugeben.
-    Nur Headsets wie bspw. die Oculus Quest 3, welche in Abbildung \ref{fig:oculus-quest-3} dargestellt ist, oder die Apple Vision Pro besitzen eine Kamera nach außen, um die reale Welt aufzunehmen und so AR zu ermöglichen.
+    Nur Headsets wie bspw. die Oculus Quest 3, welche in Abbildung \ref{fig:oculus-quest-3} dargestellt ist, oder die Apple Vision Pro besitzen eine oder mehrere Kameras nach außen, um die reale Welt aufzunehmen und so AR durch eine Vermischung aus echter Welt und generierten Daten zu ermöglichen.
     
-    Durch all diese Technik, können die neusten VR-Headsets eine sehr hohe Immersion und audiovisuelle Qualität für Anwendungen in AR bieten.
+    Durch all diese Technik, bieten die neusten VR-Headsets eine sehr hohe Immersion durch herausragende audiovisuelle Qualität für Anwendungen in AR.
     Sie sind besonders dafür geeignet hochauflösende dreidimensionale Inhalte in die reale Welt zu projizieren und so eine immersive Erfahrung zu schaffen.
+    Daher sind sie besonders für Anwendungen geeignet, bei denen eine hohe Immersion und eine hohe Qualität der Darstellung wichtig sind, wie bspw. bei Spielen oder Simulationen.
     Doch für lange Anwendungszeiten und die Verwendung in der Öffentlichkeit sind sie meist zu groß und schwer.
 
+    Da sie aufgrund der Nähe zu den Augen des Nutzers mit relativ kleinen Bildschirmen auskommen, sind sie im Vergleich zu vielen anderen dedizierten Anzeigegeräten für AR sind VR-Headsets auch relativ günstig.
+    Die niedrigen Kosten entstehen auch, da VR-Headsets auch für Videospiele und andere Unterhaltungsanwendungen genutzt werden und daher eine große Nutzerbasis haben.
+    So existiert ein weiterer finanzieller Anreiz für die Entwicklung von günstigen VR-Headsets, da die Hersteller von den hohen Stückzahlen profitieren können.
    
 
     \subsubsection{Smart-Glasses}
@@ -192,27 +217,39 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
 
     Smart-Glasses sind außerdem meist leichter und kleiner als VR-Headsets, da sie meist nicht das volle Sichtfeld des Nutzers abdecken müssen und die Technik für Image-Passthrough nicht benötigt wird.
     Dadurch sind sie besser für den Alltag und für längere Anwendungszeiten geeignet als konventionelle VR- oder AR-Headsets.
+    Zudem verursachen sie durch ihre permanente Transparenz weniger Übelkeitsgefühle bei den Nutzern, da sie immer die reale Welt als Referenzpunkt haben.
 
-
+    Aufgrund dieser Eigenschaften werden sie viel als potenzielle Anzeigegeräte für AR in der Arbeitswelt untersucht.
+    Beispielsweise wurden von Forschern der Hochschule Osnabrück und Universität Osnabrück 36 Use Cases für Smart-Glasses in nur 2 Logistikunternehmen identifiziert \autocite[]{SmartGlasses2017}.
 
 
   \subsection{Hand-Held-Devices}
 
   Hand-Held-Devices sind Geräte, die ein Nutzer in der Hand hält.
   Diese Kategorie besteht heutzutage hauptsächlich aus Smartphones und Tablets, da die meisten dieser Geräte über eine Kamera und einen Bildschirm verfügen, können sie fast alle für die Darstellung von AR-Inhalten genutzt werden.
+  Dafür nutzen sie die Kamera und diverse Sensoren, um die Umgebung des Nutzers aufzunehmen und digitale Informationen in das Kamerabild einzublenden.
   Das Smartphone oder Tablet ist dabei wie ein Fenster in die digitale Welt, durch das der Nutzer die erweiterte Realität sehen kann.
 
   Die Immersion ist bei diesem Anzeigegerät jedoch relativ gering, da der Nutzer immer die reale Welt sieht und das Smartphone oder Tablet nur ein kleines Fenster in die digitale Welt ist.
-  Allein durch die Entfernung der Geräte vom den Augen der Nutzer können sie nur ein vergleichsweise kleines Sichtfeld abdecken.
+  Allein durch die Entfernung der Geräte von den Augen der Nutzer können sie nur ein vergleichsweise kleines Sichtfeld abdecken.
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/PokemonGo.png}
+    \caption{Screenshots aus dem AR-Spiel Pok\'emon Go}
+    \label{fig:pokemon-go}
+  \end{figure}
 
   Jedoch ist die Nutzung von Smartphones für AR sehr weit verbreitet, da fast jeder ein Smartphone besitzt und so keine zusätzliche Hardware benötigt wird.
   Beispielsweise hatte das AR-Spiel Pok\'emon Go, welches 2016 veröffentlicht wurde, bereits Anfang 2019 über 1 Milliarde Downloads \autocite[][]{pokemon-go-stats}.
-  Bei dem Spiel werden Pok\'emon über die Smartphone-Kamera in die reale Welt projiziert, sodass der Nutzer sie fangen kann.
+  Bei dem Spiel werden, wie in Darstellung \ref*{fig:pokemon-go} gezeigt ist, sogenannte Pok\'emon über die Smartphone-Kamera in die reale Welt projiziert, sodass der Nutzer sie fangen kann.
   Der Erfolg dieses simplen Konzepts zeigt das Potenzial der riesigen Nutzergruppe von Smartphones für AR-Anwendungen.
 
+  Diese Technologien können auch für praktische Anwendungen genutzt werden, wie bspw. für die Navigation in der Stadt oder für das Ausmessen von Längen mithilfe der Kameras und Sensoren.
+
   Auch können Smartphones als Displays für HMDs genutzt werden.
-  Dabei ist jedoch meist die Kamera des Smartphones nicht mehr nutzbar, wodurch normalerweise die Wiedergabe von AR-Inhalten nicht möglich ist.
-  Zudem ist die Pixeldichte von Smartphones meist geringer als bei speziellen AR-Anzeigegeräten, was die Immersion und Nutzererfahrung verschlechtern kann, da das Display sehr nah an den Augen des Nutzers ist.
+  Dabei ist jedoch meist die Kamera des Smartphones nicht mehr nutzbar, wodurch normalerweise nur die Wiedergabe von VR-Inhalten und nicht AR möglich ist.
+  Zudem ist die Pixeldichte von Smartphones meist geringer als bei speziellen VR- und AR-Anzeigegeräten, was die Immersion und Nutzererfahrung verschlechtern kann, da das Display sehr nah an den Augen des Nutzers ist und daher starke visuelle Fehler auftreten.
 
   
 
@@ -220,7 +257,7 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
 
   Die bisher vorgestellten Konzepte für AR-Anzeigegeräte basieren auf Displays die direkt am Nutzer selbst befestigt sind.
   Im Kontrast dazu ist die meiste Technik bei Spatial Displays in der Umgebung des Nutzers verbaut.
-  Der Nutzer selbst muss dabei keine spezielle Hardware tragen um die AR-Inhalte zu sehen \autocite[]{bimber2006modern}.
+  Der Nutzer selbst muss dabei keine spezielle Hardware tragen, um die AR-Inhalte zu sehen \autocite[]{bimber2006modern}.
   Jedoch können beispielsweise zur Interaktion mit Inhalten Eingabegeräte genutzt werden, die der Nutzer in der Hand hält.
 
   Da in vielen Fällen keine spezielle Hardware am Nutzer selbst befestigt werden muss, kann die Immersion durch Spatial Displays sehr hoch sein.
@@ -228,6 +265,24 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
 
   Ein Nachteil von Spatial Displays ist der Abstand der Displays zum Nutzer.
   Da sie weiter vom Nutzer entfernt sind als HMDs oder Hand-Held-Devices können sie mit der gleichen Displaygröße nur ein kleineres Sichtfeld abdecken.
-  Daher werden bei Spatial Displays oft sehr große Displays genutzt, um trotzdem ein großes Sichtfeld abzudecken.
+  Daher werden bei Spatial Displays oft sehr große Displays bzw. Beamer genutzt, um trotzdem ein großes Sichtfeld abzudecken.
   Dadurch sind Spatial Displays deutlich teurer und aufwendiger in der Installation als HMDs oder Hand-Held-Devices.
   Sie werden daher meist in aufwendigen Anwendungen genutzt und sind für den privaten Gebrauch eher ungeeignet.
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/merc-sim.png}
+    \sourcecaption{Innenraum des Mercedes-Benz Fahrsimulators}{https://group.mercedes-benz.com/innovation/produktinnovation/technologie/fahrsimulator.html}
+    \label{fig:merc-sim}
+  \end{figure}
+
+  Eine solche Anwendung ist in Abbildung \ref{fig:merc-sim} zu sehen, bei der die kompletten Wände von 14 Projektoren bespielt werden, um eine immersive Umgebung für den Fahrsimulator zu schaffen.
+  Die Anzeige der Inhalte ist auf die Fahrerposition des Autos abgestimmt, sodass der Fahrer das Gefühl hat, sich tatsächlich in einem Auto zu befinden.
+  Mit solchen hoch entwickelten Spatial Displays können also sehr realistische und immersive Umgebungen geschaffen werden, die für viele Anwendungen, wie bspw. Fahrsimulatoren, sehr nützlich sind aber auch mit extrem hohen Kosten und Aufwand im Vergleich zu anderen Darstellungsmöglichkeiten verbunden sind.
+
+  Betrachtet man Spatial Displays jedoch nicht auf basis der Immersion die durch sie erreicht werden kann, ergeben sich auch viele Anwendungsmöglichkeiten für Spatial Displays, die nicht auf Immersion abzielen.
+  Beispielsweise können Spatial Displays genutzt werden, um Informationen in die reale Welt zu projizieren, die für den Nutzer nützlich sind.
+  So zählen auch Head-Up-Displays in Autos zu den Spatial Displays, welches Informationen in das Sichtfeld des Fahrers projiziert, ohne dass sich dieser auf ein Display konzentrieren muss.
+  Sie nutzen ähnliche Technologien wie Smart-Glasses, um Informationen auf Semi-Transparente Displays zu projizieren.
+
+  
