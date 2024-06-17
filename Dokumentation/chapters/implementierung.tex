@@ -49,9 +49,11 @@ Dabei wird zunächst die Entwicklung der grundlegenden zu implementierenden Konz
 
 \subsection{Interaktionskonzepte für Requirements}
 
-Die Bachelorarbeit beschäftigt sich mit der Darstellung von Requirements in AR beziehungsweise VR.
+Die Bachelorarbeit beschäftigt sich mit der Darstellung von Requirements in AR.
 Dabei soll untersucht werden, wie Anforderungen in einer 3D-Umgebung dargestellt werden könnten.
 Dazu werden verschiedene Interaktionskonzepte entwickelt, welche als Basis für die Implementierung mit WebXR dienen.
+Die erste Ausarbeitung der Konzepte dient dabei nicht unbedingt dazu vollständig so implementiert zu werden, sondern soll einen Überblick über die grundlegende Idee und die möglichen Interaktionen geben.
+
 
 
 \subsubsection{Beispiel 1: Explodierende Bauteile}
@@ -96,7 +98,7 @@ Durch die räumliche Anordnung der Wolken kann der Nutzer schnell erkennen, welc
 Dabei soll es auch möglich sein in Wolken hinein- und herauszuzoomen, um die Granularität der angezeigten Anforderungen zu erhöhen.
 Gehen wir dabei wieder vom Beispiel des Autos aus, könnte es möglich sein in die Wolke der Räder hineinzuzoomen, um die Anforderungen an die Reifen, Felgen, Radmuttern etc. zu sehen.
 Daraufhin kann wieder herausgezoomt werden, um die Anforderungen an das gesamte Auto zu sehen.
-Eine weitere Möglichkeit wäre es, auf den Anforungspanels Filtermöglichkeiten für verschiedene Beziehungen der Anforderung darszustellen, um dann bei einer Auswahl in die neue Anforderungswolke zu zoomen.
+Eine weitere Möglichkeit wäre es, auf den Anforungspanels Filtermöglichkeiten für verschiedene Beziehungen der Anforderung darzustellen, um dann bei einer Auswahl in die neue Anforderungswolke zu zoomen.
 Diese Interaktion und die räumliche Anordnung der Wolken sollen dem Nutzer helfen, auch bei einer großen Anzahl von Anforderungen einen Überblick zu behalten und schnell die gewünschten Anforderungen zu finden.
 
 Bei diesem Konzept soll vor allem der Vorteil gegenüber einer 2D-Darstellung kritisch untersucht werden.
@@ -120,17 +122,19 @@ Dabei werden Wände und Böden der Umgebung erkannt und als Mesh in die Szene ei
 Zudem wurden schon einige Interaktionen des Controllers, wie das Auswählen von Objekten durch Raycasting, implementiert, die als Basis für die Implementierung der Interaktionskonzepte dienen.
 
 
-
 \subsubsection{Explodierende Bauteile}
 
 Der erste Schritt bei der Implementierung des Interaktionskonzepts der \glqq{}explodierenden\grqq{} Bauteile ist die Erstellung eines 3D-Modells, welches die Bauteile des Produkts enthält.
 Dabei muss jedes Bauteil als eigenes Objekt im 3D-Modell vorhanden sein, um sie in der Animation separat darstellen und referenzieren zu können.
 Für die erste Implementierung wird ein einfaches 3D-Modell eines Tetris Blocks verwendet, welcher aus 4 verschiedenfarbigen Bauteilen besteht.
+Basierend auf der Implementierung des Tetris-Blocks soll dann das Konzept auf ein komplexeres Modell, wie beispielsweise ein Auto, übertragen werden.
 
-Dieses Modell wurde in Blender erstellt und als 3D-Modell im glTF-Format, welches wie WebXR von der Khronos Group entwickelt wurde, in die Anwendung exportiert.
+Das Modell wurde in Blender erstellt und als 3D-Modell im glTF-Format, welches wie WebXR von der Khronos Group entwickelt wurde, in die Anwendung exportiert.
 Das glTF-Format ist ein offenes 3D-Dateiformat, welches für die effiziente Übertragung von 3D-Modellen im Web optimiert ist und die Dateigröße möglichst klein hält.
 Ein weiterer Vorteil des glTF-Formats ist, dass es auch Animationen und Materialien unterstützt, die im 3D-Modell enthalten sind.
 So kann die Animation der Bauteile auch direkt in der Modellierungssoftware erstellt und in das glTF-Modell mit eingebacken werden.
+Das ist essenziell für die effektive technische Umsetzbarkeit des Konzepts, da die Animation der Bauteile so in speziellen Animationsprogrammen, wie beispielsweise Blender, erstellt werden kann und nicht in der WebXR-Anwendung selbst.
+Dadurch sind auch komplexere Animationen möglich, die in der WebXR-Anwendung selbst nicht oder nur sehr aufwändig realisierbar wären.
 
 Der nächste Schritt ist das Platzieren des erstellten 3D-Modells in der WebXR-Umgebung.
 Dazu wird das Prinzip des Raycastings verwendet, um dem Nutzer zu ermöglichen, mit dem Controller einen Punkt im Raum auszuwählen, an dem das 3D-Modell platziert werden soll.
@@ -138,21 +142,23 @@ Der Raum, in dem sich der Anwender befindet, muss dafür zu Beginn einmalig in d
 Ist das geschehen, werden durch das Skelett der Anwendung des Taikonauten-Magazins bereits die Wände und Böden der Umgebung als Meshes erkannt und in die Szene eingefügt.
 Dann wird vom Controller ein Strahl in die Szene geschossen, und der Punkt, an dem der Strahl ein Objekt trifft, wird als Event zurückgegeben.
 
-An diesem Punkt wird dann ein Ankerpunkt erstellt, an den das 3D-Modell angehaftet wird.
-Dieser Ankerpunkt ist ein Babylon.js-Objekt, welches einen Punkt im Raum in AR an einer bestimmten Position darstellen kann.
-Das 3D-Modell wird dann an diesen Ankerpunkt angehängt, sodass es sich relativ zu diesem Punkt bewegt.
+An diesem Punkt wird dann ein Ankerpunkt erstellt, den das 3D-Modell als Referenzpunkt im AR-Raum nutzt.
+Dieser Ankerpunkt ist ein Babylon.js-Objekt, welcher einen Punkt im AR-Raum auch bei Bewegung des Nutzers am gleichen Ort halten kann.
+Bewegt sich dann der Ankerpunkt, bewegt sich auch das 3D-Modell mit, sodass es immer an der gleichen Stelle im Raum bleibt.
 
 
 Ist das 3D-Modell platziert, kann die Animation des Produkts gestartet werden.
-Dafür wird ein Knopf des Controllers als Start-Button für die Animation verwendet, mit dem sich die Animation vorwärts und wieder rückwärts abspielen lässt.
+Dafür wird der A-Knopf des Controllers als Start-Button für die Animation verwendet, mit dem sich die Animation vorwärts und wieder rückwärts abspielen lässt.
 Für die Animation wird die aus Blender in das glTF-Modell eingebackene Animation verwendet.
 Dafür wird in Babylon.js eine Animationsfunktion erstellt, die die Animation des Modells über einige Parameter, wie beispielsweise den Start- und Endframe der Animation, steuert.
 So kann für die Vorwärts- und Rückwärtsanimation die gleiche Funktion verwendet werden, indem die Start- und Endframe-Parameter basierend auf einem globalen Boolean, der den Animationsstatus speichert, gesetzt werden.
 
 Beim Abspielen der Animation wird jedes Bauteil des Produkts in einer Schleife durchgegangen und dessen Animation gestartet.
 Diese Schleife wird dann auch genutzt, um den einzelnen Bauteilen ihre Anforderungen als Text-UI-Elemente zuzuweisen.
-Dafür wird in Babylon.js eine Fläche erstellt, auf der der Text dargestellt wird, und diese Fläche an das Bauteil angehängt.
-Die Fläche kann dabei auch als Knopf funktionieren, um bei einem Klick beispielsweise das Bauteil zu vergrößern.
+Zunächst wird in dieser Schleife überprüft, ob es zu der ID des Bauteils Anforderungen gibt, die dargestellt werden sollen.
+Ist das der Fall, wird in Babylon.js eine Fläche erstellt, auf der der Text dargestellt wird, und diese Fläche an das Bauteil als Kindobjekt angehängt.
+So wie das gesamte Modell den Ankerpunkt als Referenzpunkt nutzt, nutzt dann jedes Requirement-Panel die Position seines Bauteils als Referenzpunkt für seine Position im AR-Raum.
+Die Fläche kann dabei auch als Knopf funktionieren, um bei einem Klick beispielsweise das Bauteil zu vergrößern oder auf eine Detailansicht des Bauteils zu wechseln.
 Diese UI-Elemente werden aber, wie in Abbildung \ref{fig:tetris-explosion} zu sehen ist, nur angezeigt, wenn das Produkt gerade \glqq{}explodiert\grqq{} ist und nicht, wenn das Produkt gerade im Normalzustand ist.
 
 \begin{figure}[H]
@@ -199,8 +205,8 @@ Beispielsweise besteht ein Rad aus Reifen, Felge, Bremsscheibe etc., wobei nur d
 Um die Objekte jedoch einfach ihren Elternobjekten zuordnen zu können, wie beispielsweise für die Klick-Abfrage des Rads, werden die IDs der Elternobjekte in den IDs der Kindobjekte gespeichert.
 Dabei jedoch ohne Unterstrich \glqq{}\_\grqq{} hinter der ID, wodurch sie beim Erstellen der Anforderungspanels ignoriert werden.
 
-Die detaillierte Radansicht ist eine seperate, ebenfalls in Blender erstelltes glTF-Modell, welches nur das Rad, seine Bauteile und seine eingebackenen Animationen enthält.
-Für die Änderung auf die detaillierte Radansicht wird einer Abfrage hinzugefügt, die prüft, ob der Nutzer auf ein Rad klickt.
+Die detaillierte Radansicht ist ein seperates, ebenfalls in Blender erstelltes glTF-Modell, welches nur das Rad, seine Bauteile und seine eingebackenen Animationen enthält.
+Für die Änderung auf die detaillierte Radansicht wird eine Abfrage hinzugefügt, die prüft, ob der Nutzer mit seinem Controller auf ein Rad klickt.
 Dafür wird wieder das Raycasting-Prinzip verwendet, um den Punkt zu bestimmen, an dem der Controller auf ein Objekt trifft.
 Ist das getroffene Objekt Teil vom Rad, wird an der Stelle ein neuer Ankerpunkt erstellt, an dem die Detailansicht des Rads angezeigt wird.
 Der alte Ankerpunkt und die Bauteile des Autos werden dann ausgeblendet, und die Bauteile des Rads werden an den neuen Ankerpunkt angehängt.
@@ -213,4 +219,40 @@ So kann der Nutzer die Anforderungen an das Rad in einer Detailansicht betrachte
 
 \subsubsection{Wolken von Anforderungen}
 
-\section{User Tests}
+Das Interaktionskonzept der Wolken aus Anforderungspanels ist deutlich einfacher zu implementieren als das Konzept der explodierenden Bauteile.
+Der erste Schritt der Implementierung war die Erstellung eines Algorithmus, welcher einen Array von Anforderungen erhält und zu diesen eine 3D-Wolke von Punkten in einem gegebenen Bereich erstellt.
+Für jedes Requirementcluster wird dann eine Wolke von UI-Panels erstellt, die die Anforderungen als Texte enthalten.
+
+Wie beim Konzept der explodierenden Bauteile wird auch hier ein Ursprungspunkt der Wolken durch Raycasting und auslösen des Triggers des Controllers bestimmt.
+
+Bei der ersten Betrachtung der Anforderungen wurde jedoch klar, dass die Anforderungen sich bereits in kleinen Wolken stark überlappen und viele Anforderungen so nur schwer bis gar nicht lesbar sind.
+Wie in Abbildung \ref{fig:wolken-prototyp} zu sehen ist, treten bereits bei Wolken von 5 Anforderungen  starke Überlappungen auf, welche die Lesbarkeit der Anforderungen stark beeinträchtigen.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/WolkenPrototyp.png}
+    \caption{Wolke aus 5 Anforderungspanels}
+    \label{fig:wolken-prototyp}
+\end{figure}
+
+Um die Lesbarkeit der Anforderungen zu verbessern wurden verschiedene Ansätze in Betracht gezogen, welche im Folgenden erläutert werden.
+
+Der erste Ansatz war das Entzerren der Anforderungen, indem die Anforderungen so breitflächig wie möglich angerichtet werden, um so Überlappungen zu vermeiden.
+Dieser Ansatz führt jedoch dazu, dass die Anforderungen fast auf einer Ebene liegen müssen.
+Jedoch ist das navigieren durch große Flächen in AR unpraktisch im Vergleich mit einer ähnlichen Darstellung auf einem normalen Bildschirm.
+Daher wird durch diesen Lösungsansatz die Darstellung der Anforderungen im dreidimensionalen Raum weniger effizient als in einer 2D-Darstellung.
+
+Der zweite Ansatz war das mögliche Fokussieren von Anforderungen mithilfe des Raycastings des Controllers.
+So könnten Anforderungen, die gelesen werden sollen, in den Fokus gebracht und lesbar gemacht werden.
+Jedoch wird bei diesem Ansatz nicht der Überblick über alle Anforderungen gewährleistet, da nur eine Anforderung gleichzeitig fokussiert werden kann.
+Zudem kann es bei großen Anforderungswolken sein, dass gesuchte Anforderungen gar nicht gefunden und daher auch nicht fokussiert werden können, da sie durch andere Anforderungen verdeckt sind.
+Zieht man dabei in Betracht, dass vor allem dieses Interaktionskonzept für die Darstellung von vielen Anforderungen gleichzeitig gedacht ist, ist dieser Lösungsansatz auch keine Option.
+
+Der dritte Ansatz war das Verkleinern der Anforderungspanels, um so mehr Anforderungen in einer Wolke darstellen zu können.
+Dabei wird jedoch schnell die Lesbarkeit der Anforderungen zum Problem.
+Durch den in Kapitel \ref{section:hmds} beschriebenen Screen-Door-Effekt und andere Probleme bei der Schärfe von AR-Displays ist es schwer, kleine Texte in AR lesbar darzustellen.
+Die Informationsdichte der Anforderungen, die sich auf normalen modernen Bildschirmen gut darstellen lässt, ist in AR aufgrund der technischen Limitationen von AR-Brillen nicht möglich.
+Daher ist auch dieser Lösungsansatz nicht besser als eine zweidimensionale Anwendung geeignet, um viele Anforderungen gleichzeitig darzustellen.
+
+Da keiner der Ansätze eine Lösung für das Problem der Überlappung und Lesbarkeit der Anforderungen bietet, welches das Konzept nicht weniger nutzbar macht als eine 2D-Darstellung, wird das Konzept der Wolken von Anforderungen in AR nicht weiter verfolgt.
+Im Ausblick in Kapitel {section:ausblick} wird noch auf die Möglichkeit der Implementierung des Konzepts als 2D-Anwendung eingegangen.
