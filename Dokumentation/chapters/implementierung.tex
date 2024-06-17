@@ -235,9 +235,24 @@ Wie in Abbildung \ref{fig:wolken-prototyp} zu sehen ist, treten bereits bei Wolk
     \label{fig:wolken-prototyp}
 \end{figure}
 
-Um die Lesbarkeit der Anforderungen zu verbessern wurden verschiedene Ansätze in Betracht gezogen, welche im Folgenden erläutert werden.
+In Abbildung \ref{fig:wolken-prototyp} fällt auf, dass durch die Transparenz der UI-Elemente die Überlappungen auch die vordersten Requirements unlesbar machen.
+Daher war die erste Änderung, die UI-Elemente undurchsichtig zu machen, um zumindest die Lesbarkeit der vordersten Elemente zu gewährleisten.
+Zudem wurde der Abstand der Anforderungspanels zueinander erhöht und die Anforderungen wurden durch eine Zufallsfunktion jeweils leicht von ihrem Ursprungspunkt verschoben, um die Überlappungen zu verringern.
+Bei kleinen Anforderungswolken führen diese Anpassungen zu einer verbesserten Lesbarkeit der Anforderungen.
 
-Der erste Ansatz war das Entzerren der Anforderungen, indem die Anforderungen so breitflächig wie möglich angerichtet werden, um so Überlappungen zu vermeiden.
+Jedoch wird schon bei nur wenig größeren Anforderungswolken wie der in Abbildung \ref{fig:wolken-prototyp-3} zu sehenden Wolke aus 9 Requirements klar, dass sich Überlappungen bei realistischen Wolkengrößen nicht vollständig vermeiden lassen.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/WolkenPrototyp3.png}
+    \caption{Wolke aus 9 Requirements mit undurchsichtigen Panels und größerem Abstand}
+    \label{fig:wolken-prototyp-3}
+\end{figure}
+
+Daher hat das Konzept trotz der initialen Anpassungen eine große Beeinträchtigung in der Lesbarkeit und damit der Usability hat.
+Um die Lesbarkeit der Anforderungen auch in großen Wolken zu verbessern wurden drei verschiedene weitere Ansätze in Betracht gezogen, welche im Folgenden erläutert werden.
+
+Der erste Ansatz war das weitere Entzerren der Anforderungen, indem die Anforderungen so breitflächig wie möglich angerichtet werden, um so Überlappungen zu vermeiden.
 Dieser Ansatz führt jedoch dazu, dass die Anforderungen fast auf einer Ebene liegen müssen.
 Jedoch ist das navigieren durch große Flächen in AR unpraktisch im Vergleich mit einer ähnlichen Darstellung auf einem normalen Bildschirm.
 Daher wird durch diesen Lösungsansatz die Darstellung der Anforderungen im dreidimensionalen Raum weniger effizient als in einer 2D-Darstellung.
@@ -250,9 +265,10 @@ Zieht man dabei in Betracht, dass vor allem dieses Interaktionskonzept für die 
 
 Der dritte Ansatz war das Verkleinern der Anforderungspanels, um so mehr Anforderungen in einer Wolke darstellen zu können.
 Dabei wird jedoch schnell die Lesbarkeit der Anforderungen zum Problem.
-Durch den in Kapitel \ref{section:hmds} beschriebenen Screen-Door-Effekt und andere Probleme bei der Schärfe von AR-Displays ist es schwer, kleine Texte in AR lesbar darzustellen.
-Die Informationsdichte der Anforderungen, die sich auf normalen modernen Bildschirmen gut darstellen lässt, ist in AR aufgrund der technischen Limitationen von AR-Brillen nicht möglich.
+Durch den in Kapitel \ref{section:hmds} beschriebenen Screen-Door-Effekt und andere Probleme bei der Schärfe von AR-Displays ist es schwer, kleine Texte in AR gut lesbar darzustellen.
+Dieses Problem der Unlesbarkeit wird bei großen Anforderungswolken, in denen viele Anforderungen dargestellt werden, noch verstärkt, da diese auch einen größeren Raum abdecken müssen und so einige Requirements weit vom Nutzer entfernt sind.
+Diese Probleme der Unschärfe durch Nähe zum Bildschirm treten jedoch bei modernen normalen Bildschirmen nicht auf, wodurch auf diesen eine Darstellung mit einer deutlich höheren Informationsdichte möglich ist.
 Daher ist auch dieser Lösungsansatz nicht besser als eine zweidimensionale Anwendung geeignet, um viele Anforderungen gleichzeitig darzustellen.
 
 Da keiner der Ansätze eine Lösung für das Problem der Überlappung und Lesbarkeit der Anforderungen bietet, welches das Konzept nicht weniger nutzbar macht als eine 2D-Darstellung, wird das Konzept der Wolken von Anforderungen in AR nicht weiter verfolgt.
-Im Ausblick in Kapitel {section:ausblick} wird noch auf die Möglichkeit der Implementierung des Konzepts als 2D-Anwendung eingegangen.
+Im Ausblick in Kapitel \ref{section:ausblick} wird noch auf die Möglichkeit der Implementierung des Konzepts als 2D-Anwendung eingegangen.
