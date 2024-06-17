@@ -96,7 +96,8 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
 
   \section{Virtuelle Realität}
   Für das Verständnis von Augmented Reality ist es wichtig, die Begriffe der virtuellen Realität (VR) zu kennen und zu verstehen.
-  Dabei wird der Nutzer in eine virtuelle Welt versetzt, die durch Computer generiert wird.
+  Virtuelle Realität beschreibt eine Technologie, die es ermöglicht, eine virtuelle Welt zu erschaffen, in der der Nutzer interagieren kann.
+  Dabei wird der Nutzer dann über verschiedenste audiovisuelle Technologien in diese virtuelle Welt versetzt, die durch Computer generiert wird.
   In virtueller Realität ist, im Gegensatz zu Augmented Reality, die gesamte Umgebung digital
   \autocite[vgl.][S.15]{Dalton2023}.
 
@@ -125,8 +126,11 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
   \end{figure}
   Auf dem Realitäts-Virtualitäts-Kontinuum von Milgram, welches, wie in Abbildung \ref{fig:rv-continuum} dargestellt, einen fließenden Übergang zwischen Realität und Virtualität beschreibt, liegt Augmented Reality zwischen der realen Welt und der virtuellen Welt \autocite[vgl.][S.9]{milgram1999}.
   Daher fällt Augmented Reality unter den Überbegriff der Mixed Reality, da die reale Welt mit der digitalen Welt gemischt wird.
+  Daher ist bei AR die Immersion im Vergleich zu VR oft geringer und weniger wichtig, da der Nutzer immer die reale Welt als Referenzpunkt hat.
+  AR Technologien sind nicht darauf ausgelegt, den Nutzer in eine andere Welt zu versetzen, sondern die reale Welt zu erweitern.
+
   Für diese Erweiterung der Realität müssen die Anzeigegeräte auch Informationen über die echte Umgebung sammeln können.
-  Will man beispielsweise virtuelle Objekte in die reale Welt einfügen, so muss das Anzeigegerät die eigene Position kontinuierlich bestimmen können und die Position und Rotation des virtuellen Objekts anhand der Bewegungen des Nutzers anpassen.
+  Will man beispielsweise dreidimensionale virtuelle Objekte in die reale Welt einfügen, so muss das Anzeigegerät die eigene Position kontinuierlich bestimmen können um die Position und Rotation des virtuellen Objekts anhand der Bewegungen des Nutzers anzupassen.
 
   Anzeigegeräte für Augmented Reality haben viele Gemeinsamkeiten mit Anzeigegeräten für Virtuelle Realität.
   Die Besonderheit von AR-Anzeigegeräten ist jedoch, dass sie die reale Welt mit digitalen Informationen erweitern.
@@ -138,6 +142,7 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
   Im Folgenden werden diese drei Kategorien genauer erläutert und einige Beispiele genannt.
 
   \subsection{Head-Mounted Displays}
+    \label{section:hmds}
     Head-Mounted Displays (HMDs) sind grundsätzlich Bildschirme, die direkt auf dem Kopf des Nutzers getragen werden.
     Durch ihre Nähe zu den Augen des Nutzers können sie ein großes Sichtfeld abdecken, ohne dabei selbst große Displays zu nutzen.
     Dadurch sind sie für volle Immersion im Normalfall kosteneffektiver als große Displays, wie bspw. eine Leinwand.
@@ -280,9 +285,32 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
   Die Anzeige der Inhalte ist auf die Fahrerposition des Autos abgestimmt, sodass der Fahrer das Gefühl hat, sich tatsächlich in einem Auto zu befinden.
   Mit solchen hoch entwickelten Spatial Displays können also sehr realistische und immersive Umgebungen geschaffen werden, die für viele Anwendungen, wie bspw. Fahrsimulatoren, sehr nützlich sind aber auch mit extrem hohen Kosten und Aufwand im Vergleich zu anderen Darstellungsmöglichkeiten verbunden sind.
 
-  Betrachtet man Spatial Displays jedoch nicht auf basis der Immersion die durch sie erreicht werden kann, ergeben sich auch viele Anwendungsmöglichkeiten für Spatial Displays, die nicht auf Immersion abzielen.
+  Betrachtet man Spatial Displays jedoch nicht nur auf Basis der Immersion die durch sie erreicht werden kann, ergeben sich auch viele Anwendungsmöglichkeiten für Spatial Displays, die nicht auf Immersion abzielen.
   Beispielsweise können Spatial Displays genutzt werden, um Informationen in die reale Welt zu projizieren, die für den Nutzer nützlich sind.
   So zählen auch Head-Up-Displays in Autos zu den Spatial Displays, welches Informationen in das Sichtfeld des Fahrers projiziert, ohne dass sich dieser auf ein Display konzentrieren muss.
   Sie nutzen ähnliche Technologien wie Smart-Glasses, um Informationen auf Semi-Transparente Displays zu projizieren.
 
   
+\section{Gamification von UX}
+\label{sec:gamification-ux}
+
+\glqq{}Gamification ist die Nutzung von Spielmechanismen und -designprinzipien in nicht-spielerischen Kontexten um das Nutzerengagement zu erhöhen.\grqq{} \autocite[][S.63]{hillmann2021ux} 
+So beschreibt Cornel Hillmann, ein Experte für User Experience Design, die Bedeutung von Gamification von UX.
+
+Dieses Prinzip lässt sich aufgrund der hohen Immersion und Interaktivität von VR und AR in XR-Anwendungen besonders gut und quasi standartmäßig nutzen, um das Nutzerengagement zu erhöhen.
+Auch durch den Neuheitsfaktor von AR und VR können Nutzer dazu motiviert werden, die Anwendung mehr zu nutzen.
+
+Hillmann gibt er 3 Hauptbestandteile seines Ansatzes von Gamification von UX an, die in einer Anwendung vorhanden sein müssen, um das Nutzerengagement zu erhöhen:
+\begin{itemize}
+  \item Motivation: Die Anwendung muss Elemente enthalten, die den Nutzer zur weiteren Nutzung motivieren.
+  \item Herausforderung: Der Nutzer muss eine Herausforderung haben, die er bewältigen kann.
+  \item Trigger: Der Nutzer muss für die Herausforderung belohnt werden.
+\end{itemize}
+\autocite[S.66]{hillmann2021ux}
+
+Der Ansatz von Hillmann versucht dabei stark, die Belohnungsmechanismen von Spielen zu nutzen, um den Nutzer zu motivieren.
+Eine Möglichkeit, die er beschreibt, ist das Nutzen von Punkten, um den Fortschritt des Nutzers zu visualisieren und ihn so zu motivieren, weiterzumachen.
+
+Hillmann beschreibt auch, wie Gamification von UX bei der Orientierung, Beruhigung und Onboarding-Problemen der neuen Technologie von XR helfen kann.
+Neue Nutzer schauen beispielsweise oft nicht in die richtige Richtung, um die Inhalte zu sehen, oder sind überfordert von der neuen Technologie.
+Daher kann durch intelligente Anrichtung der Objekten und eine spielähnliche Zielführung die Orientierung und User Experience des Nutzers verbessert werden\autocite[S.67]{hillmann2021ux}.
