@@ -88,6 +88,7 @@ class XrExperience {
     _wheel: TransformNode | null;
     _wheelIsExtended: boolean;
     _wheelCloseUp: boolean;
+    _lastCarPosition: Vector3 | null;
     _focusedMesh: AbstractMesh | null;
     _centerPoint: Vector3 | null;
     _animationLock: boolean;
@@ -123,7 +124,7 @@ class XrExperience {
         this._carRequirements = [
             { id: '#1', partName: 'Wheel', partAmount: 4, requirements: ['The wheel has to pass CE certification to be driven at 360km/h.'] },
             { id: '#2', partName: 'Breakhub', partAmount: 4, requirements: ['The breakhub has to have sufficient cooling to sustain 10 laps around the Nürburgring without smoking.'] },
-            { id: '#3', partName: 'Bodywork', partAmount: 1, requirements: ['The bodywork has to weigh less than 290kg.', 'The part should be painted in white car paint.'] },
+            { id: '#3', partName: 'Bodywork', partAmount: 1, requirements: ['The part should be painted in white car paint.'] },
             { id: '#4', partName: 'PorscheEmblem', partAmount: 1, requirements: ['The emblem should be covered in a protective coating to protect it from corrosion.'] },
             { id: '#5', partName: 'MainStructure', partAmount: 1, requirements: ['Each Passenger of the main structure has to be protected by airbags.'] },
             { id: '#6', partName: 'FrunkLid', partAmount: 1, requirements: ['The lid to the front storage has to be IP67 water- and dust resistant.'] },
@@ -132,7 +133,7 @@ class XrExperience {
             { id: '#9', partName: 'Spoiler', partAmount: 1, requirements: ['The rear wing has to be adjustable to increase downforce.'] },
             { id: '#10', partName: 'Tire', partAmount: 4, requirements: ['The tires should be semi-slicks.'] },
             { id: '#11', partName: 'Rim', partAmount: 4, requirements: ['The rims should be made of solid magnesium.'] },
-            { id: '#12', partName: 'BreakDisk', partAmount: 4, requirements: ['The exhaust should be made of titanium.'] },
+            { id: '#12', partName: 'BreakDisk', partAmount: 4, requirements: ['The breakdiscs should be ceramic.'] },
         ]
         this._car = null;
         this._carIsPlaced = false;
@@ -140,6 +141,7 @@ class XrExperience {
         this._wheel = null;
         this._wheelIsExtended = false;
         this._wheelCloseUp = false;
+        this._lastCarPosition = new Vector3(0, 0, 0);
 
         this._focusedMesh = null;
         this._centerPoint = null;
@@ -160,6 +162,7 @@ class XrExperience {
             console.log(error);
         });
     }
+
 
 
     /**
@@ -288,7 +291,7 @@ class XrExperience {
             this._debug && console.log("plane added", plane);
             mat = new StandardMaterial("mat", this._scene);
             mat.alpha = 0.35;
-            mat.diffuseColor = Color3.Random();
+            mat.diffuseColor = Color3.White();
             this.initPolygon(plane, mat);
         });
 
@@ -362,7 +365,21 @@ class XrExperience {
                 const motionControllerComponentIds = motionControllerInit.getComponentIds();
                 const triggerComponent = motionControllerInit.getComponent(motionControllerComponentIds[0]);    // Upper trigger
                 const buttonComponent = motionControllerInit.getComponent(motionControllerComponentIds[3]);     // The "A" button
+                const buttonBComponent = motionControllerInit.getComponent(motionControllerComponentIds[4]);     // The "B" button
                 const thumbstickComponent = motionControllerInit.getComponent(motionControllerComponentIds[2]); // The thumbstick
+
+                if (buttonBComponent) {
+                    buttonBComponent.onButtonStateChangedObservable.add((component) => {
+                        console.log('Button B pressed');
+                        this._wheelCloseUp = false;
+                        this._wheelIsExtended = false;
+                        this._carIsExtended = false;
+                        if (this._lastCarPosition) {
+                           this.addAnchorAtPosition(this._lastCarPosition); 
+                        }
+                    });
+                }
+                
 
                 if (buttonComponent) {
                     buttonComponent.onButtonStateChangedObservable.add((component) => {
@@ -375,8 +392,6 @@ class XrExperience {
                                 }
                                 
                             } 
-                        } else {
-                            // TODO: Implement cloud view handling of "A" button
                         }
                         
                     });
@@ -419,9 +434,12 @@ class XrExperience {
                             if (raycastHit.pickedMesh.name.includes('#2') || raycastHit.pickedMesh.name.includes('#1')) {
                                 console.log('Hit a wheel');
                                 this._wheelCloseUp = true;
-                                
+                                this.addAnchorAtPosition(raycastHit.pickedPoint!, true);
                             }
-                            this.addAnchorAtPosition(raycastHit);
+                            if (raycastHit.pickedMesh.name.includes('horizontal')) {
+                                this.addAnchorAtPosition(raycastHit.pickedPoint!);
+                            }
+                            
                         }
                     }
                 });
@@ -441,45 +459,71 @@ class XrExperience {
         return new Ray(origin, direction, length = 100);
     }
 
+    makeMeshesAppearWithoutChildMeshes(meshes: AbstractMesh[]) {
+        meshes.forEach((mesh) => {
+            mesh.isVisible = true;
+            this.makeChildMeshesAppear(mesh);
+        });
+    }
+
+    makeMeshesDisappear(meshes: AbstractMesh[]) {
+        meshes.forEach((mesh) => {
+            mesh.isVisible = false;
+            this.makeChildMeshesDisappear(mesh);
+        });
+    }
+
+    makeChildMeshesAppear(mesh: AbstractMesh) {
+        mesh.getChildMeshes().forEach((childMesh) => {
+            childMesh.isVisible = true;
+        });
+    }
+
+    makeChildMeshesDisappear(mesh: AbstractMesh) {
+        mesh.getChildMeshes().forEach((childMesh) => {
+            childMesh.isVisible = false;
+        });
+    }
+
 
     /**
      * Adds an anchor at the specified position.
      * @param raycastHit The raycast hit information containing the picked point.
      */
-    addAnchorAtPosition(raycastHit: PickingInfo) {
+    addAnchorAtPosition(raycastHit: Vector3, firstHit: boolean = false) {
+        let editedPosition = new Vector3(raycastHit.x, raycastHit.y, raycastHit.z);
+        if (firstHit && this._wheelCloseUp) {
+            console.log('first hit');
+            editedPosition = new Vector3(raycastHit.x + 0.7, raycastHit.y, raycastHit.z - 0.2);
+        } else {
+            if (this._wheelCloseUp) {
+                editedPosition = new Vector3(raycastHit.x + 0.7, raycastHit.y + 0.7, raycastHit.z - 0.2);
+            } else {
+            editedPosition = new Vector3(raycastHit.x, raycastHit.y + 0.7, raycastHit.z);  
+            }
+        }
+        
+        
 
-        this._xrAnchors!.addAnchorAtPositionAndRotationAsync(raycastHit.pickedPoint!).then((anchor) => {
-
+        this._xrAnchors!.addAnchorAtPositionAndRotationAsync(editedPosition).then((anchor) => {
+        console.dir(anchor);
         const carMeshes = this._car!.getChildMeshes();
         const wheelMeshes = this._wheel!.getChildMeshes();
 
         if (this._wheelCloseUp === false) {
-            for (let i = 0; i < carMeshes.length; i++) {
-                carMeshes[i].isVisible = true;
-            }
-            //TODO: Make tire meshes disappear
-            for (let i = 0; i < wheelMeshes.length; i++) {
-                wheelMeshes[i].isVisible = false;
-            }
+            this.makeMeshesAppearWithoutChildMeshes(carMeshes);
+            this.makeMeshesDisappear(wheelMeshes);
+            anchor.attachedNode = this._car!;
         } else {
-            for (let i = 0; i < carMeshes.length; i++) {
-                carMeshes[i].isVisible = false;
-            }
-            //TODO: Make tire meshes appear
-            for (let i = 0; i < wheelMeshes.length; i++) {
-                wheelMeshes[i].isVisible = true;
-            }
+            this.makeMeshesDisappear(carMeshes);
+            this.makeMeshesAppearWithoutChildMeshes(wheelMeshes);
+            anchor.attachedNode = this._wheel!;
         }
        
-        
-        if (this._wheelCloseUp) {
-            anchor.attachedNode = this._wheel!;
-            console.dir("Wheel attached to anchor");
-        } else {
-            anchor.attachedNode = this._car!;
-        }
-        anchor.attachedNode.position = raycastHit.pickedPoint!;
-        console.dir(this._xrAnchors);
+        anchor.attachedNode.position = editedPosition;
+        console.dir(anchor.attachedNode);
+        anchor.attachedNode.position.add(new Vector3(0, 1, 0));
+        console.dir(anchor.attachedNode);
         });
     }
 
@@ -504,7 +548,7 @@ class XrExperience {
     addRequirementPanelToMesh(mesh: AbstractMesh, requirement: Requirement) {
         let plane = MeshBuilder.CreatePlane("plane", {size: 1.5}, this._scene);
         plane.parent = mesh;
-        plane.position.y = -0.4;
+        plane.position.y = -0.5;
         plane.rotation._x = Math.PI;
         //plane.rotate(Axis.X, Math.PI);
 
@@ -534,15 +578,10 @@ class XrExperience {
     }
 
     createCar() {
-        SceneLoader.Append("/models/", "BachelorCarBigAnimation.glb", this._scene, ((scene: Scene) => {
+        SceneLoader.Append("/models/", "BachelorCar.glb", this._scene, ((scene: Scene) => {
             this._car = scene.getTransformNodeByName("EntireChassis");
-            console.dir(this._car);
-            console.dir(this._car!.getChildMeshes());
-
             
             const meshes = this._car!.getChildMeshes();
-
-            console.dir(meshes);
 
             meshes.forEach((mesh) => {
                 if (mesh) {
@@ -551,11 +590,12 @@ class XrExperience {
                     mesh.isVisible = false;
                 }
             });
-
+            this._scene.stopAllAnimations();
         }));
     }
 
     animateCar() {
+        console.log("Animating car");
         const meshes = this._car!.getChildMeshes();
 
 
@@ -564,12 +604,14 @@ class XrExperience {
         meshes.forEach((mesh) => {
             if (mesh && mesh.animations.length > 0) {
                 if(!this._carIsExtended) {
+                    //extend car
                     this._animationLock = true;
                     this._scene.beginAnimation(mesh, 0, mesh.animations[0].getHighestFrame(), false, 1, () => {
                         this._animationLock = false;
                     });
 
                 } else {
+                    //close car
                     this._animationLock = true;
                     this._scene.beginAnimation(mesh, mesh.animations[0].getHighestFrame(), 0, false, 1, () => {
                         this._animationLock = false;
@@ -590,22 +632,19 @@ class XrExperience {
                 }
             }
             if (this._carIsExtended) {
-                mesh.getChildMeshes().forEach((childMesh) => {
-                    childMesh.isVisible = false;
-                })
+                this.makeChildMeshesDisappear(mesh);
             } else {
-                mesh.getChildMeshes().forEach((childMesh) => {
-                    childMesh.isVisible = true;
-                })
+                this.makeChildMeshesAppear(mesh);
             }
         });
 
         this._carIsExtended = !this._carIsExtended;
     }
 
+
     createWheel() {
-        SceneLoader.Append("/models/", "BachelorCarTireAnimation.glb", this._scene, ((scene: Scene) => {
-            this._wheel = scene.getTransformNodeByName("EntireWheel");
+        SceneLoader.Append("/models/", "WheelAnimation.glb", this._scene, ((scene: Scene) => {
+            this._wheel = scene.getTransformNodeByName("EntireWheel");          
 
             const meshes = this._wheel!.getChildMeshes();
 
@@ -616,6 +655,7 @@ class XrExperience {
                     mesh.isVisible = false;
                 }
             });
+            this._scene.stopAllAnimations();
         }));
     }
 
@@ -652,7 +692,7 @@ class XrExperience {
                     }
                 }
             }
-            if (this._carIsExtended) {
+            if (this._wheelIsExtended) {
                 mesh.getChildMeshes().forEach((childMesh) => {
                     childMesh.isVisible = false;
                 })
@@ -662,6 +702,7 @@ class XrExperience {
                 })
             }
         });
+        this._wheelIsExtended = !this._wheelIsExtended;
     } 
 
 }
