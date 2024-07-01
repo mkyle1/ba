@@ -11,8 +11,10 @@ Im Rahmen der Bachelorarbeit wurden zwei Interaktionskonzepte für die Visualisi
 Der Prototyp ist dabei eine WebXR-Anwendung, die mit dem Framework Babylon.js in TypeScript entwickelt wurde.
 Die Anwendung kann direkt von einem AR-fähigen Browser aufgerufen werden und ist somit plattformunabhängig.
 
+
+
 Das erste Konzept ist die Visualisierung von Requirements in Kombination mit einem möglichst akkuraten 3D-Modell des zu entwickelnden Produkts.
-Dabei wird das 3D-Modell vom Nutzer auf einer freien Fläche im Raum platziert und kann in einer \glqq{}Explosions\grqq{}-Animation in seine Bauteile zerlegt werden.
+Dabei wird das 3D-Modell vom Nutzer auf einer freien Fläche im Raum platziert und kann in einer \glqq{}Explosions\grqq{}-Animation, welche in Abbildung \ref{fig:porsche-explosion-ar} anhand einer Bildsequenz dargestellt ist, in seine Bauteile zerlegt werden.
 Ist das Modell in seine Einzelteile zerlegt, werden die Anforderungen als Panels an den einzelnen Bauteilen visualisiert.
 Der Nutzer kann dann die Animation wieder rückwärts abspielen, um das Modell wieder zusammenzusetzen.
 Dabei verschwinden die Anforderungen wieder, und das Produkt kann in seinem originalen Gesamtzustand ohne Requirements betrachtet werden.
@@ -20,6 +22,13 @@ Im Prototyp wurde dafür ein Auto-Modell verwendet, welches in einer Animation d
 Zur Visualisierung der eingeplanten Detailansicht können im Prototyp außerdem die Räder des Modells angeklickt werden, um so eine Detailansicht der Anforderungen an die Räder zu erhalten.
 Das Interaktionskonzept zeigt dabei viel Potenzial, um viele Interaktionsmöglichkeiten mit dem 3D-Modell und den Anforderungen zu ermöglichen.
 Ein großer Mehrwert der Visualisierung in AR ist dabei, dass das 3D-Modell in Originalgröße dargestellt werden kann und so eine realistische Darstellung des Produkts ermöglicht wird.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/PorscheExplosionAR.png}
+    \caption{Bildsequenz aus dem Prototyp der Explodierenden Bauteile in AR}
+    \label{fig:porsche-explosion-ar}
+\end{figure}
 
 Das zweite Konzept ist die Visualisierung von Requirements in Wolken aus Textpanels, die in der AR-Umgebung schweben.
 Die Wolken sind dabei Cluster von Anforderungen, die thematisch zusammengehören.
@@ -45,11 +54,14 @@ So entsteht ein neuer Ansatz, um Anforderungen besser zu verstehen, zu kommunizi
 
 Die Arbeit zeigt jedoch auch, dass die Umsetzung der untersuchten Konzepte noch viele Herausforderungen mit sich bringt.
 Visuell beeindruckende Darstellungen erfordern meist auch eine aufwendige und somit teure Implementierung.
+
 Das erste Konzept beispielsweise erfordert die Erstellung und Instandhaltung eines aktuellen 3D-Modells inklusive Animation des Produkts, welches in der Anwendung dargestellt wird.
 Da dieses Konzept der explodierenden Bauteile, welches aber den meisten Mehrwert der Usability bietet, nur schwer automatisiert umzusetzen ist, ist die Implementierung in einer realen Anwendung zeitaufwändig und damit teuer.
-Das zweite Konzept hingegen ist zwar einfacher umzusetzen, bietet jedoch auch weniger Mehrwert für den Nutzer.
+
+Das Konzept der Anforderungswolken hingegen ist zwar einfacher umzusetzen, bietet jedoch auch weniger Mehrwert für den Nutzer.
 Die Kosten-Nutzen-Effektivität beider Konzepte muss daher in weiteren Untersuchungen genauer betrachtet werden.
-Jedoch rate ich dazu ab, das Konzept der Anforderungswolken in AR bzw. in 3D weiter zu verfolgen, da das Konzept mehr für eine zweidimensionale Darstellung geeignet ist und in AR keinen Mehrwert gegenüber einer 2D-Darstellung bietet.
+
+Jedoch rate ich dazu ab, das Konzept der Anforderungswolken in AR bzw. in 3D weiter zu verfolgen, da das Konzept mehr für eine zweidimensionale Darstellung geeignet scheint und in AR keinen nennenswerten Mehrwert gegenüber einer 2D-Darstellung bietet.
 
 \section{Ausblick}
 \label{section:ausblick}
@@ -57,7 +69,12 @@ Jedoch rate ich dazu ab, das Konzept der Anforderungswolken in AR bzw. in 3D wei
 In weiteren Arbeiten könnte die Umsetzung der beiden Konzepte in einer realen Anwendung weiter untersucht werden.
 Dabei würde sich vor allem eine Untersuchung der professionellen Umsetzbarkeit des Konzepts der explodierenden Bauteile anbieten, da dieses schon im Prototypen den größten Mehrwert der Darstellung bietet und noch stark ausgebaut werden kann.
 Das Konzept bietet auch viele Möglichkeiten zur Erweiterung der Interaktionen.
-Beispielsweise könnten Bauteile aus dem explodierten Modell herausgegriffen werden, um so das Bauteil und die Anforderungen daran genauer zu betrachten.
+Einige solcher möglicher Interaktionserweiterungen wären:
+\begin{itemize}
+    \item Herausgreifen von Bauteilen aus dem explodierten Modell zur genaueren Betrachtung
+    \item Rotation ausgewählter Bauteile mit den Joysticks
+    \item Manuelle Skalierung von ausgewählten Bauteilen zur genaueren Betrachtung
+\end{itemize}
 
 Auch die im Grundlagenkapitel \ref{sec:gamification-ux} beschriebenen Konzepte der Gamification könnten in die Anwendung integriert werden, um so die User Experience zu verbessern.
 Dafür könnten beispielsweise bereits betrachtete Bauteile oder Anforderungen ausgegraut werden, um dem Nutzer eine Übersicht über bereits betrachtete Anforderungen und ein Gefühl für den \glqq{}Fortschritt\grqq{} in der Betrachtung zu geben.

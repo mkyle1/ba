@@ -10,17 +10,17 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
     \titleemph{Requirements}
 
     Grundlegend sind Requirements Anforderungen, die an ein System gestellt werden.
-    Das International Requirements Engineering Board (IREB) definiert sie in ihrem Glossar mit drei Eigenschaften:
+    Das International Requirements Engineering Board (IREB) definiert sie in ihrem Glossar mit drei Eigenschaften \autocite[][Def. Anforderung]{ireb_cpre_glossary}
     \begin{itemize}
         \item Ein Bedürfnis eines Interesseneigners (Stakeholder).
         \item Eine Eigenschaft oder Fähigkeit, die ein System haben soll.
         \item Eine dokumentierte Repräsentation eines Bedürfnisses, einer Fähigkeit oder einer Eigenschaft.
     \end{itemize}
-    \autocite[][Def. Anforderung]{ireb_cpre_glossary}
+    
 
     Sie sollen also die Bedürfnisse der Stakeholder an das System repräsentieren und dokumentieren.
 
-    Die Gestaltung von Requirements kann dabei je nach System und Anforderungen unterschiedlich sein. Chris Rupp nennt in ihrem Buch \glqq{}Requirements-Engineering und -Management\grqq{} einige Beispiele für verschiedene Formen für Requirements:
+    Die Gestaltung von Requirements kann dabei je nach System und Anforderungen unterschiedlich sein. Chris Rupp nennt in ihrem Buch \glqq{}Requirements-Engineering und -Management\grqq{} einige Beispiele für verschiedene Formen für Requirements \autocite[][S. 19]{Rupp2014}:
     \begin{itemize}
         \item User-Stories
         \item Use-Cases
@@ -28,20 +28,24 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
         \item formalisierte natürlichsprachliche Anforderungen
         \item Anforderungen in Form von Diagrammen (semiformales Modell)
     \end{itemize}
-    \autocite[][S. 19]{Rupp2014}
 
     
     Natürlichsprachliche Anforderungen können sehr einfach selbst formuliert werden.
     Dadurch sind sie jedoch auch anfällig für Missverständnisse und Unklarheiten.
     Das Ziel von reQlab ist es, diese Missverständnisse und Unklarheiten in natürlichsprachlichen Anforderungen zu erkennen und so die Qualität der Anforderungen zu verbessern.
-    Daher werden im Unfamg dieser Bachelorarbeit nur natürlichsprachliche Anforderungen genutzt.
+    Daher werden im Umfang dieser Bachelorarbeit nur natürlichsprachliche Anforderungen genutzt.
 
     Zudem werden Requirements in funktionale und nicht-funktionale Requirements unterteilt.
-    Funktionale Requirements beschreiben \glqq{}die Funktionen, die das System leisten soll, die Informationen die es verarbeiten soll; das gewünschte Verhalten, welches das System an den Tag legen soll.\grqq{} \autocite[][S. 12]{Hruschka2023}
+    Funktionale Requirements beschreiben \glqq{}die Funktionen, die das System leisten soll, die Informationen die es verarbeiten soll; das gewünschte Verhalten, welches das System an den Tag legen soll\grqq{} \autocite[][S. 12]{Hruschka2023}.
     Nicht-funktionale Requirements hingegen beschreiben alle Requirements, die nicht funktionaler Natur sind, also beispielsweise Performance, Sicherheit oder Zuverlässigkeit.
     Der Begriff nicht-funktional ist dabei jedoch etwas irreführend, da auch nicht-funktionale Requirements gewissermaßen Funktionen des Systems beschreiben.
     Peter Hruschka beschreibt in seinem Buch Funktionale Anforderungen mit der Frage: \glqq{}Was soll das System/Produkt tun?\grqq{}.
-    Auch unterteilt er nicht-funktionale Anforderungen in die zwei Kategorien Qualitätsanforderungen (\glqq{}Wie gut? Wie schnell? Wie zuverlässig? ...\grqq{}) und Randbedingungen (\glqq{}Ressourcen, Wiederverwendung, Zukauf, geforderte Technologie ...\grqq{}) \grqq{} \autocite[][S. 13]{Hruschka2023}.
+    Auch unterteilt er nicht-funktionale Anforderungen in zwei Kategorien \autocite[][S. 13]{Hruschka2023}:
+    \begin{itemize}
+      \item \textbf{Qualitätsanforderungen:} \glqq{}Wie gut? Wie schnell? Wie zuverlässig? \ldots\grqq{}
+      \item \textbf{Randbedingungen:} \glqq{}Ressourcen, Wiederverwendung, Zukauf, geforderte Technologie \ldots\grqq{}
+    \end{itemize}
+    
     Diese Unterteilung ist hilfreich zur Strukturierung der Anforderungen und könnte im User-Interface der Visualisierung genutzt werden, um die Anforderungen zu kategorisieren.
     
     \titleemph{Stakeholder}
@@ -109,13 +113,17 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
   Augmented Reality (AR) ist eine Technologie, die die reale Welt mit digitalen Informationen erweitert.
   Dabei wird ein ähnlicher Ansatz wie bei Virtueller Realität verfolgt, jedoch wird die reale Welt nicht komplett ersetzt, sondern nur erweitert.
   Der Nutzer sieht also weiterhin seine reale Umgebung, diese wird aber durch digitale Informationen ergänzt.
+
+  Auf dem Realitäts-Virtualitäts-Kontinuum von Milgram, welches, wie in Abbildung \ref{fig:rv-continuum} dargestellt, einen fließenden Übergang zwischen Realität und Virtualität beschreibt, liegt Augmented Reality zwischen der realen Welt und der virtuellen Welt \autocite[vgl.][S.9]{milgram1999}.
+
   \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{images/RV-Continuum.png}
     \caption{Realitäts-Virtualitäts-Kontinuum nach Milgram}
+    \source{\autocite[][S.9]{milgram1999}}
     \label{fig:rv-continuum}
   \end{figure}
-  Auf dem Realitäts-Virtualitäts-Kontinuum von Milgram, welches, wie in Abbildung \ref{fig:rv-continuum} dargestellt, einen fließenden Übergang zwischen Realität und Virtualität beschreibt, liegt Augmented Reality zwischen der realen Welt und der virtuellen Welt \autocite[vgl.][S.9]{milgram1999}.
+
   Daher fällt Augmented Reality unter den Überbegriff der Mixed Reality, da die reale Welt mit der digitalen Welt gemischt wird.
   Daher ist bei AR die Immersion im Vergleich zu VR oft geringer und weniger wichtig, da der Nutzer immer die reale Welt als Referenzpunkt hat.
   AR Technologien sind nicht darauf ausgelegt, den Nutzer in eine andere Welt zu versetzen, sondern die reale Welt zu erweitern.
@@ -156,12 +164,11 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
     Dem wird so weit wie möglich mit einer hohen Bildwiederholrate der Displays entgegengewirkt, um die Bewegungen des Nutzers möglichst flüssig darzustellen.
 
     Die Position des Headsets muss kontinuierlich bestimmt werden, um die Bewegungen der Nutzer zu verfolgen und so die virtuelle Welt auf den Bildschirmen anpassen zu können.
-    Dabei wird generell durch 2 Methoden unterschieden:
+    Dabei wird generell durch 2 Methoden unterschieden \autocite[]{Gourlay2017}:
     \begin{itemize}
       \item Inside-Out-Tracking: Das Headset trackt seine eigene Position mithilfe von Kameras und Sensoren.
       \item Outside-In-Tracking: Die Position des Headsets wird durch externe Kameras oder Sensoren bestimmt.
     \end{itemize}
-    \autocite[]{Gourlay2017}
 
     Outside-In-Tracking kann beispielsweise durch Kameras realisiert werden, welche im Raum verteilt werden und visuelle Marker am Headset und den Steuergeräten tracken.
     Diese Methode ist sehr genau in der Bestimmung der Position, jedoch ist der Nutzer dadurch an einen festen Raum gebunden, in dem die Trackingstationen aufgestellt sind und muss immer in deren Blickfeld sein.
@@ -186,7 +193,8 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
     \begin{figure}[H]
       \centering
       \includegraphics[width=0.9\textwidth]{images/quest3_example.jpg}
-      \sourcecaption{Oculus Quest 3 VR-Headset}{https://unsplash.com/de/fotos/ein-mann-der-auf-einem-stuhl-sitzt-und-eine-virtuelle-brille-tragt-AZ-ND5uJ4S4}
+      \caption{Meta Quest 3 VR- und AR-Headset}
+      \source{\autocite{Quest3Worn}}
       \label{fig:oculus-quest-3}
     \end{figure}
 
@@ -197,9 +205,13 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
     Durch all diese Technik, bieten die neusten VR-Headsets eine sehr hohe Immersion durch herausragende audiovisuelle Qualität für Anwendungen in AR.
     Sie sind besonders dafür geeignet hochauflösende dreidimensionale Inhalte in die reale Welt zu projizieren und so eine immersive Erfahrung zu schaffen.
     Daher sind sie besonders für Anwendungen geeignet, bei denen eine hohe Immersion und eine hohe Qualität der Darstellung wichtig sind, wie bspw. bei Spielen oder Simulationen.
-    Doch für lange Anwendungszeiten und die Verwendung in der Öffentlichkeit sind sie meist zu groß und schwer.
 
-    Da sie aufgrund der Nähe zu den Augen des Nutzers mit relativ kleinen Bildschirmen auskommen, sind sie im Vergleich zu vielen anderen dedizierten Anzeigegeräten für AR sind VR-Headsets auch relativ günstig.
+    Die visuelle Qualität ist jedoch noch nicht bei den Standarts moderner Bildschirme für zweidimensionale Betrachtung angelangt.
+    Während auf modernen Desktop- und Handy-Displays quasi keine Pixel mehr zu erkennen sind, ist der Pixel-Door-Effekt auch bei den neusten VR- und AR-Headsets noch zu sehen.
+    Daher haben sie trotz höheren Pixeldichten eine geringere darstellbare Informationsdichte als klassische zweidimensionale Displays.
+    Zudem sind sie für lange Anwendungszeiten und die Verwendung in der Öffentlichkeit meist zu groß und schwer, da sie direkt auf dem Gesicht getragen werden.
+
+    Da sie aufgrund der Nähe zu den Augen des Nutzers aber mit relativ kleinen Bildschirmen auskommen, sind sie im Vergleich zu vielen anderen dedizierten Anzeigegeräten für AR sind VR-Headsets auch relativ günstig.
     Die niedrigen Kosten entstehen auch, da VR-Headsets auch für Videospiele und andere Unterhaltungsanwendungen genutzt werden und daher eine große Nutzerbasis haben.
     So existiert ein weiterer finanzieller Anreiz für die Entwicklung von günstigen VR-Headsets, da die Hersteller von den hohen Stückzahlen profitieren können.
    
@@ -268,7 +280,8 @@ Dabei wird auf die Themen Requirements Engineering, Augmented Reality und die So
   \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{images/merc-sim.png}
-    \sourcecaption{Innenraum des Mercedes-Benz Fahrsimulators}{https://group.mercedes-benz.com/innovation/produktinnovation/technologie/fahrsimulator.html}
+    \caption{Innenraum des Mercedes-Benz Fahrsimulators}
+    \source{\autocite{MercedesSimulator}}
     \label{fig:merc-sim}
   \end{figure}
 
