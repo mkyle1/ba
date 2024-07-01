@@ -1,25 +1,29 @@
 \chapter{Implementierung}
 
-\section{Entwicklungsumgebung für WebXR und Oculus Quest 3}
+Dieses Kapitel befasst sich mit dem Prozess der Implementierung der in Kapitel \ref{section:konzept} erarbeiteten Interaktionskonzepte in Prototypen.
+Dabei wird zunächst ein Überblick über die Entwicklungsumgebung, welche für die Entwicklung mit WebXR auf einer Meta Quest 3 eingerichtet wurde.
+Daraufhin wird für jedes Interaktionskonzept die Implementierung der Prototypen mit einigen technischen Details beschrieben.
 
-Die Entwicklung von WebXR-Anwendungen für die Oculus Quest 3 erfordert eine spezielle Entwicklungsumgebung für einen effizienten Entwicklungsprozess.
+\section{Entwicklungsumgebung für WebXR und Meta Quest 3}
+
+Die Entwicklung von WebXR-Anwendungen für die Meta Quest 3 erfordert eine spezielle Entwicklungsumgebung für einen effizienten Entwicklungsprozess.
 Dabei müssen verschiedene Technologien und Tools miteinander kombiniert werden, um eine reibungslose Entwicklung und ein möglichst schnelles Testen der Anwendung zu ermöglichen.
 
-Der erste Schritt ist das Anzeigen der WebXR-Anwendung auf der Oculus Quest 3.
+Der erste Schritt ist das Anzeigen der WebXR-Anwendung auf der Meta Quest 3.
 Das Problem dabei im Vergleich zu \glqq{}normalen\grqq{} Webanwendungen ist, dass WebXR-Anwendungen nur über HTTPS aufgerufen werden können.
-Das bedeutet, dass die Anwendung über HTTPS gehostet werden muss, um direkt vom Browser der Oculus Quest 3 aufgerufen werden zu können.
+Das bedeutet, dass die Anwendung über HTTPS gehostet werden muss, um direkt vom Browser der Meta Quest 3 aufgerufen werden zu können.
 Hierfür gibt es verschiedene Möglichkeiten, wie beispielsweise das Erstellen eines eigenen Zertifikats für den lokalen Entwicklungsrechner oder das Hosting der Anwendung auf einem Server mit HTTPS-Unterstützung.
-Für den Rahmen der Entwicklung dieser Bachelorarbeit wird die Anwendung jedoch, wie auch in der Artikelserie des Taikonautenmagazins \autocite[Part 0/8]{taikonauten-magazine} empfohlen, mit LocalTunnel gehostet, um die Anwendung direkt von der Oculus Quest 3 aus testen zu können.
+Für den Rahmen der Entwicklung dieser Bachelorarbeit wird die Anwendung jedoch, wie auch in der Artikelserie des Taikonautenmagazins \autocite[Part 0/8]{taikonauten-magazine} empfohlen, mit LocalTunnel gehostet, um die Anwendung direkt von der Meta Quest 3 aus testen zu können.
 LocalTunnel erstellt einen temporären HTTPS-Link, über den die Anwendung aufgerufen werden kann, ohne dass ein eigenes Zertifikat oder ein eigener Server notwendig ist.
 Dafür muss die Anwendung nur lokal auf dem Entwicklungsrechner laufen und der LocalTunnel-Client gestartet sein, um den temporären Link zu generieren.
 Als zusätzliche Sicherheit muss dann beim Aufrufen der Seite noch die IP-Adresse des Entwicklungsrechners angegeben werden, um sicherzustellen, dass nur der Entwickler die Anwendung testen kann.
 Dies muss in der Regel jedoch nur einmal nach jedem Neustart oder Crash gemacht werden, da der Link für die Dauer der Sitzung gespeichert wird.
 
-Der nächste Schritt, wenn Zugriff mit der Oculus Quest 3 auf die WebXR-Anwendung besteht, ist die Anzeige von Entwickler-Tools und Debugging-Informationen der Oculus Quest 3.
-Da die Oculus Quest 3 auf Android basiert, kann auf dem Entwicklungsrechner Android Debug Bridge (ADB) installiert werden, um über USB eine Verbindung zur Oculus Quest 3 herzustellen.
+Der nächste Schritt, wenn Zugriff mit der Meta Quest 3 auf die WebXR-Anwendung besteht, ist die Anzeige von Entwickler-Tools und Debugging-Informationen der Meta Quest 3.
+Da die Meta Quest 3 auf Android basiert, kann auf dem Entwicklungsrechner Android Debug Bridge (ADB) installiert werden, um über USB eine Verbindung zur Meta Quest 3 herzustellen.
 Die Verbindung muss noch in der VR-Brille bestätigt werden, um den Zugriff auf die Entwickleroptionen zu ermöglichen.
 Ist das geschehen, erscheint die Quest 3 mit ihren geöffneten Websites in der Geräteliste der Chrome DevTools, die über die URL \url{chrome://inspect/#devices} aufgerufen werden können.
-Dort können dann die Entwickler-Tools der Oculus Quest 3 geöffnet werden, um beispielsweise die Performance der Anwendung zu überwachen und Fehlermeldungen zu sehen.
+Dort können dann die Entwickler-Tools der Meta Quest 3 geöffnet werden, um beispielsweise die Performance der Anwendung zu überwachen und Fehlermeldungen zu sehen.
 
 
 Für viele Aspekte der Entwicklung von XR-Anwendungen, wie beispielsweise einfache Tests von Interaktionen wie einzelnen Klicks können auch über einen WebXR-Emulator direkt am Entwicklungsrechner getestet werden.
@@ -36,79 +40,12 @@ Der Emulator generiert dann eine live Vorschau der Anwendung, die direkt im Brow
     \label{fig:webxr-emulator}
 \end{figure}
 
-Das Testen der Anwendung mit dieser Erweiterung ist deutlich schneller und einfacher als das Testen auf der Oculus Quest 3, da die Anwendung direkt im Browser getestet werden kann und keine Verbindung zur Oculus Quest 3 notwendig ist.
-Zudem sind die Ladezeiten beim Neuladen der Anwendung deutlich kürzer, da die Anwendung nicht auf die Übertragung der Daten auf die Oculus Quest 3 warten muss.
-Dennoch ist es wichtig, die Anwendung auch regelmäßig auf der Oculus Quest 3 zu testen, da die Performance und die Interaktionen auf dem Emulator nicht immer exakt der Realität entsprechen.
+Das Testen der Anwendung mit dieser Erweiterung ist deutlich schneller und einfacher als das Testen auf der Meta Quest 3, da die Anwendung direkt im Browser getestet werden kann und keine Verbindung zur Meta Quest 3 notwendig ist.
+Zudem sind die Ladezeiten beim Neuladen der Anwendung deutlich kürzer, da die Anwendung nicht auf die Übertragung der Daten auf die Meta Quest 3 warten muss.
+Dennoch ist es wichtig, die Anwendung auch regelmäßig auf der Meta Quest 3 zu testen, da die Performance und die Interaktionen auf dem Emulator nicht immer exakt der Realität entsprechen.
 
 
-
-\section{Implementierung der Anwendung}
-
-In diesem Kapitel wird der Prozess der Implementierung der Anwendung beschrieben.
-Dabei wird zunächst die Entwicklung der grundlegenden zu implementierenden Konzepte beschrieben, bevor auf die tatsächliche Implementierung der ausgearbeiteten Interaktionskonzepte eingegangen wird.
-
-\subsection{Interaktionskonzepte für Requirements}
-
-Die Bachelorarbeit beschäftigt sich mit der Darstellung von Requirements in AR.
-Dabei soll untersucht werden, wie Anforderungen in einer 3D-Umgebung dargestellt werden könnten.
-Dazu werden verschiedene Interaktionskonzepte entwickelt, welche als Basis für die Implementierung mit WebXR dienen.
-Die erste Ausarbeitung der Konzepte dient dabei nicht unbedingt dazu vollständig so implementiert zu werden, sondern soll einen Überblick über die grundlegende Idee und die möglichen Interaktionen geben.
-
-
-
-\subsubsection{Beispiel 1: Explodierende Bauteile}
-
-Das erste untersuchte Interaktionskonzept ist hauptsächlich für die Darstellung von Anforderungen von Produkten gedacht.
-Die Idee ist, ein Produkt in einer Animation in seine einzelnen Bauteile zu zerlegen und die Anforderungen auf ihren zugehörigen Bauteilen darzustellen.
-In der Animation werden die Bauteile von einem Punkt in der Mitte des Produkts nach außen bewegt, sodass sie sich um den Ursprungspunkt des Produkts herum anordnen.
-Beispielsweise könnte ein Auto so zerlegt werden, dass bei der Animation die Räder, die Karosserie, der Motor und die Innenausstattung einzeln als eigene Objekte sichtbar werden.
-So kann der Nutzer das gesamte Produkt betrachten und sich dann auf Wunsch einzelne Bauteile und deren Anforderungen genauer ansehen.
-
-Die Anforderungen sollen dabei als Text auf UI-Panelen dargestellt werden, die an den zugehörigen Bauteilen angebracht sind.
-
-Am bereits genannten Beispiel des Autos wird klar, dass die Komplexität der Darstellung bei vielen Bauteilen schnell ansteigt und die Übersichtlichkeit verloren gehen kann.
-Daher ist es bei umfangreichen Produkten eventuell sinnvoll, die Darstellung der Bauteile in mehreren Schritten zu realisieren.
-Zum Beispiel könnte in einer Übersicht das gesamte Auto in wenigen Bauteilen dargestellt werden, indem beispielsweise ein Rad, das eigentlich aus Reifen, Felge, Radmuttern, Bremsscheibe etc. besteht, als ein einzelnes Objekt dargestellt wird.
-Will der Nutzer dann die Räder genauer betrachten, kann er in eine Detailansicht wechseln, in der nur ein Rad mit all seinen Bauteilen animiert wird.
-So lässt sich eine hohe Komplexität der Darstellung erreichen, ohne dass die Übersichtlichkeit verloren geht.
-
-
-Für diese Darstellung soll der Nutzer zunächst mithilfe eines Controllers einen Ort für die Darstellung im Raum auswählen.
-Dieser Ort wird als Ursprungspunkt für die Darstellung der Bauteile verwendet.
-Dann soll der Nutzer frei durch die Explosionsanimation navigieren können, um sich die Bauteile aus verschiedenen Perspektiven anzusehen.
-
-Auch bei Software-Requirements ist es denkbar, diese in ihre Komponenten zu zerlegen und zu diesen Komponenten zugehörige Anforderungen darzustellen.
-Jedoch bietet die Darstellung in AR bzw. VR hierbei quasi keine Vorteile im Gegensatz zu einer 2D-Darstellung auf einem Bildschirm.
-Bei Software-Anwendungen ist die einfache Darstellung auf einem Bildschirm näher an der tatsächlichen Laufumgebung der meisten Softwares als bei physischen Produkten, bei denen durch eine dreidimensionale Darstellung ein Mehrwert entstehen kann.
-
-Bei diesem Konzept soll die Realisierbarkeit solcher Darstellungen für physische Produkte untersucht werden.
-Dabei muss die Kosten-Nutzen-Relation kritisch betrachtet werden, da die Implementierung einer solchen Darstellung sehr aufwändig sein kann und daher einen hohen Mehrwert gegenüber anderer Darstellungen bieten muss.
-
-\subsubsection{Beispiel 2: Wolken von Anforderungen}
-
-Der Ansatz der explodierenden Bauteile ist aufgrund der Individualität des Konzepts sehr zeitaufwendig und komplex zu implementieren.
-Zudem ist dieser Ansatz nur für die Darstellung von Produkten, also physischen Systemen, geeignet.
-Daher wird ein weiteres Interaktionskonzept entwickelt, welches sich theoretisch auch automatisiert generieren lässt und für alle Arten von Anforderungen geeignet ist.
-
-Die grundlegende Idee ist, Anforderungen in Wolken von Texten darzustellen, also als eine Gruppierung von UI-Elementen im Raum.
-Hierbei soll eine räumliche Gruppierung der Anforderungen nach verschiedenen Kriterien möglich sein.
-Beispielsweise könnten Anforderungen, die zu einem bestimmten Feature gehören, in einer Wolke gruppiert werden, während Anforderungen, die zu einem anderen Feature gehören, in einer anderen Wolke gruppiert werden.
-Durch die räumliche Anordnung der Wolken kann der Nutzer schnell erkennen, welche Anforderungen zusammen gehören und welche nicht.
-
-Dabei soll es auch möglich sein in Wolken hinein- und herauszuzoomen, um die Granularität der angezeigten Anforderungen zu erhöhen.
-Gehen wir dabei wieder vom Beispiel des Autos aus, könnte es möglich sein in die Wolke der Räder hineinzuzoomen, um die Anforderungen an die Reifen, Felgen, Radmuttern etc. zu sehen.
-Daraufhin kann wieder herausgezoomt werden, um die Anforderungen an das gesamte Auto zu sehen.
-Eine weitere Möglichkeit wäre es, auf den Anforungspanels Filtermöglichkeiten für verschiedene Beziehungen der Anforderung darzustellen, um dann bei einer Auswahl in die neue Anforderungswolke zu zoomen.
-Diese Interaktion und die räumliche Anordnung der Wolken sollen dem Nutzer helfen, auch bei einer großen Anzahl von Anforderungen einen Überblick zu behalten und schnell die gewünschten Anforderungen zu finden.
-
-Bei diesem Konzept soll vor allem der Vorteil gegenüber einer 2D-Darstellung kritisch untersucht werden.
-Denn die Darstellung der Anforderungen in Wolken ist prinzipiell auch in 2D möglich, auch mit der Interaktionsmöglichkeit des Hinein- und Herauszoomens.
-Daher soll untersucht werden, ob die räumliche Anordnung der Anforderungen in AR tatsächlich einen Mehrwert gegenüber einer 2D-Darstellung bietet und ob die Interaktionen intuitiv und effizient sind.
-
-
-\subsubsection{Beispiel 3: Anforderungen als 3D-Objekte}
-
-\subsection{Implementierung der Interaktionskonzepte}
+\section{Implementierung der Interaktionskonzepte}
 
 In den folgenden Abschnitten wird auf die Implementierung der zuvor beschriebenen Interaktionskonzepte eingegangen.
 Dabei werden grundlegende Konzepte und Technologien vorgestellt und erklärt, die für die Implementierung notwendig sind.
@@ -122,7 +59,7 @@ Dabei werden Wände und Böden der Umgebung erkannt und als Mesh in die Szene ei
 Zudem wurden schon einige Interaktionen des Controllers, wie das Auswählen von Objekten durch Raycasting, implementiert, die als Basis für die Implementierung der Interaktionskonzepte dienen.
 
 
-\subsubsection{Explodierende Bauteile}
+\subsection{Explodierende Bauteile}
 
 Der erste Schritt bei der Implementierung des Interaktionskonzepts der \glqq{}explodierenden\grqq{} Bauteile ist die Erstellung eines 3D-Modells, welches die Bauteile des Produkts enthält.
 Dabei muss jedes Bauteil als eigenes Objekt im 3D-Modell vorhanden sein, um sie in der Animation separat darstellen und referenzieren zu können.
@@ -182,14 +119,18 @@ Das Modell, welches in Abbildung \ref{fig:porsche} zu sehen ist, wurde ausgewäh
 \end{figure}
 
 Bei dem in dieser Bachelorarbeit verwendetem Modell ist es jedoch wichtig zu beachten, dass es sich um kein vollständig akkurates und funktionales Modell eines Autos handelt.
-Beispielsweise existieren keine Achsen an denen die Räder hängen.
-Für den anschaulichen Zweck dieser Bachelorarbeit ist das Modell jedoch ausreichend, da es genug \glqq{}reale\grqq{}  Bauteile enthält um das Interaktionskonzept zu demonstrieren.
+Beispielsweise existieren keine Achsen, an denen die Räder hängen.
+Für den anschaulichen Zweck dieser Bachelorarbeit ist das Modell jedoch ausreichend, da es genug \glqq{}reale\grqq{}  Bauteile enthält, um das Interaktionskonzept zu demonstrieren.
+
 Würde das Interaktionskonzept in einer echten Anwendung für Kunden verwendet werden, sollte jedoch mit möglichst akkuraten CAD-Modellen gearbeitet werden, um die Anforderungen an die Bauteile möglichst genau darzustellen.
 Auf die Möglichkeit einer solchen professionellen Anwendung wird in der Diskussion eingegangen.
 
-Für die Verwendung des Modells in der Anwendung muss als nächstes eine Animation mit dem Modell erstellt werden, die die Bauteile des Autos in ihre Einzelteile zerlegt.
+Für die Verwendung des Modells in der Anwendung muss als Nächstes eine Animation mit dem Modell erstellt werden, welche die Bauteile des Autos in ihre Einzelteile zerlegt.
 Dafür wird in Blender eine Animation erstellt, welche einige Bauteile, wie beispielsweise die Verkleidung, die Räder und der Spoiler, nach außen weg bewegt.
-Zum besseren Verständnis ist in Abbildung \ref{fig:porsche-explosion} eine Bildsequenz der Animation des Porsche Modells zu sehen.
+Beim Erstellen der Animation musste zudem beachtet werden, dass sichmöglichst wenig Bauteile bei der Animation überschneiden.
+Dadurch sind haben einige Bauteile sehr einfache Animationen mit nur 2 Keyframes, wie bspw. die Räder die einfach nach außen verschoben werden, und andere Bauteile benötigen kompliziertere Animationen mit bis zu 5 Keyframes, um Überschneidungen zu verhindern.
+
+Zur Veranschaulichung der Animation ist in Abbildung \ref{fig:porsche-explosion} eine Bildsequenz der Animation des Porsche Modells zu sehen.
 
 \begin{figure}[H]
     \centering
@@ -200,6 +141,7 @@ Zum besseren Verständnis ist in Abbildung \ref{fig:porsche-explosion} eine Bild
 
 Um den Bauteilen später ihre Anforderungen zuzuweisen, müssen die relevanten Bauteile identifizierbar sein.
 Dafür wird in Blender jedem animierten Objekt eine ID (bspw. \#1\_Rad, \#2\_Lichter) am Anfang des Objektnamens zugewiesen, die später in der Anwendung als Referenz für die Anforderungen dient.
+
 Die IDs werden dabei zusätzlich in anzeigende und nicht-anzeigende IDs unterteilt, um bei Bauteilen welche aus mehreren kleinen Objekten bestehen in der großen Ansicht nur die Anforderungen des Hauptobjekts anzuzeigen.
 Beispielsweise besteht ein Rad aus Reifen, Felge, Bremsscheibe etc., wobei nur das Rad als Hauptobjekt die Anforderungen an das Rad anzeigt und die anderen Objekte die Anforderungen an sich selbst in der Detailansicht.
 Um die Objekte jedoch einfach ihren Elternobjekten zuordnen zu können, wie beispielsweise für die Klick-Abfrage des Rads, werden die IDs der Elternobjekte in den IDs der Kindobjekte gespeichert.
@@ -217,7 +159,7 @@ So kann der Nutzer die Anforderungen an das Rad in einer Detailansicht betrachte
 
 
 
-\subsubsection{Wolken von Anforderungen}
+\subsection{Wolken von Anforderungen}
 
 Das Interaktionskonzept der Wolken aus Anforderungspanels ist deutlich einfacher zu implementieren als das Konzept der explodierenden Bauteile.
 Der erste Schritt der Implementierung war die Erstellung eines Algorithmus, welcher einen Array von Anforderungen erhält und zu diesen eine 3D-Wolke von Punkten in einem gegebenen Bereich erstellt.
@@ -249,8 +191,9 @@ Jedoch wird schon bei nur wenig größeren Anforderungswolken wie der in Abbildu
     \label{fig:wolken-prototyp-3}
 \end{figure}
 
-Daher hat das Konzept trotz der initialen Anpassungen eine große Beeinträchtigung in der Lesbarkeit und damit der Usability hat.
-Um die Lesbarkeit der Anforderungen auch in großen Wolken zu verbessern wurden drei verschiedene weitere Ansätze in Betracht gezogen, welche im Folgenden erläutert werden.
+Daher hat das Konzept trotz der initialen Anpassungennoch immer eine große Beeinträchtigung in der Lesbarkeit und damit der Usability.
+Da das Interaktionskonzept der Wolken vor allem für große Mengen an Requirements gedacht war, muss die Usability der Darstellung auch in großen Anforderungswolken gegeben sein.
+Um die Lesbarkeit der Anforderungen auch in großen Wolken zu verbessern wurden daher drei verschiedene weitere Ansätze in Betracht gezogen, welche im Folgenden erläutert werden.
 
 Der erste Ansatz war das weitere Entzerren der Anforderungen, indem die Anforderungen so breitflächig wie möglich angerichtet werden, um so Überlappungen zu vermeiden.
 Dieser Ansatz führt jedoch dazu, dass die Anforderungen fast auf einer Ebene liegen müssen.
@@ -270,5 +213,59 @@ Dieses Problem der Unlesbarkeit wird bei großen Anforderungswolken, in denen vi
 Diese Probleme der Unschärfe durch Nähe zum Bildschirm treten jedoch bei modernen normalen Bildschirmen nicht auf, wodurch auf diesen eine Darstellung mit einer deutlich höheren Informationsdichte möglich ist.
 Daher ist auch dieser Lösungsansatz nicht besser als eine zweidimensionale Anwendung geeignet, um viele Anforderungen gleichzeitig darzustellen.
 
-Da keiner der Ansätze eine Lösung für das Problem der Überlappung und Lesbarkeit der Anforderungen bietet, welches das Konzept nicht weniger nutzbar macht als eine 2D-Darstellung, wird das Konzept der Wolken von Anforderungen in AR nicht weiter verfolgt.
+Da keiner der Ansätze eine Lösung für das Problem der Überlappung und Lesbarkeit der Anforderungen bietet, welches das Konzept nicht weniger sinnvoll macht als eine 2D-Darstellung, wird das Konzept der Wolken von Anforderungen in AR nicht weiter verfolgt.
+
 Im Ausblick in Kapitel \ref{section:ausblick} wird noch auf die Möglichkeit der Implementierung des Konzepts als 2D-Anwendung eingegangen.
+
+\subsection{2D-Mockup für Wolken aus Anforderungen}
+
+Um ein Gefühl für die Darstellung des Interaktionskonzepts der Anforderungswolken zu erlangen, wurde im UI-Prototyping-Tool Figma Mockups erstellt, wie die Wolken in einer normalen Desktop-Anwendung dargestellt werden könnten.
+Im Folgenden werden anhand einiger Screenshots der Mockups Unterschiede zur Darstellung in AR diskutiert.
+Der Fokus liegt dabei darauf, die Unterschiede der Usability der beiden Darstellungen zu Vergleichen.
+
+
+Im ersten Screenshot aus Abbildung \ref{fig:wolken-2d-1} ist eine Übersicht über eine große Anzahl an Requirements dargestellt.
+Da auch auf einem normalen Display nur eine begrenzte Anzahl von Requirements gleichzeitig lesbar sind, werden die Requirements in der Übersicht abstrakt als einfache Punkte dargestellt.
+Jeder Punkt ist dabei ein Requirement, welches gelesen werden kann wenn der Nutzer auf das Requirement hereinzoomt.
+Die Farben der Requirements sollen dabei Auskunft über den Bearbeitungsstatus der Requirements geben.
+\begin{itemize}
+    \item \textbf{Grüne Requirements:} Requirements dieser Farbe sind bereits vollständig bearbeitet und überprüft, sie müssen momentan nicht mehr bearbeitet werden.
+    \item \textbf{Rote Requirements:} Rote Requirements wurden noch gar nicht bearbeitet, sie sind meist neu oder wurden lang ignoriert.
+    \item \textbf{Gelbe Requirements:} Requirements in gelb wurden bereits einmal bearbeitet, benötigen aber noch eine Überprüfung. Alternativ könnten in dieser Farbe alte Requirements mit neuen Änderungen dargestellt werden.
+\end{itemize}
+
+
+Mithilfe dieser Farbenkorrelation ist es mit dieser Darstellung sehr einfach Bereiche zu erkennen, in denen noch Verwaltungsarbeit erledigt werden muss.
+Zwar können offensichtlich nicht alle Requirements gleichzeitig mit ihrem Text betrachtet werden, doch durch die Vereinfachung der einzelnen Requirements als textlose Kugeln lässt sich ein gutes Gesamtbild erlangen.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/FigmaWolkenOverview.png}
+    \caption{Mockup zur Übersicht über eine große Anzahl an Requirements}
+    \label{fig:wolken-2d-1}
+\end{figure}
+
+Will man dann einzelne Requirements betrachten und mit Diesen Interagieren, kann in die Ansicht nahtlos hereingezoomt werden, um ab einer gewissen Größe die Requirement-Texte lesen zu können.
+Die Größe, ab der die Texte dann als lesbar empfunden werden, hängen dabei dann von den nutzerspezifischen Bildschirm und einigen weiteren nutzerspezifischen Eigenschaften ab.
+
+In Abbildung \ref{fig:wolken-2d-2} ist ein Mockup einer solchen näheren Perspektive dargestellt.
+Hier können dann alle Texte der Anforderungen selbst gelesen werden und es können einzelne Requirements angeklickt werden, um weiter mit ihnen zu interagieren.
+Dabei wären dann Seitenmenüs denkbar, welche aufklappen, wenn ein Requirement angeklickt wurde, um detailliertere Informationen und eventuelle Interaktionsmöglichkeiten zu den Requirements anzuzeigen.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/FigmaWolkenCloseup.png}
+    \caption{Mockup der hereingezoomten Ansicht}
+    \label{fig:wolken-2d-2}
+\end{figure}
+
+Bei der Erstellung eines Mockups des Wolken-Interaktionskonzepts in 2D wurde klar, dass das Konzept zumindest bei erster Betrachtung fast keine Nachteile durch den Wechsel auf eine zweidimensionale Darstellung erfährt.
+
+Tatsächlich lassen sich, wie in Abbildung \ref{fig:wolken-2d-1} gezeigt, durch die höhere mögliche Informationsdichte in der zweidimensionalen Darstellung sogar größere Wolken aus Requirements darstellen als in AR.
+Zwar könnten durch die Abstraktion der Requirements als Punkte auch in AR deutlich mehr Requirements dargestellt werden, aber nicht so effizient wie in 2D.
+Schon durch die höhere Schärfe der meisten Displays durch den größeren Abstand des Nutzers im Vergleich zu HMDs können in einer klassischen, zweidimensionalen Anwendung deutlich kleinere Datenpunkte unterschieden werden.
+
+In AR ist auch zu beachten, dass sehr kleine Elemente mit einem Controller schwerer auszuwählen sind, als mit einer Maus, da eine Maus auf einer statischen Fläche abgelegt wird während der Controller frei in der Luft gehalten werden muss.
+Da durch diesen Effekt das Zielen mit einer Maus auf kleine Elemente einfacher und stabiler ist, kann von dem Interaktionskonzept in 2D sogar eine Verbesserung der Usability erwartet werden.
+
