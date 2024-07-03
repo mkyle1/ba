@@ -18,20 +18,25 @@ LocalTunnel erstellt einen temporären HTTPS-Link, über den die Anwendung aufge
 Dafür muss die Anwendung nur lokal auf dem Entwicklungsrechner laufen und der LocalTunnel-Client gestartet sein, um den temporären Link zu generieren.
 Als zusätzliche Sicherheit muss dann beim Aufrufen der Seite noch die IP-Adresse des Entwicklungsrechners angegeben werden, um sicherzustellen, dass nur der Entwickler die Anwendung testen kann.
 Dies muss in der Regel jedoch nur einmal nach jedem Neustart oder Crash gemacht werden, da der Link für die Dauer der Sitzung gespeichert wird.
+Jedoch neigt der LocalTunnel dazu regelmäßig abzustürzen, weshalb auch diese Lösung nicht ideal ist.
 
 Der nächste Schritt, wenn Zugriff mit der Meta Quest 3 auf die WebXR-Anwendung besteht, ist die Anzeige von Entwickler-Tools und Debugging-Informationen der Meta Quest 3.
-Da die Meta Quest 3 auf Android basiert, kann auf dem Entwicklungsrechner Android Debug Bridge (ADB) installiert werden, um über USB eine Verbindung zur Meta Quest 3 herzustellen.
+Diese Arbeit und die Prototypen wurden fast vollständig auf Linux entwickelt.
+Auf Windows kann für das Debuggen von Meta Geräten die Meta Quest Developer Hub App (MQDH) genutzt werden.
+Diese kann jedoch zum Zeitpunkt dieser Arbeit noch nicht auf Linux installiert werden.
+Daher mussten für das Debuggen der Meta Quest 3 Umwege gefunden werden.
+Da die Meta Quest 3 auf Android basiert, kann auf dem Linux Entwicklungsrechner Android Debug Bridge (ADB) installiert werden, um über USB eine Verbindung zur Meta Quest 3 herzustellen.
 Die Verbindung muss noch in der VR-Brille bestätigt werden, um den Zugriff auf die Entwickleroptionen zu ermöglichen.
 Ist das geschehen, erscheint die Quest 3 mit ihren geöffneten Websites in der Geräteliste der Chrome DevTools, die über die URL \url{chrome://inspect/#devices} aufgerufen werden können.
 Dort können dann die Entwickler-Tools der Meta Quest 3 geöffnet werden, um beispielsweise die Performance der Anwendung zu überwachen und Fehlermeldungen zu sehen.
 
 
 Für viele Aspekte der Entwicklung von XR-Anwendungen, wie beispielsweise einfache Tests von Interaktionen wie einzelnen Klicks können auch über einen WebXR-Emulator direkt am Entwicklungsrechner getestet werden.
-In dieser Arbeit wird dafür die Chrome-Erweiterung Immersive Web Emulator von Meta verwendet, die es ermöglicht, WebXR-Anwendungen direkt im Browser zu testen.
+In dieser Arbeit wird dafür die Chrome-Erweiterung Immersive Web Emulator von Meta verwendet, die es ermöglicht, WebXR-Anwendungen direkt im Browser zu testen \autocite{immersive-web-emulator}.
 Mit dieser Erweiterung wird für WebXR ein einfacher Raum mit einem Headset und den beiden Meta Quest Controllern simuliert.
 Das Headset sowie die beiden Controller können unabhängig voneinander über die Erweiterung positioniert und gesteuert werden.
 In dem in Abbildung \ref{fig:webxr-emulator} links dargestellten Panel können verschiedene Interaktionen, wie beispielsweise Klicks oder das Bewegen der Controller, simuliert werden, um die Anwendung zu testen.
-Der Emulator generiert dann eine live Vorschau der Anwendung, die direkt im Browser angezeigt wird.
+Der Emulator generiert dann eine live-Vorschau der Anwendung, die direkt im Browser angezeigt wird.
 
 \begin{figure}[H]
     \centering
@@ -42,7 +47,12 @@ Der Emulator generiert dann eine live Vorschau der Anwendung, die direkt im Brow
 
 Das Testen der Anwendung mit dieser Erweiterung ist deutlich schneller und einfacher als das Testen auf der Meta Quest 3, da die Anwendung direkt im Browser getestet werden kann und keine Verbindung zur Meta Quest 3 notwendig ist.
 Zudem sind die Ladezeiten beim Neuladen der Anwendung deutlich kürzer, da die Anwendung nicht auf die Übertragung der Daten auf die Meta Quest 3 warten muss.
+Aufgrund der relativ großen Assets der 3D-Modelle die benötigt werden ist der Unterschied dabei erheblich.
+
 Dennoch ist es wichtig, die Anwendung auch regelmäßig auf der Meta Quest 3 zu testen, da die Performance und die Interaktionen auf dem Emulator nicht immer exakt der Realität entsprechen.
+Beispielsweise entstehen durch Überlastung des Headsets durch schlechte Optimierung leichte Ruckler, die nur mit der höheren Bildwiederholrate des Headsets zu sehen sind und daher im Emulator nicht erkannt werden können.
+Daher wurde vor allem nach großen Änderungen des Prototyps stets auch mit dem AR-Headset selbst getestet.
+Für kleine Anpassungen, wie beispielsweise das Positionieren von Objekten, die oft ausprobiert werden müssen, wurde dann der Web Emulator genutzt, um die lange Ladezeit einzusparen.
 
 
 \section{Implementierung der Interaktionskonzepte}
@@ -57,7 +67,6 @@ Hierfür wird das Skelett einer WebXR-Anwendung aus einer Artikelserie des Taiko
 Die Anwendung nutzt bereits die vom Nutzer gescannten Umgebungen, um einen virtuellen Raum zu erstellen, in dem die Interaktionen stattfinden.
 Dabei werden Wände und Böden der Umgebung erkannt und als Mesh in die Szene eingefügt, um dem Nutzer eine Interaktion mit der realen Umgebung zu ermöglichen.
 Zudem wurden schon einige Interaktionen des Controllers, wie das Auswählen von Objekten durch Raycasting, implementiert, die als Basis für die Implementierung der Interaktionskonzepte dienen.
-
 
 \subsection{Explodierende Bauteile}
 
@@ -105,7 +114,9 @@ Diese UI-Elemente werden aber, wie in Abbildung \ref{fig:tetris-explosion} zu se
     \label{fig:tetris-explosion}
 \end{figure}
 
-\subsubsection{Implementation an einem komplexeren Modell}
+\newpage
+
+\subsubsection{Implementierung an einem komplexeren Modell}
 
 Nachdem das Interaktionskonzept funktionell am einfachen Modell eines Tetris-Blocks implementiert wurde, ist die nächste Herausforderung die Implementierung an einem komplexeren Modell.
 Dafür wird ein relativ detailliertes 3D-Modell eines Porsche 911 von der 3D-Asset-Website Sketchfab verwendet, welches von dem Nutzer Abdul Azim Sharif erstellt und unter der CC BY 4.0 Lizenz veröffentlicht wurde \autocite[][]{SketchfabPorsche}.
@@ -161,14 +172,19 @@ So kann der Nutzer die Anforderungen an das Rad in einer Detailansicht betrachte
 
 \subsection{Wolken von Anforderungen}
 
-Das Interaktionskonzept der Wolken aus Anforderungspanels ist deutlich einfacher zu implementieren als das Konzept der explodierenden Bauteile.
+Das Interaktionskonzept der Wolken aus Anforderungspanels ist prinzipiell deutlich einfacher zu implementieren als das Konzept der explodierenden Bauteile, da es kein zugehöriges Modell oder eine individuelle Animation benötigt.
+
 Der erste Schritt der Implementierung war die Erstellung eines Algorithmus, welcher einen Array von Anforderungen erhält und zu diesen eine 3D-Wolke von Punkten in einem gegebenen Bereich erstellt.
-Für jedes Requirementcluster wird dann eine Wolke von UI-Panels erstellt, die die Anforderungen als Texte enthalten.
+Der ursprüngliche Algorithmus erstellt einen etwas zu großen Array aus 3D-Punkten in Form eines Würfels.
+Dann wird aus der Mitte des Punktearrays ein Teilarray in der Länge des Requirementarrays genutzt, um UI-Panels mit den Requirements an den jeweiligen Punkten platziert.
+Die Skalierung der Abstände der Punkt wurde über das Testen verschiedener Abstände mit einfachen Beispielpanels bestimmt, um Clipping, also das Kollidieren von nebeneinander liegenden Panels zu verhindern.
+
 
 Wie beim Konzept der explodierenden Bauteile wird auch hier ein Ursprungspunkt der Wolken durch Raycasting und auslösen des Triggers des Controllers bestimmt.
+Wobei die Wolken dann über dem Punkt der auf dem Boden ausgewählt wurde schweben.
 
-Bei der ersten Betrachtung der Anforderungen wurde jedoch klar, dass die Anforderungen sich bereits in kleinen Wolken stark überlappen und viele Anforderungen so nur schwer bis gar nicht lesbar sind.
-Wie in Abbildung \ref{fig:wolken-prototyp} zu sehen ist, treten bereits bei Wolken von 5 Anforderungen  starke Überlappungen auf, welche die Lesbarkeit der Anforderungen stark beeinträchtigen.
+Bei der ersten Betrachtung der Requirements wurde jedoch klar, dass sich die Textpanels bereits in kleinen Wolken stark überlappen und viele Requirements so nur schwer bis gar nicht lesbar sind.
+Wie in Abbildung \ref{fig:wolken-prototyp} zu sehen ist, treten bereits bei Wolken von 5 Requirements  starke Überlappungen auf, welche die Lesbarkeit der Requirements stark beeinträchtigen.
 
 \begin{figure}[H]
     \centering
@@ -179,8 +195,9 @@ Wie in Abbildung \ref{fig:wolken-prototyp} zu sehen ist, treten bereits bei Wolk
 
 In Abbildung \ref{fig:wolken-prototyp} fällt auf, dass durch die Transparenz der UI-Elemente die Überlappungen auch die vordersten Requirements unlesbar machen.
 Daher war die erste Änderung, die UI-Elemente undurchsichtig zu machen, um zumindest die Lesbarkeit der vordersten Elemente zu gewährleisten.
-Zudem wurde der Abstand der Anforderungspanels zueinander erhöht und die Anforderungen wurden durch eine Zufallsfunktion jeweils leicht von ihrem Ursprungspunkt verschoben, um die Überlappungen zu verringern.
-Bei kleinen Anforderungswolken führen diese Anpassungen zu einer verbesserten Lesbarkeit der Anforderungen.
+Zudem wurde der Abstand der Requirementspanels zueinander erhöht und die Requirements wurden durch eine Zufallsfunktion jeweils leicht von ihrem Ursprungspunkt verschoben, um die Überlappungen zu verringern.
+Der Algorithmus, der die Punktewolke generiert wurde zusätzlich noch so angepasst, dass er keine Würfelförmigen Punktewolken mehr erstellt, sondern mehr Wolken in der Form eines flachen Quaders.
+Bei kleinen Requirementswolken führen diese Anpassungen zu einer verbesserten Lesbarkeit der Requirements, wobei die meiste Zeit fast alle Requirements lesbar sind.
 
 Jedoch wird schon bei nur wenig größeren Anforderungswolken wie der in Abbildung \ref{fig:wolken-prototyp-3} zu sehenden Wolke aus 9 Requirements klar, dass sich Überlappungen bei realistischen Wolkengrößen nicht vollständig vermeiden lassen.
 
@@ -191,14 +208,16 @@ Jedoch wird schon bei nur wenig größeren Anforderungswolken wie der in Abbildu
     \label{fig:wolken-prototyp-3}
 \end{figure}
 
-Daher hat das Konzept trotz der initialen Anpassungennoch immer eine große Beeinträchtigung in der Lesbarkeit und damit der Usability.
+Daher zeigt das Konzept trotz der initialen Anpassungen noch immer eine große Beeinträchtigung in der Lesbarkeit und damit der Usability der Darstellung.
 Da das Interaktionskonzept der Wolken vor allem für große Mengen an Requirements gedacht war, muss die Usability der Darstellung auch in großen Anforderungswolken gegeben sein.
 Um die Lesbarkeit der Anforderungen auch in großen Wolken zu verbessern wurden daher drei verschiedene weitere Ansätze in Betracht gezogen, welche im Folgenden erläutert werden.
 
 Der erste Ansatz war das weitere Entzerren der Anforderungen, indem die Anforderungen so breitflächig wie möglich angerichtet werden, um so Überlappungen zu vermeiden.
-Dieser Ansatz führt jedoch dazu, dass die Anforderungen fast auf einer Ebene liegen müssen.
+Dabei sollte der Algorithmus der die Punktewolke generiert wie in der ersten Anpassung noch flachere und dafür breitere und höhere Wolken generieren.
+Dieser Ansatz führt jedoch schlussendlich dazu, dass die Anforderungen fast auf einer Ebene liegen müssen, wodurch dann eine fast zweidimensionale Darstellung vorliegen würde.
 Jedoch ist das navigieren durch große Flächen in AR unpraktisch im Vergleich mit einer ähnlichen Darstellung auf einem normalen Bildschirm.
-Daher wird durch diesen Lösungsansatz die Darstellung der Anforderungen im dreidimensionalen Raum weniger effizient als in einer 2D-Darstellung.
+Daher wird durch diesen Lösungsansatz die Darstellung der Anforderungen im dreidimensionalen Raum und in AR weniger effizient als in einer 2D-Darstellung.
+Wenn die Wolken auch in AR in eine zweidimensionale Form gebracht werden, kann auch direkt eine zweidimensionale Darstellungsform gewählt werden.
 
 Der zweite Ansatz war das mögliche Fokussieren von Anforderungen mithilfe des Raycastings des Controllers.
 So könnten Anforderungen, die gelesen werden sollen, in den Fokus gebracht und lesbar gemacht werden.
@@ -215,9 +234,13 @@ Daher ist auch dieser Lösungsansatz nicht besser als eine zweidimensionale Anwe
 
 Da keiner der Ansätze eine Lösung für das Problem der Überlappung und Lesbarkeit der Anforderungen bietet, welches das Konzept nicht weniger sinnvoll macht als eine 2D-Darstellung, wird das Konzept der Wolken von Anforderungen in AR nicht weiter verfolgt.
 
-Im Ausblick in Kapitel \ref{section:ausblick} wird noch auf die Möglichkeit der Implementierung des Konzepts als 2D-Anwendung eingegangen.
+Im folgenden Kapitel \ref{section:2d} wird zur Untersuchung des Konzepts in 2D ein Mockup erstellt und analysiert.
+Die darauf basierende Möglichkeit der Implementierung des Konzepts als 2D-Anwendung wird zudem noch im Ausblick in Kapitel \ref{section:ausblick} eingegangen.
+
+\newpage
 
 \subsection{2D-Mockup für Wolken aus Anforderungen}
+\label{section:2d}
 
 Um ein Gefühl für die Darstellung des Interaktionskonzepts der Anforderungswolken zu erlangen, wurde im UI-Prototyping-Tool Figma Mockups erstellt, wie die Wolken in einer normalen Desktop-Anwendung dargestellt werden könnten.
 Im Folgenden werden anhand einiger Screenshots der Mockups Unterschiede zur Darstellung in AR diskutiert.
@@ -225,19 +248,8 @@ Der Fokus liegt dabei darauf, die Unterschiede der Usability der beiden Darstell
 
 
 Im ersten Screenshot aus Abbildung \ref{fig:wolken-2d-1} ist eine Übersicht über eine große Anzahl an Requirements dargestellt.
-Da auch auf einem normalen Display nur eine begrenzte Anzahl von Requirements gleichzeitig lesbar sind, werden die Requirements in der Übersicht abstrakt als einfache Punkte dargestellt.
-Jeder Punkt ist dabei ein Requirement, welches gelesen werden kann wenn der Nutzer auf das Requirement hereinzoomt.
-Die Farben der Requirements sollen dabei Auskunft über den Bearbeitungsstatus der Requirements geben.
-\begin{itemize}
-    \item \textbf{Grüne Requirements:} Requirements dieser Farbe sind bereits vollständig bearbeitet und überprüft, sie müssen momentan nicht mehr bearbeitet werden.
-    \item \textbf{Rote Requirements:} Rote Requirements wurden noch gar nicht bearbeitet, sie sind meist neu oder wurden lang ignoriert.
-    \item \textbf{Gelbe Requirements:} Requirements in gelb wurden bereits einmal bearbeitet, benötigen aber noch eine Überprüfung. Alternativ könnten in dieser Farbe alte Requirements mit neuen Änderungen dargestellt werden.
-\end{itemize}
-
-
-Mithilfe dieser Farbenkorrelation ist es mit dieser Darstellung sehr einfach Bereiche zu erkennen, in denen noch Verwaltungsarbeit erledigt werden muss.
-Zwar können offensichtlich nicht alle Requirements gleichzeitig mit ihrem Text betrachtet werden, doch durch die Vereinfachung der einzelnen Requirements als textlose Kugeln lässt sich ein gutes Gesamtbild erlangen.
-
+Da auch auf einem normalen Display nur eine begrenzte Anzahl von Requirements gleichzeitig lesbar sind, werden die Requirements in der Übersicht abstrakt vereinfacht als Punkte ohne Textinhalt dargestellt.
+Jeder Punkt ist dabei ein Requirement, welches gelesen werden kann, wenn der Nutzer auf das Requirement hereinzoomt.
 
 \begin{figure}[H]
     \centering
@@ -246,8 +258,23 @@ Zwar können offensichtlich nicht alle Requirements gleichzeitig mit ihrem Text 
     \label{fig:wolken-2d-1}
 \end{figure}
 
-Will man dann einzelne Requirements betrachten und mit Diesen Interagieren, kann in die Ansicht nahtlos hereingezoomt werden, um ab einer gewissen Größe die Requirement-Texte lesen zu können.
-Die Größe, ab der die Texte dann als lesbar empfunden werden, hängen dabei dann von den nutzerspezifischen Bildschirm und einigen weiteren nutzerspezifischen Eigenschaften ab.
+Die Farben der Requirements sollen Auskunft über den Bearbeitungsstatus der Requirements geben und eine sofortige visuelle Einordnung der Requirements ermöglichen.
+\begin{itemize}
+    \item \textbf{Grüne Requirements:} Requirements dieser Farbe sind bereits vollständig bearbeitet und überprüft, sie müssen momentan nicht mehr bearbeitet werden.
+    \item \textbf{Rote Requirements:} Rote Requirements wurden noch gar nicht bearbeitet, sie sind meist neu oder wurden lang ignoriert.
+    \item \textbf{Gelbe Requirements:} Requirements in gelb wurden bereits einmal bearbeitet, benötigen aber noch eine Überprüfung. Alternativ könnten in dieser Farbe alte Requirements mit neuen Änderungen dargestellt werden.
+\end{itemize}
+Es wäre auch denkbar, die Farben auf andere Filter anzupassen.
+Beispielsweise könnten Requirements mit der gleichen Farbe ein gleiches Bauteil betreffen.
+So könnten farbbasierte Filter in der Anwendung einen weiteren Beitrag zur Übersicht über die Requirements leisten.
+
+Mithilfe dieser Farbenkorrelation ist es mit dieser Darstellung sehr einfach Bereiche zu erkennen, in denen noch Verwaltungsarbeit erledigt werden muss.
+Zwar können offensichtlich nicht alle Requirements gleichzeitig mit ihrem Text betrachtet werden, doch durch die Vereinfachung der einzelnen Requirements als kleine Kreise ohne Text lässt sich ein gutes Gesamtbild erlangen.
+
+
+Will man dann einzelne Requirements betrachten und mit diesen Interagieren, kann in die Ansicht nahtlos hereingezoomt werden, um ab einer gewissen Größe die Requirement-Texte lesen zu können.
+Wollen Nutzer auch nach spezifischen Requirements direkt suchen, ließe sich auch eine Suchfunktion einbauen, mit welcher direkt nach einzelnen Requirements bspw. anhand ihres Textes gesucht werden kann.
+Die Größe, ab der die Texte dann als lesbar empfunden werden, hängt dabei dann von den genutzten Bildschirm und einigen weiteren nutzerspezifischen Eigenschaften ab, kann aber flexibel und intuitiv durch das Zoomen vom Nutzer angepasst werden.
 
 In Abbildung \ref{fig:wolken-2d-2} ist ein Mockup einer solchen näheren Perspektive dargestellt.
 Hier können dann alle Texte der Anforderungen selbst gelesen werden und es können einzelne Requirements angeklickt werden, um weiter mit ihnen zu interagieren.
@@ -255,7 +282,7 @@ Dabei wären dann Seitenmenüs denkbar, welche aufklappen, wenn ein Requirement 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1\textwidth]{images/FigmaWolkenCloseup.png}
+    \includegraphics[width=0.8\textwidth]{images/FigmaWolkenCloseup.png}
     \caption{Mockup der hereingezoomten Ansicht}
     \label{fig:wolken-2d-2}
 \end{figure}

@@ -1,28 +1,28 @@
 \chapter{Technologien}
 
-In diesem Kapitel wird ein Überblick über die Technologien gegeben, die zum Implementieren der Prototypen zu den Interaktionskonzepten genutzt wird.
+In diesem Kapitel wird ein Überblick über die Technologien gegeben, die zum Implementieren der Prototypen zu den Interaktionskonzepten genutzt werden.
 Dabei wird auf der Hardwareseite auf das verwendete Anzeigegerät für AR, die Meta Quest 3, eingegangen, während auf Softwareseite die Engine und Frameworks vorgestellt werden, in welchen die Prototypen implementiert werden.
 
 \section{Meta Quest 3}
 
 Im Laufe der Bachelorarbeit wird als Anzeigegerät für die AR-Anwendung die Meta Quest 3 verwendet.
-Dabei handelt es sich um ein Standalone-AR- und VR-Headset, welches von Meta (ehemals Facebook) entwickelt wurde und Ende 2023 auf den Markt kam.
-Das HMD ist mit einem eigens für mobile XR-Geräte entwickelten Qualcomm Snapdragon XR2 Gen2 Prozessor ausgestattet, der speziell für VR- und AR-Anwendungen entwickelt wurde, und ist dadurch selbst in der Lage auch anspruchsvolle Inhalte zu rendern.
-Es muss nicht wie viele andere HMDs an einen Computer oder ein Smartphone angeschlossen werden, sondern kann direkt verwendet werden.
-Das Headset verfügt auch beispielsweise über einen eigenen Browser, wodurch AR Anwendungen auch einfach übers Internet aufgerufen werden können.
-Dieses Nutzern von Anwendungen über den Browser wird auch für die Prototypen dieser Arbeit genutzt, worauf in Kapitel \ref{section:webxr} genauer eingegangen wird.
+Dabei handelt es sich um ein Standalone AR- und VR-Headset, welches von Meta (ehemals Facebook) entwickelt wurde und Ende 2023 auf den Markt kam.
+Das HMD ist mit einem eigens für mobile XR-Geräte entwickelten Qualcomm Snapdragon XR2 Gen2 Prozessor ausgestattet und ist dadurch selbst in der Lage auch anspruchsvolle Inhalte zu rendern.
+Es muss nicht wie viele andere HMDs an einen Computer oder ein Smartphone angeschlossen werden, sondern kann direkt alleinverwendet werden.
+Das Headset verfügt beispielsweise auch über einen eigenen Browser, wodurch AR-Anwendungen auch einfach übers Internet aufgerufen werden können.
+Dieses Nutzen von Anwendungen über den Browser wird auch für die Prototypen dieser Arbeit genutzt, worauf in Kapitel \ref{section:webxr} genauer eingegangen wird.
 
 Über zwei Displays mit jeweils einer Auflösung von 2064 x 2208 Pixeln und einer Bildwiederholrate von bis zu 120Hz zeigt das Headset Inhalte mit einer hohen Bildqualität und einer flüssigen Darstellung an.
 Durch die Kombination der geringen Latenz aufgrund des On-Board-Prozessors und der hohen Bildwiederholrate sollte das Gerät eine hohe Immersion und ein angenehmes Nutzungserlebnis bieten.
 
 \newpage
 
-Darüber hinaus verfügt die Oculus Quest 3, wie auf Abbildung \ref{fig:quest-front-cameras} zu sehen ist, über zwei RGB-Kameras (untere Kameras), zwei IR-Kameras (obere Kameras) sowie einen Tiefenprojektor (schwarze Fläche in der Mitte) auf der Vorderseite, welche die Umgebung des Nutzers erfassen können und so AR-Anwendungen mittels Image-Passthrough ermöglichen.
+Darüber hinaus verfügt die Meta Quest 3, wie auf Abbildung \ref{fig:quest-front-cameras} zu sehen ist, über zwei RGB-Kameras (untere Kameras), zwei IR-Kameras (obere Kameras) sowie einen Tiefenprojektor (schwarze Fläche in der Mitte) auf der Vorderseite, welche die Umgebung des Nutzers erfassen können und so AR-Anwendungen mittels Image-Passthrough ermöglichen.
 
 \begin{figure}[H]
   \centering
   \includegraphics[width=0.7\textwidth]{images/Oculus-FrontCameras.jpg}
-  \caption{Frontal ausgerichtete Kameras und Tiefenprojektor der Oculus Quest 3}
+  \caption{Frontal ausgerichtete Kameras und Tiefenprojektor der Meta Quest 3}
   \label{fig:quest-front-cameras}
 \end{figure}
 
@@ -35,7 +35,7 @@ Dafür sind zwei der vier Infrarotkameras wie in Abbildung \ref{fig:quest-hand-c
 \begin{figure}[H]
   \centering
   \includegraphics[width=1\textwidth]{images/Oculus_DownCameras.png}
-  \caption{Die beiden nach unten gerichteten Kameras der Oculus Quest 3}
+  \caption{Die beiden nach unten gerichteten Kameras der Meta Quest 3}
   \label{fig:quest-hand-cameras}
 \end{figure}
 
@@ -55,16 +55,8 @@ Aufgrund dieser Ausrichtung auf mobile Geräte, können mit WebGL Anwendungen en
 \label{section:webxr}
 
 WebXR ist eine standardisierte API für Webanwendungen, welche es ermöglicht, immersive VR und AR Anwendungen für das Internet zu erstellen.
-Das World Wide Web Consortium (W3C), welches die WebXR-Standards definiert beschreibt WebXR wie folgt: \glqq{}Die WebXR Device API bietet die notwendigen Schnittstellen, damit Entwickler ansprechende, komfortable und sichere immersive Anwendungen im Web für eine Vielzahl von Hardware-Formfaktoren erstellen können.\grqq{} \autocite[aus dem Englischen mit DeepL ][1. Introduction]{w3c_webxr}
+Das World Wide Web Consortium (W3C), welches die WebXR-Standards definiert beschreibt WebXR wie folgt: \glqq{}Die WebXR Device API bietet die notwendigen Schnittstellen, damit Entwickler ansprechende, komfortable und sichere immersive Anwendungen im Web für eine Vielzahl von Hardware-Formfaktoren erstellen können\grqq{} \autocite[aus dem Englischen mit DeepL ][1. Introduction]{w3c_webxr}.
 Mit WebXR entwickelte Anwendungen können als Webanwendungen direkt von einem Webbrowser eines AR- oder VR-Geräts aus aufgerufen werden, ohne dass eine zusätzliche Installation der Anwendung notwendig ist.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.6\textwidth]{images/WebXR-App-Flow.png}
-    \caption{Application Flow von WebXR-Anwendungen}
-    \source{nach \autocite[][Kap. 1.2. Application Flow]{w3c_webxr}}
-    \label{fig:webxr-app-flow}
-\end{figure}
 
 Der Flow von WebXR-Anwendungen ist in Abbildung \ref{fig:webxr-app-flow} dargestellt.
 Dabei wird zuerst beim Aufrufen der Anwendung geprüft, ob die angegebene Art von XR-Inhalt von der Hardware und dem User Agent (UA) unterstützt werden.
@@ -75,6 +67,14 @@ Der Frame Loop ist eine Schleifenfunktion, die kontinuierlich während der XR-Se
 Dieser Frame Loop läuft, bis die Session durch den UA beendet wird.
 Befindet sich der UA noch auf der Seite der WebXR-Anwendung, wird wieder der Knopf zum Starten der XR-Session angezeigt, falls der Nutzer direkt wieder eine neue Session starten möchte.
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/WebXR-App-Flow.png}
+    \caption{Application Flow von WebXR-Anwendungen}
+    \source{nach \autocite[][Kap. 1.2. Application Flow]{w3c_webxr}}
+    \label{fig:webxr-app-flow}
+\end{figure}
+
 \subsection{Three.js}
 
 Three.js ist eine Open-Source JavaScript-Bibliothek unter der MIT-Lizenz, die auf WebGL basiert und die Erstellung und Darstellung von 3D-Grafiken in Webanwendungen vereinfacht.
@@ -82,12 +82,12 @@ Die Bibliothek bietet eine Vielzahl von Funktionen, die es Entwicklern ermöglic
 Dabei unterstützt Three.js auch die Erstellung von AR- und VR-Anwendungen mithilfe von WebXR.
 
 Es existieren auch einige Frameworks die auf der Three.js API basieren und die Entwicklung von AR- und VR-Anwendungen und 3D-Anwendungen generell weiter vereinfachen.
-Ein Beispiel dafür ist das Framework A-Frame, welches auf die Entwicklung von AR und VR Anwendungen spezialisiert ist und Features einer fast vollwertigen Game-Engine bietet \autocite[]{a-frame-introduction}.
+Ein Beispiel dafür ist das Framework A-Frame, welches auf die Entwicklung von AR- und VR-Anwendungen spezialisiert ist und Features einer fast vollwertigen Game-Engine bietet \autocite[]{a-frame-introduction}.
 
-Zudem wird Three.js von vielen Entwicklern und Unternehmen verwendet und hat dadurch eine große Community und so viele Ressourcen und Tutorials, die Entwicklern helfen können, ihre Anwendungen zu erstellen und zu debuggen.
+Zudem wird Three.js von vielen Entwicklern und Unternehmen verwendet und hat dadurch eine große Community und viele Ressourcen und Tutorials, die Entwicklern helfen können, ihre Anwendungen zu erstellen und zu debuggen.
 
 Diese Vielfalt an Features und die große Community machen Three.js, vor allem in Kombination mit A-Frame, zu einer interessanten Option für die Entwicklung von AR- und VR-Anwendungen.
-Jedoch ergaben sich in den ersten Tests der Funktionalität von Three.js und A-Frame im Browser der Oculus Quest 3 Probleme mit der Erkennung der VR-Brille und der Darstellung von AR-Inhalten.
+Jedoch ergaben sich in den ersten Tests der Funktionalität von Three.js und A-Frame im Browser der Meta Quest 3 Probleme mit der Erkennung der AR-Brille und der Darstellung von AR-Inhalten.
 
 \subsection{Babylon.js}
 
@@ -95,9 +95,9 @@ Babylon.js ist eine Open-Source Rendering- und Game-Engine verpackt in einer Jav
 Es bietet Support für WebGL 1.0/2.0 sowie WebGPU und hat eine Vielzahl von Funktionen, die es Entwicklern ermöglichen, detaillierte 3D-Modelle und -Szenen zu erstellen und zu rendern.
 Außerdem bietet es native Unterstützung und eine Dokumentation für WebXR, wodurch die Entwicklung von VR- und AR-Anwendungen vereinfacht wird \autocite[][]{babylon-features}.
 
-Die Bibliothek bietet dabei auch viele Quality-of-Life-Features, wie beispielsweise einen Szenen-Explorer und -Inspektor, der sich für die Entwicklung und das Debugging von 3D-Szenen eignet und mit einer Zeile Code in die Anwendung eingebunden werden kann.
+Die Bibliothek bietet dabei auch viele Quality-of-Life-Features, wie beispielsweise einen Szenen-Explorer und -Inspektor, der sich für die Entwicklung und das Debugging von 3D-Szenen direkt im Browser eignet und mit einer Zeile Code in die Anwendung eingebunden werden kann.
 Über den Szenen-Explorer, welcher in Abbildung \ref{fig:babylon-inspector} links dargestellt ist, können aus dem Szenengraph der aktuellen Szene Objekte ausgewählt werden um im Szenen-Inspektor eine Detailansicht des Objekts und seinen Eigenschaften zu erhalten.
-Mithilfe des Szenen-Inspektors, welcher in Abbildung \ref{fig:babylon-inspector} rechts dargestellt ist,  können dann in Echtzeit die Eigenschaften von Objekten betrachtet und verändert werden.
+Mithilfe des Szenen-Inspektors, welcher in Abbildung \ref{fig:babylon-inspector} rechts dargestellt ist, können dann in Echtzeit die Eigenschaften von Objekten betrachtet und verändert werden.
 
 \begin{figure}[H]
   \centering
@@ -105,3 +105,5 @@ Mithilfe des Szenen-Inspektors, welcher in Abbildung \ref{fig:babylon-inspector}
   \caption{Szenen-Explorer und -Inspektor von Babylon.js}
   \label{fig:babylon-inspector}
 \end{figure}
+
+% 1x Durchgelesen (02.07)
