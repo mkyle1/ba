@@ -1,19 +1,25 @@
+%DeepL korrigiert
 \chapter{Konzept}
 \label{section:konzept}
 
-Die Bachelorarbeit beschäftigt sich mit der Darstellung von Requirements in AR.
-Dabei soll untersucht werden, wie Anforderungen in einer 3D-Umgebung dargestellt werden könnten.
+Die vorliegende Bachelorarbeit beschäftigt sich mit der Darstellung von Requirements in Augmented Reality.
+Im Rahmen dessen wird untersucht, wie Requirements in einer 3D-Umgebung dargestellt werden könnten.
 Dazu werden verschiedene Interaktionskonzepte entwickelt, welche als Basis für die Implementierung von Prototypen mit WebXR dienen.
-Die erste Ausarbeitung der Konzepte dient dabei nicht unbedingt dazu vollständig so implementiert zu werden, sondern soll einen Überblick über die grundlegende Idee und die möglichen Interaktionen geben.
+Die erste Ausarbeitung der Konzepte dient dabei nicht unbedingt dazu, vollständig so implementiert zu werden, sondern soll einen Überblick über die grundlegende Idee und die möglichen Interaktionen geben.
+
+%DeepL korrigiert
 
 \section{Explodierende Bauteile}
 
-Das erste untersuchte Interaktionskonzept ist hauptsächlich für die Darstellung von Anforderungen von Produkten gedacht.
-Die Idee ist, ein Produkt in einer Animation in seine einzelnen Bauteile zu zerlegen und die Anforderungen auf ihren zugehörigen Bauteilen darzustellen.
+Das erste untersuchte Interaktionskonzept ist hauptsächlich für die Darstellung von Requirements von physischen Produkten gedacht.
+Die Idee ist, ein Produkt in einer Animation in seine einzelnen Bauteile zu zerlegen und die Requirements direkt an ihren zugehörigen Bauteilen darzustellen.
 In der Animation werden die Bauteile wie in der Bildsequenz in Abbildung \ref{fig:rubiks-explosion} von einem Punkt in der Mitte des Produkts nach außen bewegt, sodass sie sich um den Ursprungspunkt des Produkts herum anordnen.
-Beispielsweise könnte ein Auto so zerlegt werden, dass bei der Animation die Räder, die Karosserie, der Motor und die Innenausstattung einzeln als eigene Objekte sichtbar werden.
-So kann der Nutzer das gesamte Produkt betrachten und sich dann auf Wunsch einzelne Bauteile und deren Anforderungen genauer ansehen.
+Ein Fahrzeug könnte beispielsweise so zerlegt werden, dass sich bei der Animation die Räder, die Karosserie, der Motor und die Innenausstattung einzeln als eigene Objekte auseinanderbewegen.
+Auf diese Weise kann der Nutzer das gesamte Produkt betrachten und sich dann auf Wunsch einzelne Bauteile und deren Requirements genauer ansehen. 
 Im Beispiel des Rubiks Cube aus Abbildung \ref{fig:rubiks-explosion} wäre dann jeder Würfel ein Bauteil, der seine eigenen Requirements angehängt bekommen würde.
+
+
+%DeepL korrigiert
 
 \begin{figure}[H]
     \centering
@@ -22,42 +28,59 @@ Im Beispiel des Rubiks Cube aus Abbildung \ref{fig:rubiks-explosion} wäre dann 
     \label{fig:rubiks-explosion}
 \end{figure}
 
-Die Anforderungen sollen dabei in Form von Text auf UI-Panels dargestellt werden, welche an den zugehörigen Bauteilen angebracht sind.
+Die Requirements sollen in Form von Text auf UI-Panels dargestellt werden, welche an den zugehörigen Bauteilen angebracht sind.
 
-Da jedoch bei komplexeren Produkten mit sehr vielen Bauteilen, wie das zuvor genannte Beispiel des Autos, so würde eine gleichzeitige Animation aller Komponenten zu zu vielen Requirements führen, die gleichzeitig dargestellt werden sollten.
+
+Bei komplexen Produkten mit einer Vielzahl an Bauteilen, wie beispielsweise einem Fahrzeug, existiert eine hohe Anzahl an Requirements.
+Eine gleichzeitige Animation aller Komponenten würde dann bei komplexen Produkten zu einer übermäßigen Zahl an Requirements führen, die gleichzeitig dargestellt werden müssten.
 Daher ist es bei umfangreichen Produkten eventuell sinnvoll, die Darstellung der Bauteile in mehreren Schritten zu realisieren.
-Dafür könnten Bauteile des Produkts, die aus mehreren anderen Bauteilen bestehen, als eigene Produkte mit ihrer eigenen Explosionsanimation betrachtet werden.
-Zum Beispiel könnte in einer Komplettübersicht das gesamte Auto in wenigen Bauteilen dargestellt werden, indem beispielsweise ein Rad, das eigentlich aus Reifen, Felge, Radmuttern, Bremsscheibe etc. besteht, als ein einzelnes zusammengehöriges Objekt behandelt wird.
-Will der Nutzer dann die Räder genauer betrachten, kann er in eine Detailansicht wechseln, in der nur ein Rad mit all seinen Bauteilen animiert wird.
-So lässt sich durch eine Verschachtelung von immer detaillierteren Ansichten eine hohe Komplexität der Darstellung erreichen, ohne dass die Übersichtlichkeit durch zu viele Requirements gleichzeitig verloren geht.
+Dafür könnten Bauteile des Produkts, die aus mehreren anderen Bauteilen bestehen, als separate Produkte mit ihrer eigenen Explosionsanimation betrachtet werden.
+Ein Beispiel für eine Komplettübersicht ist die Darstellung eines kompletten Fahrzeugs in wenigen Bauteilen.
+Dabei wird ein Rad, das aus Reifen, Felge, Radmuttern, Bremsscheibe etc. besteht, als ein einzelnes zusammengehöriges Objekt behandelt.
+Bei Bedarf kann der Nutzer in eine Detailansicht wechseln, in der lediglich ein Rad mit all seinen Bauteilen animiert wird.
+Durch eine Verschachtelung von immer detaillierteren Ansichten kann eine hohe Komplexität der Darstellung erreicht werden, ohne dass die Übersichtlichkeit durch eine zu hohe Anzahl an Requirements gleichzeitig verloren geht.
+Dieses Prinzip der Verschachtelung ist auch im Ablaufdiagramm in Abbildung \ref{fig:explosions-ablauf} anhand der beiden rechts und links abgehenden Schleifen des unteren Entscheidungsblocks zu erkennen.
 
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.8\textwidth]{images/ExplosionAblauf.png}
+  \caption{Ablaufdiagramm des Interaktionskonzepts der Explodierenden Bauteile}
+  \label{fig:explosions-ablauf}
+\end{figure}
 
-Für diese Darstellung soll der Nutzer zunächst mithilfe eines Controllers einen Ort für die Darstellung im Raum auswählen.
-Dieser Ort wird als Ursprungspunkt für die Darstellung der Bauteile verwendet.
-Dann soll der Nutzer die Explosionsanimation des gerade angezeigten Modells per Knopfdruck aktivieren können.
-Dabei wird dann die Animation abgespielt und den Bauteilen sollen ihre Requirement-Panels angehängt werden.
+Für diese Darstellung soll der Nutzer, wie am ersten Entscheidungsblock im Diagramm in Abbildung \ref{fig:explosions-ablauf} zu sehen ist, zunächst mithilfe eines Controllers einen Ort für die Darstellung im Raum auswählen.
+Der ausgewählte Punkt im Raum wird als Ursprungspunkt für die Darstellung der Bauteile verwendet.
+Anschließend hat der Nutzer die Möglichkeit, die Explosionsanimation des aktuell angezeigten Modells per Knopfdruck zu aktivieren.
+Beim Drücken des A-Knopfs wird dann die Animation des aktuellen 3D-Modells abgespielt und den Bauteilen werden ihre Requirement-Panels angehängt.
 
-Auch bei Software-Requirements ist es denkbar, diese in ihre Komponenten zu zerlegen und zu diesen Komponenten zugehörige Anforderungen darzustellen.
+Alternativ besteht für den Anwender die Möglichkeit, mit dem Trigger ein anderes Bauteil auszuwählen, um dieses als neues Hauptmodell anzuzeigen und somit dessen Requirements zu betrachten.
+Durch Betätigen des B-Knopfes erfolgt eine Reduzierung des Detailgrads der Darstellung, sodass die vorherige Ansicht wiedergegeben wird.
+
+Auch bei Software-Requirements ist es denkbar, diese in ihre Komponenten zu zerlegen und zu diesen Komponenten zugehörige Requirements darzustellen.
 Jedoch bietet die Darstellung in AR bzw. VR hierbei quasi keine Vorteile im Gegensatz zu einer 2D-Darstellung auf einem Bildschirm.
-Bei Software-Anwendungen ist die einfache Darstellung auf einem Bildschirm näher an der tatsächlichen Laufumgebung der meisten Softwares weshalb das Konzept eher für physische Produkte sinnvoll ist.
+Bei Software-Anwendungen ist die einfache Darstellung auf einem Bildschirm näher an der tatsächlichen Laufumgebung der meisten Softwareprodukte weshalb das Konzept eher für physische Produkte sinnvoll ist.
 
-Schon bei der Konzeption des Konzepts wird klar, dass einige der Implementierungsschritte, wie beispielsweise das Erstellen der Animation, zeitaufwendig sein können.
-Daher soll bei diesem Interaktionskonzept die Realisierbarkeit solcher Darstellungen für physische Produkte untersucht werden.
-Dabei muss aufgrund des erwarteten hohen Zeitaufwands für die Implementierung die Kosten-Nutzen-Relation kritisch betrachtet werden.
-Um trotzdem noch sinnvoll für den tatsächlichen Einsatz zu sein, muss das Interaktionskonzept sonst einen großen Mehrwert bei der Vermittlung der Requirements bieten.
+Bereits bei der Erstellung des Konzepts wird ersichtlich, dass einige der Implementierungsschritte, wie beispielsweise das Erstellen der Animation, einen hohen Zeitaufwand erfordern können.
+Im Rahmen dieses Interaktionskonzepts soll daher die Realisierbarkeit solcher Darstellungen für physische Produkte untersucht werden.
+In diesem Zusammenhang ist zu berücksichtigen, dass aufgrund des zu erwartenden hohen Zeitaufwands für die Implementierung eine kritische Betrachtung der Kosten-Nutzen-Relation erforderlich ist.
+Um dennoch eine sinnvolle Grundlage für die tatsächliche Anwendung zu bieten, muss das Interaktionskonzept einen wesentlichen Mehrwert bei der Vermittlung der Requirements aufweisen.
+%DeepL korrigiert
 
 \newpage
-\section{Wolken von Anforderungen}
+\section{Wolken von Requirements}
 
-Der Ansatz der explodierenden Bauteile ist aufgrund der Individualität der Implementierung des Interaktionskonzepts sehr zeitaufwendig und komplex einzusetzen.
-Zudem ist dieser Ansatz nur für die Darstellung von Produkten, also physischen Systemen, geeignet.
-Daher wird ein weiteres Interaktionskonzept entwickelt, welches sich theoretisch auch automatisiert generieren lassen soll und für alle Arten von Anforderungen geeignet ist.
+Der Ansatz der explodierenden Bauteile ist aufgrund der individuellen Ausgestaltung des Interaktionskonzepts mit einem hohen Zeitaufwand und einer komplexen Umsetzung verbunden.
+Des Weiteren ist zu berücksichtigen, dass dieser Ansatz lediglich für die Darstellung von Produkten, also physischen Systemen, geeignet ist.
+Daher wird ein weiteres Interaktionskonzept entwickelt, welches sich theoretisch auch automatisiert generieren lassen soll und für alle Arten von Requirements geeignet ist.
 
-Außerdem soll versucht werden, eine Übersicht über mehr Requirements gleichzeitig zu erlangen, als im ersten Interaktionskonzept, um eine visuelle Darstellung vieler Anforderungen gleichzeitig zu ermöglichen.
+Des Weiteren ist beabsichtigt, eine Übersicht über eine größere Anzahl von Requirements gleichzeitig zu erlangen, als im ersten Interaktionskonzept möglich war.
+Dadurch soll eine visuelle Darstellung vieler Requirements gleichzeitig ermöglicht werden.
 
-Die grundlegende Idee ist, Anforderungen in Wolken von Texten darzustellen, also als wolkenförmige Gruppierungen von UI-Elementen im Raum.
-Die UI-Elemente sollen dabei Panele sein, auf denen der Text der Anforderungen sowie weiter Information zu den Anforderungen stehen sollen.
-Diese Panele sollen dann in einer Wolkenartigen Anrichtung, ähnlich wie die Punktewolke in Abbildung , dargestellt werden.
+Die grundlegende Idee ist, Requirements in Wolken von Texten darzustellen, also als wolkenförmige Gruppierungen von UI-Elementen im Raum.
+Die UI-Elemente sollen dabei Panels sein, auf denen der Text der Requirements sowie weiterführende Informationen zu den Requirements dargestellt werden.
+Diese Panels sollen dann in einer Wolkenartigen Anrichtung, ähnlich wie die Punktewolke in Abbildung \ref{fig:point-cloud}, dargestellt werden.
+
+%DeepL korrigiert
 
 \begin{figure}[H]
     \centering
@@ -69,17 +92,20 @@ Diese Panele sollen dann in einer Wolkenartigen Anrichtung, ähnlich wie die Pun
 
 
 
-Hierbei soll dann eine räumliche Gruppierung der Anforderungen nach verschiedenen Kriterien möglich sein.
-Beispielsweise könnten Anforderungen, die zu einem bestimmten Feature gehören, in einer Wolke gruppiert werden, während Anforderungen, die zu einem anderen Feature gehören, in einer anderen Wolke gruppiert werden.
-Durch die räumliche Anordnung der Wolken kann der Nutzer schnell erkennen, welche Anforderungen nach der aktuellen Filterung nah zuneinander liegen und welche nicht.
+Im Rahmen dessen soll eine räumliche Gruppierung der Requirements nach verschiedenen Kriterien ermöglicht werden.
+So wäre es beispielsweise denkbar, Requirements, die zu einem bestimmten Feature gehören, in einer Wolke zu gruppieren, während Requirements, die zu einem anderen Feature gehören, in einer anderen Wolke gruppiert werden.
+Die räumliche Anordnung der Wolken soll es dem Nutzer ermöglichen, schnell zu erkennen, welche Requirements nach der aktuellen Filterung eine hohe Korrelation aufweisen und welche nicht.
 
-Dabei soll es auch möglich sein in Wolken hinein- und herauszuzoomen, um die Granularität der angezeigten Anforderungen zu erhöhen.
-Beispielsweise könnten in großen Wolken initial nur Punkte als Repräsentationen von Requirements angezeigt werden, in welche man hereinzoomen kann um die Requirements zu lesen.
-Daraufhin kann wieder herausgezoomt werden, um wieder eine Übersicht über mehr Requirements der Wolke zu erlangen.
-Eine weitere Möglichkeit wäre es, auf den Anforderungspanels Filtermöglichkeiten für verschiedene Beziehungen der Anforderung darzustellen, um dann bei einer Auswahl in die neue Anforderungswolke zu wechseln.
-Diese Interaktion und die räumliche Anordnung der Wolken sollen dem Nutzer helfen, auch bei einer großen Anzahl von Anforderungen einen Überblick zu behalten und schnell die gewünschten Anforderungen zu finden.
+Des Weiteren ist vorgesehen, dass eine Zoomfunktion implementiert wird, mittels derer es möglich ist, in die Wolke hinein- und herauszuzoomen, um die Granularität der angezeigten Requirements zu erhöhen.
+Ein Beispiel für eine mögliche Umsetzung wäre, dass in großen Wolken initial nur Punkte als Repräsentationen von Requirements angezeigt werden, in welche man hereinzoomen kann, um die Requirements zu lesen.
+In einem nächsten Schritt besteht die Option, wieder heraus zu zoomen und somit wieder eine Übersicht über eine größere Anzahl an Requirements der Wolke zu erlangen.
 
-Bei diesem Konzept soll vor allem der Vorteil gegenüber einer 2D-Darstellung kritisch untersucht werden.
-Denn die Darstellung der Anforderungen in Wolken ist prinzipiell auch in 2D möglich, auch mit der Interaktionsmöglichkeit des Hinein- und Herauszoomens.
-Daher soll untersucht werden, ob die räumliche Anordnung der Anforderungen in AR tatsächlich einen Mehrwert gegenüber einer 2D-Darstellung bietet und ob die Interaktionen intuitiv und effizient sind.
+Eine weitere Möglichkeit wäre die Implementierung von Filtermöglichkeiten für verschiedene Beziehungen des Requirements auf den Requirementspanels, sodass bei einer Auswahl in die neue Requirementswolke gewechselt werden kann.
+Die Interaktion sowie die räumliche Anordnung der Wolken zielen darauf ab, dem Nutzer auch bei einer großen Anzahl von Requirements einen Überblick zu gewährleisten und eine schnelle Auffindbarkeit der gewünschten Requirements zu ermöglichen.
+
+Bei diesem Konzept soll insbesondere der Vorteil gegenüber einer zweidimensionalen Darstellung kritisch analysiert werden.
+Denn die Darstellung der Requirements in Wolken ist prinzipiell auch in 2D möglich, auch mit der Interaktionsmöglichkeit des Hinein- und Herauszoomens.
+In diesem Zusammenhang ist zu untersuchen, ob die räumliche Anordnung der Requirements in AR tatsächlich einen Mehrwert gegenüber einer 2D-Darstellung bietet und ob die Interaktionen intuitiv und effizient sind.
 Zudem soll ein Fokus darauf liegen, auch große Zahlen von Requirements gleichzeitig darzustellen.
+
+%DeepL korrigiert
