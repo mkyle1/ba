@@ -10,7 +10,7 @@ Im Rahmen der Bachelorarbeit wird als Anzeigegerät für die AR-Anwendung die Me
 Hierbei handelt es sich um ein Standalone-AR- und VR-Headset, welches von Meta (ehemals Facebook) entwickelt wurde und Ende 2023 auf den Markt kam.
 Das HMD ist mit einem eigens für mobile XR-Geräte entwickelten Qualcomm Snapdragon XR2 Gen2 Prozessor ausgestattet, wodurch es selbst in der Lage ist, anspruchsvolle Inhalte zu rendern.
 Es muss nicht wie viele andere HMDs an einen Computer oder ein Smartphone angeschlossen werden, sondern kann direkt allein verwendet werden.
-Das Headset verfügt beispielsweise auch über einen eigenen Browser, wodurch AR-Anwendungen auch einfach übers Internet aufgerufen werden können.
+Das Headset verfügt beispielsweise auch über einen eigenen Browser, wodurch AR-Anwendungen einfach übers Internet aufgerufen werden können.
 Dieses Nutzen von Anwendungen über den Browser wird auch für die Prototypen dieser Arbeit genutzt, worauf in Kapitel \ref{section:webxr} genauer eingegangen wird.
 
 Das Headset verfügt über zwei Displays mit einer Auflösung von jeweils 2064 x 2208 Pixeln und einer Bildwiederholrate von bis zu 120 Hz.
@@ -31,8 +31,8 @@ Darüber hinaus verfügt die Meta Quest 3, wie in Abbildung \ref{fig:quest-front
 Zusätzlich zu den zwei RGB-Kameras sind insgesamt noch vier Infrarot-Kameras auf dem Headset verbaut, zwei davon auf der Vorderseite, direkt über den RGB-Kameras, und zwei auf der Unterseite.
 Über diese Kameras wird die Position des Nutzers im Raum kontinuierlich getrackt und angepasst, sodass auf externe Trackingstationen verzichtet werden kann.
 
-Die Meta Quest ermöglicht zudem die Erkennung und das Tracking der Hände des Nutzers mithilfe der vier Infrarotkameras und zwei RGB-Kameras als alternative Eingabegeräte.
-Dadurch kann der Nutzer seine eigenen Hände in VR- und AR-Anwendungen als Eingabegerät verwenden. \autocite[]{meta-quest-3}.
+Die Meta Quest 3 ermöglicht zudem die Erkennung und das Tracking der Hände des Nutzers mithilfe der vier Infrarotkameras und zwei RGB-Kameras als alternative Eingabegeräte.
+Dadurch kann der Nutzer seine eigenen Hände in VR- und AR-Anwendungen als Eingabegerät verwenden \autocite[]{meta-quest-3}.
 Dafür sind auch zwei der vier Infrarotkameras wie in Abbildung \ref{fig:quest-hand-cameras} zu sehen ist nach unten gerichtet, um die Hände des Nutzers jederzeit tracken zu können.
 
 \begin{figure}[H]
@@ -50,7 +50,7 @@ Die WebGL-Spezifikation wird von der Khronos Group entwickelt, einer Non-Profit-
 Zu den Unternehmen, die an der Entwicklung von WebGL beteiligt sind, gehören auch die Unternehmen, die die größten Browser der Industrie entwickeln: Google (Chrome), Mozilla (Firefox), Apple (Safari) und Microsoft (Edge) \autocite[]{khronos-webgl, khronos-about}.
 Aufgrund dieser Mitarbeit verschiedener Unternehmen und der offenen Entwicklung der Spezifikation kann WebGL in fast allen modernen Webbrowsern verwendet werden.
 
-WebGL basiert dabei auf der OpenGL ES Spezifikation, welche, ebenfalls von der Khronos Group, speziell für Embedded Systems und mobile Systeme, also zum Großteil Systeme ohne eigene Grafikkarte, entwickelt wurde \autocite[]{khronos-opengles}.
+WebGL basiert auf der OpenGL ES Spezifikation, welche, ebenfalls von der Khronos Group, speziell für Embedded Systems und mobile Systeme, also zum Großteil Systeme ohne eigene Grafikkarte, entwickelt wurde \autocite[]{khronos-opengles}.
 Aufgrund dieser Ausrichtung auf mobile Geräte, können mit WebGL Anwendungen entwickelt werden, die auf einfachen Geräten wie Smartphones oder aber auch auf VR- und AR-Headsets ohne zusätzliche Rechenleistung laufen \autocite[][S.3]{Baruah2021}.
 
 
@@ -58,12 +58,12 @@ Aufgrund dieser Ausrichtung auf mobile Geräte, können mit WebGL Anwendungen en
 \label{section:webxr}
 
 Die WebXR-API ist eine standardisierte Schnittstelle für Webanwendungen, die die Erstellung immersiver VR- und AR-Anwendungen für das Internet ermöglicht.
-Das World Wide Web Consortium (W3C), welches die WebXR-Standards definiert beschreibt WebXR wie folgt: \glqq{}Die WebXR Device API bietet die notwendigen Schnittstellen, damit Entwickler ansprechende, komfortable und sichere immersive Anwendungen im Web für eine Vielzahl von Hardware-Formfaktoren erstellen können\grqq{} \autocite[aus dem Englischen mit DeepL ][1. Introduction]{w3c_webxr}.
+Das World Wide Web Consortium (W3C), welches die WebXR-Standards definiert beschreibt WebXR wie folgt: \glqq{}Die WebXR Device API bietet die notwendigen Schnittstellen, damit Entwickler ansprechende, komfortable und sichere immersive Anwendungen im Web für eine Vielzahl von Hardware-Formfaktoren erstellen können\grqq{} \autocite[][1. Introduction]{w3c_webxr}.
 Mit WebXR entwickelte Anwendungen können als Webanwendungen direkt von einem Webbrowser eines AR- oder VR-Geräts aus aufgerufen werden, ohne dass eine zusätzliche Installation der Anwendung notwendig ist.
 
 Der Ablauf von WebXR-Anwendungen ist in Abbildung \ref{fig:webxr-app-flow} dargestellt.
-Dabei wird zuerst beim Aufrufen der Anwendung geprüft, ob die angegebene Art von XR-Inhalt von der Hardware und dem User Agent (UA) unterstützt werden.
-Der User Agent der Software bezeichnet dabei die Software, mit welcher der Nutzer auf die Anwendung zugreift, also den Webbrowser des Nutzers. 
+Dabei wird zuerst beim Aufrufen der Webseite geprüft, ob die angegebene Art von XR-Inhalt von der Hardware und dem User Agent (UA) unterstützt werden.
+Der User Agent der Software bezeichnet die Software, mit welcher der Nutzer auf die Anwendung zugreift, also den Webbrowser des Nutzers. 
 Ist die Art des XR-Inhalts von der Technik des Nutzers unterstützt, kann die XR-Session vom Nutzer manuell über einen Knopf gestartet werden.
 Nach erfolgreichem Start der Session wird der Frame Loop der Anwendung gestartet.
 Der Frame Loop ist eine Schleifenfunktion, die kontinuierlich während der XR-Session ausgeführt wird um die einzelnen Frames, bzw. Bilder, für das XR-Display zu rendern.
@@ -100,9 +100,9 @@ Sie wird unter anderem von einem Team von Entwicklern bei Microsoft entwickelt.
 Die Bibliothek bietet Support für WebGL 1.0/2.0 sowie WebGPU und verfügt über eine Vielzahl von Funktionen, die es Entwicklern ermöglichen, detaillierte 3D-Modelle und -Szenen zu erstellen und zu rendern.
 Darüber hinaus bietet es native Unterstützung sowie eine Dokumentation für WebXR, wodurch die Entwicklung von VR- und AR-Anwendungen vereinfacht wird \autocite[][]{babylon-features}.
 
-Die Bibliothek bietet dabei auch viele Quality-of-Life-Features, wie beispielsweise einen Szenen-Explorer und -Inspektor, der sich für die Entwicklung und das Debugging von 3D-Szenen direkt im Browser eignet und mit einer Zeile Code in die Anwendung eingebunden werden kann.
+Die Bibliothek bietet auch viele Quality-of-Life-Features, wie beispielsweise einen Szenen-Explorer und -Inspektor, der sich für die Entwicklung und das Debugging von 3D-Szenen direkt im Browser eignet und mit einer Zeile Code in die Anwendung eingebunden werden kann.
 Über den Szenen-Explorer, welcher in Abbildung \ref{fig:babylon-inspector} links dargestellt ist, können aus dem Szenengraph der aktuellen Szene Objekte ausgewählt werden um im Szenen-Inspektor eine Detailansicht des Objekts und seinen Eigenschaften zu erhalten.
-Mithilfe des Szenen-Inspektors, welcher in Abbildung \ref{fig:babylon-inspector} rechts dargestellt ist, können dann in Echtzeit die Eigenschaften von Objekten betrachtet und verändert werden.
+Mithilfe des Szenen-Inspektors, welcher in Abbildung \ref{fig:babylon-inspector} rechts dargestellt ist, können dann in Echtzeit die Eigenschaften von ausgewählten Objekten betrachtet und verändert werden.
 
 \begin{figure}[H]
   \centering

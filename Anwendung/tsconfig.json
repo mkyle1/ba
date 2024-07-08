@@ -8,6 +8,7 @@
         "noImplicitReturns": true,
         "noImplicitThis": true,
         "preserveConstEnums": true,
+        "resolveJsonModule": true,
         "rootDir": "./",
         "sourceMap": true,
         "strict": true,

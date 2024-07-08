@@ -9,12 +9,9 @@ Abschließend erfolgt ein Ausblick auf potenzielle Weiterentwicklungen der Konze
 
 \section{Ergebnisse}
 
-Im Rahmen der Bachelorarbeit wurden zwei Interaktionskonzepte für die Visualisierung von Requirements in Augmented Reality entwickelt und in jeweils einem Prototyp umgesetzt.
+Im Rahmen der Bachelorarbeit wurden zwei Interaktionskonzepte für die Visualisierung von Requirements in Augmented-Reality entwickelt und in jeweils einem Prototyp umgesetzt.
 Bei den Prototypen handelt es sich jeweils um eine WebXR-Anwendung, die mit dem Framework Babylon.js in TypeScript entwickelt wurde.
 Die Anwendung kann direkt von einem AR-fähigen Browser aufgerufen werden und ist somit plattformunabhängig.
-
-Das erste Konzept ist die Visualisierung von Requirements in Kombination mit einem möglichst akkuraten 3D-Modell des zu entwickelnden Produkts.
-Hierzu wird das 3D-Modell vom Nutzer auf einer freien Fläche im Raum platziert und kann in einer Explosionsanimation, welche in Abbildung 3 anhand einer Bildsequenz dargestellt ist, in seine Komponenten zerlegt werden.
 
 Im ersten Konzept erfolgt die Visualisierung von Requirements in Kombination mit einem möglichst akkuraten 3D-Modell des zu entwickelnden Produkts.
 Das 3D-Modell wird vom Nutzer auf einer freien Fläche im Raum platziert und kann in einer Explosionsanimation, welche in Abbildung \ref{fig:porsche-explosion-ar} anhand einer Bildsequenz dargestellt ist, in seine Bauteile zerlegt werden.
@@ -40,7 +37,7 @@ Die Wolken stellen Cluster aus Requirements dar, die thematisch zusammengehören
 Des Weiteren besteht die Möglichkeit, die Requirements in den Wolken anzuklicken, um zugehörige Requirements anzuzeigen.
 Da die Requirements lediglich als Textpanels dargestellt werden, ist die Umsetzung dieses Konzepts deutlich einfacher automatisiert realisierbar, da weder Animationen noch 3D-Modelle erforderlich sind.
 
-Allerdings ist auch der Mehrwert für den Nutzer in diesem Konzept geringer, da es weniger Möglichkeiten zur Interaktion in Augmented Reality gibt als im ersten Konzept.
+Allerdings ist auch der Mehrwert für den Nutzer in diesem Konzept geringer, da es weniger Möglichkeiten zur Interaktion in Augmented-Reality gibt als im ersten Konzept.
 Zudem ergeben sich bei der dreidimensionalen Darstellung der Requirementwolken Schwierigkeiten, die in einer zweidimensionalen Darstellung nicht auftreten würden.
 Beispielsweise werden Requirements oft hintereinander angezeigt, was dazu führt, dass der Nutzer die Requirements nur schwer oder gar nicht mehr lesen kann.
 Auch können nicht sehr viele Requirements in einer Wolke dargestellt werden, da die Requirements sonst zu klein werden und nicht mehr lesbar sind.
@@ -62,14 +59,13 @@ So entsteht ein neuer Ansatz, um Requirements besser zu verstehen, zu kommunizie
 Die Untersuchung verdeutlicht jedoch auch, dass die Umsetzung der untersuchten Konzepte noch mit zahlreichen Herausforderungen verbunden ist.
 Visuell beeindruckende Darstellungen erfordern in der Regel eine aufwendige und somit kostspielige Implementierung.
 
-Das erste Konzept beispielsweise erfordert die Erstellung und Instandhaltung eines aktuellen 3D-Modells inklusive Animation des Produkts, welches in der Anwendung dargestellt wird.
+Das erste Konzept beispielsweise erfordert die Erstellung und Instandhaltung eines aktuellen 3D-Modells, inklusive Animation des Produkts, welches in der Anwendung dargestellt wird.
 Da dieses Konzept der explodierenden Bauteile, welches aber den meisten Mehrwert der Usability bietet, nur schwer automatisiert umzusetzen ist, ist die Implementierung in einer realen Anwendung zeitaufwändig und damit teuer.
 
 Das Konzept der Requirementwolken hingegen ist zwar einfacher umzusetzen, bietet jedoch auch weniger Mehrwert für den Nutzer.
-Die Kosten-Nutzen-Effektivität beider Konzepte muss daher in weiteren Untersuchungen genauer betrachtet werden.
-
-Der Vergleich des Konzepts der Requirementwolken in einer dreidimensionalen und zweidimensionalen Darstellung hat gezeigt, dass sich das Konzept der Requirementswolken mehr für eine klassische Darstellung in 2D eignet als für eine Implementierung in AR.
-Daher sollte das Konzept nicht weiter in AR verfolgt werden.Daher ist eine weitere Verfolgung des Konzepts in AR nicht empfehlenswert.
+Die Kosten-Nutzen-Effektivität beider Konzepte muss daher in weiteren Untersuchungen genauer betrachtet werden. \newline
+Der Vergleich des Konzepts der Requirementwolken in einer dreidimensionalen und zweidimensionalen Darstellung hat gezeigt, dass sich das Konzept der Requirementswolken mehr für eine konventionelle Darstellung in 2D eignet als für eine Implementierung in AR.
+Daher sollte das Konzept nicht weiter in AR verfolgt werden.
 % DeepL korrigiert
 
 \newpage
@@ -93,10 +89,10 @@ Im Folgenden werden einige mögliche Erweiterungen der Interaktionsmöglichkeite
 Die im Grundlagenkapitel \ref{sec:gamification-ux} beschriebenen Konzepte der Gamification könnten ebenfalls in die Anwendung integriert werden, um die User Experience zu optimieren.
 Dafür könnten beispielsweise bereits betrachtete Bauteile oder Requirements ausgegraut werden, um dem Nutzer eine Übersicht über bereits betrachtete Requirements und ein Gefühl für den \glqq{}Fortschritt\grqq{} in der Betrachtung zu geben.
 
-Das Konzept der Requirementwolken sollte hingegen aufgrund der identifizierten Probleme in 3D als 2D-Darstellung weiter untersucht werden, da sich die Wolken von Requirements auch in einer 2D-Darstellung realisieren lassen.
+Das Konzept der Requirementwolken sollte hingegen aufgrund der identifizierten Probleme in 3D als 2D-Darstellung weiter untersucht werden, da sich die Wolken von Requirements auch in einer zweidimensionalen Darstellung realisieren lassen.
 In einer 2D-Darstellung könnte das Interaktionskonzept von einer hohen Informationsdichte, wie im Mockup in Kapitel \ref{section:2d} gezeigt, und einer einfachen Navigation der Fläche an Requirements profitieren.
 Zudem kann es, wenn es als 2D-Darstellung umgesetzt wird, auch in anderen Anwendungen zur Visualisierung von Requirements eingesetzt werden.
-Beispielsweise könnten dafür Erweiterungen für Requirement-Management-Tools wie Jira oder Confluence entwickelt werden, um alternative Visualisierungen als Ergänzung zu normalen Listen oder Tabellen anzubieten.
+Beispielsweise könnten dafür Erweiterungen für Requirement-Management-Tools wie Jira oder Confluence entwickelt werden, um alternative Visualisierungen als Ergänzung zu den normalen Listen oder Tabellen von Requirements anzubieten.
 Dadurch könnte der Kosten-Nutzen-Faktor der Requirementwolken in einer 2D-Darstellung potenziell deutlich verbessert werden.
 
 \newpage

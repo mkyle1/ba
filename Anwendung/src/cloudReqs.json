@@ -1,0 +1,81 @@
+{   
+    "requirements": [
+        {
+            "reqID": 0,
+            "requirementText": "Das System muss jeden Tag um 3 Uhr morgens ein Backup durchführen.",
+            "clusterID": 0,
+            "relatedClusters": [
+                1,
+                2
+            ]
+            
+        },
+        {
+            "reqID": 1,
+            "requirementText": "Das System soll ein Backup immer um Mitternacht starten.",
+            "clusterID": 0,
+            "relatedClusters": [
+                1,
+                2
+            ]
+        },
+        {
+            "reqID": 2,
+            "requirementText": "Alle Benutzerdaten müssen verschlüsselt in der Datenbank gespeichert werden.",
+            "clusterID": 0,
+            "relatedClusters": [
+                1, 3
+            ]
+        },
+        {
+            "reqID": 3,
+            "requirementText": "Die Datenbank darf nur nicht-sensible Daten verschlüsseln.",
+            "clusterID": 0,
+            "relatedClusters": [
+                1, 3
+            ]
+        },
+        {
+            "reqID": 4,
+            "requirementText": "Benutzer müssen die Möglichkeit haben, ihre personenbezogenen Daten jederzeit zu löschen.",
+            "clusterID": 0,
+            "relatedClusters": [
+                1, 3
+            ]
+        },
+        {
+            "reqID": 5,
+            "requirementText": "Benutzerdaten müssen nach den Vorgaben der DSGVO verschlüsselt gespeichert werden.",
+            "clusterID": 0,
+            "relatedClusters": [
+                1, 3
+            ]
+        }
+        ,
+        {
+            "reqID": 6,
+            "requirementText": "Benutzer müssen sich mit einer Zwei-Faktor-Authentifizierung anmelden.",
+            "clusterID": 0,
+            "relatedClusters": [
+                1, 3
+            ]
+        },
+        {
+            "reqID": 7,
+            "requirementText": "Das System soll eine monatliche Wartung ohne Downtime ermöglichen.",
+            "clusterID": 0,
+            "relatedClusters": [
+                1, 3
+            ]
+        },
+        {
+            "reqID": 8,
+            "requirementText": "Es muss eine tägliche Überprüfung der Netzwerksicherheit geben.",
+            "clusterID": 0,
+            "relatedClusters": [
+                1, 3
+            ]
+        }
+    ]
+    
+}

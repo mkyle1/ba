@@ -34,11 +34,11 @@ Sobald dieser Vorgang abgeschlossen ist, wird die Quest 3 mit ihren geöffneten 
 Von dort aus können dann die Entwickler-Tools der Meta Quest 3 geöffnet werden, um beispielsweise die Performance der Anwendung zu überwachen und Fehlermeldungen zu sehen.
 
 Viele Aspekte der Entwicklung von XR-Anwendungen, wie beispielsweise einfache Tests von Interaktionen wie einzelnen Klicks können auch über einen WebXR-Emulator direkt am Entwicklungsrechner getestet werden.
-In dieser Arbeit wird dafür die Chrome-Erweiterung Immersive Web Emulator von Meta verwendet, welche das Testen von WebXR-Anwendungen direkt im Browser ermöglicht \autocite{immersive-web-emulator}.
+In dieser Arbeit wird dafür die Chrome-Erweiterung \glqq{}Immersive Web Emulator\grqq{} von Meta verwendet, welche das Testen von WebXR-Anwendungen direkt im Browser ermöglicht \autocite{immersive-web-emulator}.
 Mit dieser Erweiterung wird für WebXR ein virtueller Raum mit einem Headset und den beiden Meta Quest Controllern simuliert.
 Die beiden Controller sowie das Headset können unabhängig voneinander über die Erweiterung positioniert und gesteuert werden.
 Das in Abbildung \ref{fig:webxr-emulator} links dargestellte Panel ermöglicht die Simulation verschiedener Interaktionen, wie beispielsweise Klicks oder das Bewegen der Controller, um die Anwendung zu testen.
-Emulator generiert in Echtzeit eine Vorschau der Anwendung, die direkt im Browser angezeigt wird.
+Der Emulator generiert in Echtzeit eine Vorschau der Anwendung, die direkt im Browser angezeigt wird.
 
 \begin{figure}[H]
     \centering
@@ -47,7 +47,7 @@ Emulator generiert in Echtzeit eine Vorschau der Anwendung, die direkt im Browse
     \label{fig:webxr-emulator}
 \end{figure}
 
-Die Anwendung kann mit dieser Erweiterung deutlich schneller und einfacher getestet werden als mit der Meta Quest 3, da keine Verbindung zur Meta Quest 3 notwendig ist und die Anwendung direkt im Browser des Entwicklungsrechners getestet werden kann.
+Die Anwendung kann mit dieser Erweiterung deutlich schneller und einfacher getestet werden als mit der Meta Quest 3 selbst, da keine Verbindung zu einem externen Gerät notwendig ist und die Anwendung direkt im Browser des Entwicklungsrechners getestet werden kann.
 Des Weiteren sind die Ladezeiten beim Neuladen der Anwendung deutlich kürzer, da die Anwendung nicht auf die Übertragung der Daten auf die Meta Quest 3 warten muss.
 Aufgrund der relativ großen Datenmengen, die für die Darstellung der 3D-Modelle erforderlich sind, ist der Unterschied der Ladezeiten zwischen Headset und Erweiterung signifikant.
 Daher wurde jede neue Änderung zunächst im Emulator getestet, bevor die Anwendung im Headset neu geladen wurde.
@@ -71,7 +71,7 @@ Die Vorgehensweise beim Testen ist im folgenden Diagramm in der Abbildung \ref{f
 \section{Implementierung der Interaktionskonzepte}
 
 Im Folgenden wird die Implementierung der zuvor beschriebenen Interaktionskonzepte erörtert.
-In diesem Kontext werden grundlegende Konzepte sowie die für deren Implementierung relevanten Technologien vorgestellt und erläutert.
+In diesem Kontext werden grundlegende Ideen sowie die für deren Implementierung relevanten Technologien vorgestellt und erläutert.
 Des Weiteren werden Screenshots der implementierten Konzepte gezeigt und die Funktionsweise der Interaktionen beschrieben.
 Schließlich werden auch die Herausforderungen und Probleme bei der Implementierung aufgezeigt und diskutiert.
 
@@ -81,7 +81,7 @@ Die Anwendung nutzt bereits die vom Nutzer gescannten Umgebungen, um einen virtu
 Dabei werden Wände und Böden der Umgebung erkannt und als Mesh in die Szene eingefügt, um dem Nutzer eine Interaktion mit der realen Umgebung zu ermöglichen.
 Zudem wurden bereits einige Interaktionen des Controllers, wie das Auswählen von Objekten durch Raycasting, implementiert, die als Basis für die Implementierung der Interaktionskonzepte dienen.
 
-Da im Rahmen der Implementierung auch auf spezifische Knopfbelegungen des Controllers eingegangen wird, ist in Abbildung \ref{fig:controller-names} eine Darstellung eines rechten Meta Quest Touch Plus-Controllers mit den in dieser Arbeit genutzten Namen für die verschiedenen Bedienelemente.
+Da im Rahmen der Implementierung auch auf spezifische Knopfbelegungen des Controllers eingegangen wird, ist in Abbildung \ref{fig:controller-names} eine Darstellung eines rechten Meta Quest Touch Plus-Controllers mit den in dieser Arbeit genutzten Namen für die verschiedenen Bedienelemente für besseres Verständnis dargestellt.
 
 \begin{figure}[H]
     \centering
@@ -93,7 +93,7 @@ Da im Rahmen der Implementierung auch auf spezifische Knopfbelegungen des Contro
 
 \subsection{Explodierende Bauteile}
 
-Der erste Schritt bei der Implementierung des Interaktionskonzepts der \glqq{}explodierenden\grqq{} Bauteile ist die Erstellung eines 3D-Modells, welches die Bauteile des Produkts enthält.
+Der erste Schritt bei der Implementierung des Interaktionskonzepts der Explodierenden Bauteile ist die Erstellung eines 3D-Modells, welches die Bauteile des Produkts enthält.
 Jedes Bauteil muss dabei als eigenes Objekt im 3D-Modell vorhanden sein, damit es in der Animation separat dargestellt und referenziert werden kann.
 Für die erste Implementierung wird ein einfaches 3D-Modell eines Tetris-Blocks verwendet, welcher aus vier verschiedenfarbigen Bauteilen besteht.
 Basierend auf der Implementierung des Tetris-Blocks soll dann das Konzept auf ein komplexeres Modell, wie beispielsweise ein Fahrzeug, übertragen werden.
@@ -103,13 +103,13 @@ Das glTF-Format ist ein offenes 3D-Dateiformat, welches für die effiziente Übe
 Ein weiterer Vorteil des glTF-Formats besteht darin, dass es auch Animationen und Materialien unterstützt, die im 3D-Modell enthalten sind.
 So kann die Animation der Bauteile auch direkt in der Modellierungssoftware erstellt und in das glTF-Modell mit integriert bzw. eingebacken werden.
 Dies ist von essenzieller Bedeutung für die effektive technische Umsetzbarkeit des Konzepts, da die Animation der Bauteile auf diese Weise in speziellen Animationsprogrammen, wie beispielsweise Blender, erstellt werden kann, ohne dass hierfür die WebXR-Anwendung selbst erforderlich wäre.
-Dies ermöglicht die Erstellung komplexer Animationen, die nur mit den Tools von Babylon.js selbst nicht oder nur mit einem hohen Aufwand realisierbar wären.
+Dies ermöglicht die Erstellung komplexer Animationen, die nur mit den Tools von Babylon.js selbst nicht oder nur mit einem zu hohen Aufwand realisierbar wären.
 
 Der nächste Schritt ist das Platzieren des erstellten 3D-Modells in der WebXR-Umgebung.
 Das Prinzip des Raycastings wird verwendet, um dem Nutzer zu ermöglichen, mit dem Controller einen Punkt im Raum auszuwählen, an dem das 3D-Modell platziert werden soll.
 Der Raum, in dem sich der Anwender befindet, muss dafür vor Beginn einmalig in den Meta Quest Einstellungen als Umgebung eingescannt werden.
 Ist das geschehen, werden durch das Skelett der Anwendung des Taikonauten-Magazins bereits die Wände und Böden der Umgebung als Meshes erkannt und in die Szene eingefügt.
-Anschließend wird durch den Controller ein Strahl in die Szene geschossen, wobei bei Knopfdruck des Triggers der Punkt, an dem der Strahl ein Objekt trifft, als Event zurückgegeben wird.
+Anschließend wird durch den Controller ein Strahl in die Szene geschossen, wobei bei Knopfdruck des Triggers der Punkt, an dem der Strahl ein Mesh trifft, als Event zurückgegeben wird.
 
 An dieser Stelle erfolgt die Definition eines Ankerpunktes, welcher vom 3D-Modell als Referenzpunkt im AR-Raum genutzt wird.
 Der Ankerpunkt stellt ein Babylon.js-Objekt dar, welches in der Lage ist, einen Punkt im AR-Raum auch bei Bewegung des Nutzers am gleichen Ort zu halten.
@@ -153,14 +153,14 @@ Das Modell, welches in Abbildung \ref{fig:porsche} dargestellt ist, wurde ausgew
 
 Bei dem in dieser Bachelorarbeit verwendeten Modell ist jedoch zu berücksichtigen, dass es sich nicht um ein vollständig akkurates und funktionales Modell eines Fahrzeugs handelt.
 Beispielsweise existieren keine Achsen, an denen die Räder hängen.
-Für die Zwecke dieser Bachelorarbeit ist das Modell jedoch ausreichend, da es eine hinreichende Anzahl an \glqq{}realen\grqq{} Bauteilen enthält, um das Interaktionskonzept anschaulich zu demonstrieren.
-Würde das Interaktionskonzept in einer echten Anwendung für Kunden verwendet werden, sollte jedoch mit möglichst akkuraten CAD-Modellen gearbeitet werden, um die Requirements an die Bauteile möglichst genau darzustellen.
+Für die Zwecke dieser Bachelorarbeit ist das 3D-Modell jedoch ausreichend, da es eine hinreichende Anzahl an \glqq{}realen\grqq{} Bauteilen enthält, um das Interaktionskonzept anschaulich zu demonstrieren.
+Würde das Interaktionskonzept in einer echten Anwendung für Kunden verwendet werden, sollte jedoch mit möglichst akkuraten CAD-Modellen gearbeitet werden, um das Produkt möglichst genau darszustellen.
 
-Für die Verwendung des Modells in der Anwendung muss als Nächstes eine Animation mit dem Modell erstellt werden, welche die Bauteile des Fahrzeugs in ihre Einzelteile zerlegt.
+Für die Verwendung des 3D-Modells in der Anwendung muss als Nächstes eine Animation mit dem Modell erstellt werden, welche die Bauteile des Fahrzeugs in ihre Einzelteile zerlegt.
 Dafür wird in Blender eine Animation erstellt, welche einige Bauteile, wie beispielsweise die Verkleidung, die Räder und den Spoiler, nach außen wegbewegt.
 Beim Erstellen der Animation musste zudem beachtet werden, dass sich möglichst wenig Bauteile bei der Animation überschneiden.
-Infolgedessen haben einige Bauteile eine sehr einfache Animation mit lediglich zwei Keyframes, beispielsweise die Räder, welche lediglich nach außen verschoben werden.
-Andere Bauteile hingegen erfordern eine komplexere Animation mit bis zu fünf Keyframes, um Überschneidungen zu vermeiden.
+Infolgedessen haben einige Bauteile, wie beispielsweise die Räder, welche nur nach außen verschoben werden, eine sehr einfache Animation mit lediglich zwei Keyframes.
+Andere Bauteile, wie bspw. der Spoiler, hingegen erfordern eine komplexere Animation mit bis zu fünf Keyframes, um Überschneidungen zu vermeiden.
 
 \newpage
 
@@ -178,12 +178,12 @@ Zu diesem Zweck wird in Blender jedem animierten Objekt zu Beginn des Objektname
 Diese ID dient im späteren Verlauf als Referenz für die Requirements.
 
 Die IDs werden dabei zusätzlich in anzeigende und nicht-anzeigende IDs unterteilt, um bei Bauteilen welche aus mehreren kleinen Objekten bestehen in der großen Ansicht nur die Requirements des Hauptobjekts anzuzeigen.
-Beispielsweise besteht ein Rad aus Reifen, Felge, Bremsscheibe etc., wobei dann nur der Reifen als Requirements an das gesamte Rad anzeigt und die anderen Objekte die Requirements an sich selbst in der Detailansicht.
+Beispielsweise besteht ein Rad aus Reifen, Felge, Bremsscheibe etc., wobei dann nur der Reifen als Hauptobjekt Requirements an das gesamte Rad anzeigt, während die Requirements der kleineren Einzelteile nur in der Detailansicht angezeigt werden.
 Um eine einfache Zuordnung der Objekte zu ihren Elternobjekten zu ermöglichen, beispielsweise für die Klick-Abfrage des Rads, werden die IDs der Elternobjekte in den IDs der Kindobjekte gespeichert.
 Dabei wird jedoch auf die Verwendung eines Unterstrichs \glqq{}\_\grqq{} hinter der ID verzichtet, wodurch sie beim Erstellen der Requirementpanels herausgefiltert und ignoriert werden können.
 
 Die detaillierte Radansicht stellt ein separates, ebenfalls in Blender erstelltes glTF-Modell dar, welches lediglich das Rad, seine Bauteile sowie die darin eingebetteten Animationen umfasst.
-Im Rahmen der Implementierung der detaillierten Radansicht wird eine Abfrage hinzugefügt, welche prüft, ob der Nutzer mit seinem Controller auf ein Rad klickt.
+Im Rahmen der Implementierung der detaillierten Radansicht wird eine Abfrage hinzugefügt, welche prüft, ob der Nutzer mit dem Trigger seines Controllers auf ein Rad klickt.
 Die Bestimmung des Punktes, an dem der Controller auf ein Objekt trifft, erfolgt wiederum gemäß dem Raycasting-Prinzip.
 Sofern das getroffene Objekt Teil des Rads ist, also die ID des Rads enthält, wird an der betreffenden Stelle ein neuer Ankerpunkt definiert, an dem die Detailansicht des Rads angezeigt wird.
 In der Folge werden der bisherige Ankerpunkt sowie die Bauteile des Fahrzeugs ausgeblendet, während die Bauteile des Rads an den neuen Ankerpunkt angehängt werden.
@@ -226,7 +226,7 @@ Wie in Abbildung \ref{fig:wolken-prototyp} zu sehen ist, treten bereits bei Wolk
     \label{fig:wolken-prototyp}
 \end{figure}
 
-In Abbildung \ref{fig:wolken-prototyp} wird ersichtlich, dass die Transparenz der UI-Elemente dazu führt, dass Überlappungen auch die vordersten Requirements unlesbar machen.
+In Abbildung \ref{fig:wolken-prototyp} wird auch ersichtlich, dass die Transparenz der UI-Elemente dazu führt, dass Überlappungen auch die vordersten Requirements unlesbar machen.
 Daher war die erste Änderung, die UI-Elemente undurchsichtig zu machen, um zumindest die Lesbarkeit der vordersten Elemente zu gewährleisten.
 Des Weiteren wurde der Abstand der Requirement-Panels zueinander vergrößert und die Requirements wurden mittels einer Zufallsfunktion jeweils leicht von ihrem Ursprungspunkt verschoben, um die Überlappungen zu reduzieren.
 Der Algorithmus, der die Punktewolke generiert, wurde zusätzlich noch so wie in Abbildung \ref{fig:wolken-algo-ang} dargestellt angepasst, damit er keine würfelförmigen Punktewolken mehr erstellt, sondern diese Würfelform etwas abflacht, um Wolken in Form eines Quaders zu erhalten.
@@ -251,20 +251,20 @@ Allerdings lässt sich bereits bei einer geringfügig größeren Requirementwolk
 \end{figure}
 
 Insofern lässt sich festhalten, dass das Konzept trotz initialer Anpassungen noch immer mit einer signifikanten Beeinträchtigung der Lesbarkeit und damit der Usability der Darstellung zu kämpfen hat.
-Das Interaktionskonzept der Wolken war insbesondere für die Bearbeitung umfangreicher Mengen an Requirements konzipiert, weshalb die Usability der Darstellung auch bei großen Mengen von Requirements gewährleistet sein muss.
-Um die Lesbarkeit der Requirements auch in großen Wolken zu optimieren, wurden drei alternative Ansätze evaluiert, die im Folgenden erörtert werden.
+Das Interaktionskonzept der Wolken war insbesondere für die Betrachtung umfangreicher Mengen an Requirements konzipiert, weshalb die Usability der Darstellung auch bei großen Mengen von Requirements gewährleistet sein muss.
+Um die Lesbarkeit der Requirements auch in großen Wolken zu gewährleisten, wurden drei alternative Ansätze evaluiert, die im Folgenden erörtert werden.
 
 Der erste Ansatz zielte darauf ab, die Requirements mithilfe des Raycasting des Controllers zu fokussieren.
 Auf diese Weise könnten Requirements, die gelesen werden sollen, in den Fokus gebracht und somit lesbar gemacht werden.
-Jedoch wird bei diesem Ansatz der Überblick über alle Requirements nicht gewährleistet, da nur ein Requirement gleichzeitig fokussiert werden kann.
-Zudem kann es bei großen Requirementwolken sein, dass gesuchte Requirements gar nicht gefunden und daher auch nicht fokussiert werden können, da sie durch andere Requirements verdeckt sind.
+Jedoch wird bei diesem Ansatz nicht der Überblick über alle Requirements gewährleistet, da nur ein Requirement gleichzeitig fokussiert werden kann.
+Zudem kann es bei großen Requirementwolken sein, dass gesuchte Requirements gar nicht gefunden und daher auch nicht fokussiert werden können, da sie durch andere Requirements komplett verdeckt sind.
 Bei Berücksichtigung der Tatsache, dass dieses Interaktionskonzept insbesondere für die gleichzeitige Darstellung einer Vielzahl von Requirements konzipiert wurde, erweist sich dieser Lösungsansatz als nicht geeignet.
 
 Der zweite Ansatz zielte auf eine Verkleinerung der Requirementpanels ab, um eine größere Anzahl von Requirements in einer Wolke darstellen zu können.
-Allerdings wurde bei dieser Vorgehensweise die Lesbarkeit der Requirements zum Problem.
+Allerdings wird bei dieser Vorgehensweise die Lesbarkeit der Requirements zum Problem.
 Aufgrund des in Kapitel \ref{section:hmds} beschriebenen Screen-Door-Effekts und anderer Probleme bei der Schärfe von AR-Displays ist es schwierig, kleine Texte in AR gut lesbar darzustellen.
 Dieses Problem der Unlesbarkeit wird bei großen Requirementwolken, in denen viele Requirements dargestellt werden, noch verstärkt, da diese auch einen größeren Raum abdecken müssen und so einige Requirements weit vom Nutzer entfernt sind.
-Diese Probleme der Unschärfe durch Nähe zum Bildschirm treten jedoch bei modernen, konventionellen zweidimensionalen Bildschirmen aufgrund des Betrachtungsabstands nicht auf.
+Diese Probleme der Unschärfe durch Nähe zum Bildschirm treten jedoch bei modernen, konventionellen zweidimensionalen Bildschirmen aufgrund des Betrachtungsabstands nicht so stark auf.
 Dadurch ist eine Darstellung mit einer deutlich höheren Informationsdichte möglich.
 Folglich erweist sich auch dieser Lösungsansatz als ungeeignet, um eine Vielzahl von Requirements gleichzeitig in einer geeigneten Form darzustellen.
 
@@ -330,7 +330,7 @@ Zwar können offensichtlich nicht alle Requirements gleichzeitig mit ihrem Text 
 Will man dann einzelne Requirements betrachten und mit diesen interagieren, kann in die Ansicht nahtlos hereingezoomt werden, um ab einer gewissen Größe die Requirement-Texte lesen zu können.
 Wollen Nutzer auch nach spezifischen Requirements direkt suchen, ließe sich auch eine Suchfunktion einbauen, mit welcher direkt nach einzelnen Requirements bspw. anhand ihres Textes gesucht werden kann.
 Die Größe, ab der die Texte als lesbar empfunden werden, ist dabei von den genutzten Bildschirmen sowie einigen weiteren nutzerspezifischen Eigenschaften abhängig.
-Sie kann jedoch flexibel und intuitiv durch das Zoomen durch den Nutzer angepasst werden.
+Sie kann jedoch flexibel und intuitiv durch das Zoomen durch den Nutzer selbst angepasst werden.
 
 \newpage
 
@@ -346,13 +346,12 @@ Denkbar wären auch Seitenmenüs, die sich beim Anklicken eines Requirements öf
 \end{figure}
 
 Bei der Erstellung eines Mockups des Wolken-Interaktionskonzepts in 2D wurde ersichtlich, dass das Konzept zumindest bei erster Betrachtung keine nennenswerten Nachteile durch den Wechsel auf eine zweidimensionale Darstellung erfährt.
-
 Tatsächlich lassen sich, wie in Abbildung \ref{fig:wolken-2d-1} gezeigt, durch die höhere mögliche Informationsdichte in der zweidimensionalen Darstellung sogar größere Wolken aus Requirements darstellen als in AR.
 Obwohl durch die Abstraktion der Requirements als Punkte auch in AR eine deutlich größere Anzahl von Requirements dargestellt werden könnte, wäre dies nicht so effizient wie in 2D.
-Schon durch die höhere Schärfe der meisten Displays durch den größeren Abstand des Nutzers im Vergleich zu HMDs können in einer klassischen, zweidimensionalen Anwendung deutlich kleinere Datenpunkte unterschieden werden.
+Schon durch die höhere Schärfe der meisten konventionellen Displays durch den größeren Abstand des Nutzers im Vergleich zu HMDs können in einer klassischen, zweidimensionalen Anwendung deutlich kleinere Datenpunkte unterschieden werden.
 
 In AR ist zu berücksichtigen, dass sehr kleine Elemente mit einem Controller schwieriger auszuwählen sind, als mit einer Maus.
 Dies liegt daran, dass eine Maus auf einer statischen Fläche abgelegt wird, während der Controller frei in der Luft gehalten werden muss.
-Aufgrund der genannten Eigenschaften ist zu erwarten, dass das Interaktionskonzept in 2D eine Verbesserung der Usability ermöglicht, insbesondere im Hinblick auf das Zielen mit einer Maus auf kleine Elemente.
+Aufgrund der genannten Eigenschaften ist sogar zu erwarten, dass das Interaktionskonzept in 2D eine Verbesserung der Usability ermöglicht, insbesondere im Hinblick auf das Zielen mit einer Maus auf kleine Elemente.
 
 % DeepL korrigiert

@@ -1,0 +1,24 @@
+{   
+    "clusters": [
+        {
+            "clusterID": 0,
+            "clusterName": "Security",
+            "clusterDescription": "Security is a cluster that focuses on the security of the system",
+            "subClusters": [
+                "0.1",
+                "0.2"
+            ]
+            
+        },
+        {
+            "clusterID": 1,
+            "clusterName": "Testing",
+            "clusterDescription": "Testing is a cluster that focuses on the testing of the system",
+            "subClusters": [
+                "1.1"
+            ]
+            
+        }
+    ]
+    
+}
